@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kế Toán</title>
+    <link rel="stylesheet" href="./css/layout.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="container__left">
+        <div class="container__left-sidebar">
+          <ul>
+            <li>
+              <i class="sprite-multidot-icon"></i>
+              <img src="./assets/icon/favicon.ico" alt="" />
+              <span>KẾ TOÁN</span>
+            </li>
+            <li>
+              <i class="sprite-overview-icon"></i>
+              <span>Tổng quan</span>
+            </li>
+            <li>
+              <i class="sprite-cash-icon"></i>
+              <span>Tiền mặt</span>
+            </li>
+
+            <li>
+              <i class="sprite-deposits-icon"></i>
+              <span>Tiền gửi</span>
+            </li>
+
+            <li>
+              <i class="sprite-bag-icon"></i>
+              <span>Mua hàng</span>
+            </li>
+            <li>
+              <i class="sprite-cart-icon"></i>
+              <span>Bán hàng</span>
+            </li>
+
+            <li>
+              <i class="sprite-bill-icon"></i>
+              <span>Quản lý hóa đơn</span>
+            </li>
+            <li>
+              <i class="sprite-wh-icon"></i>
+              <span>Kho</span>
+            </li>
+            <li>
+              <i class="sprite-tool-icon"></i>
+              <span>Công cụ dụng cụ</span>
+            </li>
+
+            <li>
+              <i class="sprite-fixed-assets-icon"></i>
+              <span>Tải sản cố định</span>
+            </li>
+
+            <li>
+              <i class="sprite-tax-icon"></i>
+              <span>Thuế</span>
+            </li>
+
+            <li>
+              <i class="sprite-price-icon"></i>
+              <span>Giá thành</span>
+            </li>
+
+            <li>
+              <i class="sprite-composition-icon"></i>
+              <span>Tổng hợp</span>
+            </li>
+
+            <li>
+              <i class="sprite-budget-icon"></i>
+              <span>Ngân sách</span>
+            </li>
+
+            <li>
+              <i class="sprite-report-icon"></i>
+              <span>Báo cáo</span>
+            </li>
+
+            <li>
+              <i class="sprite-analytic-finance-icon"></i>
+              <span>Phân tích tài chính</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container__right">
+        <div class="container__right-overlay"></div>
+        <div class="container__right-dialog">
+          <div class="container__right-dialog-top">
+            <i class="sprite-warning-icon"></i>
+            <span>Bạn có thực sự muốn xóa người dùng này không ?</span>
+          </div>
+          <hr />
+          <div class="container__right-dialog-bottom">
+            <button class="container__right-dialog-btn">Hủy</button>
+            <button class="container__right-dialog-btn">Đồng ý</button>
+          </div>
+        </div>
+
+        <div id="container-popup-employee" class="container__right-popup">
+          <div class="container__right-icon-wraper">
+            <i class="sprite-info-icon"></i>
+            <i class="sprite-close-icon"></i>
+          </div>
+          <div class="container__right-popup-top">
+            <span>Thông tin nhân viên</span>
+            <div>
+              <input title="Là khách hàng" type="checkbox" />
+              <label for="">Là khách hàng</label>
+            </div>
+            <div>
+              <input title="Là nhà cung cấp" type="checkbox" />
+              <label for="">Là nhà cung cấp</label>
+            </div>
+          </div>
+
+          <div class="container__right-popup-body">
+            <div class="container__right-popup-body-top">
+              <div class="container__right-popup-body-top-left">
+                <div>
+                  <label for="">Mã <span style="color: red">*</span></label>
+                  <input
+                    title="Mã nhân viên"
+                    placeholder="Mã nhân viên"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label for="">Tên <span style="color: red">*</span></label>
+                  <input
+                    title="Tên nhân viên"
+                    placeholder="Tên nhân viên"
+                    type="text"
+                  />
+                </div>
+
+                <div>
+                  <label for="">Đơn vị <span style="color: red">*</span></label>
+                  <select title="Phòng nhân viên" name="" id="">
+                    <option value="">Phòng nhân sự</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="">Chức danh</label>
+                  <input
+                    title="Chức danh nhân viên"
+                    value="Chức danh nhân viên"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="container__right-popup-body-top-right">
+                <div>
+                  <label for="">Ngày sinh</label>
+                  <input title="Ngày sinh nhân viên" type="date" />
+                </div>
+                <div>
+                  <label for="">Giới tính</label>
+                  <div>
+                    <input title="Giới tính nam" name="gender" type="radio" />
+                    <label for="">Nam</label>
+
+                    <input title="Giới tính nữ" name="gender" type="radio" />
+                    <label for="">Nữ</label>
+
+                    <input title="Giới tính khác" name="gender" type="radio" />
+                    <label for="">Khác</label>
+                  </div>
+                </div>
+                <div>
+                  <label for="">Số CMND</label>
+                  <input
+                    placeholder="Số CMND"
+                    title="Số chứng minh thư nhân dân"
+                    type="text"
+                  />
+                </div>
+
+                <div>
+                  <label for="">Ngày cấp</label>
+                  <input placeholder="Ngày cấp" title="Ngày cấp" type="date" />
+                </div>
+                <div>
+                  <label for="">Nơi cấp</label>
+                  <input placeholder="Nơi cấp" title="Nơi cấp" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="container__right-popup-body-bottom">
+              <div>
+                <label for="">Địa chỉ</label>
+                <input placeholder="Địa chỉ" title="Địa chỉ" type="text" />
+              </div>
+
+              <div>
+                <div>
+                  <label for="">ĐT di động</label>
+                  <input
+                    placeholder="Điện thoại di động"
+                    title="Điện thoại di động"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label for="">ĐT cố định</label>
+                  <input
+                    placeholder="Điện thoại cố định"
+                    title="Điện thoại cố định"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label for="">Email</label>
+                  <input placeholder="Email" title="Email" type="text" />
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <label for="">Tài khoản ngân hàng</label>
+                  <input
+                    placeholder="Tài khoản ngân hàng"
+                    title="Tài khoản ngân hàng"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label for="">Tên ngân hàng</label>
+                  <input
+                    placeholder="Tên ngân hàng"
+                    title="Tên ngân hàng"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label for="">Chi nhánh</label>
+                  <input
+                    placeholder="Chi nhánh"
+                    title="Chi nhánh"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <hr />
+
+              <div class="container__popup-footer">
+                <div>
+                  <button>HỦY</button>
+                </div>
+                <div>
+                  <button>CẤT</button>
+                  <button>CẤT VÀ THÊM</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container__right-navbar">
+          <div class="container__right-navbar-left">
+            <i class="sprite-menu-icon"></i>
+            <span>CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC</span>
+            <img src="./assets/icon/dropdown.png" alt="" />
+          </div>
+          <div class="container__right-navbar-right">
+            <i class="sprite-bell-icon"></i>
+            <i class="sprite-user-icon"></i>
+            <span>Nguyễn Văn Mạnh</span>
+            <img src="./assets/icon/dropdown.png" alt="" />
+          </div>
+        </div>
+
+        <div class="container__right-main">
+          <div class="container__right-main-top">
+            <span>Nhân viên</span>
+            <button id="btn-add-employee">Thêm mới nhân viên</button>
+          </div>
+          <div class="container__right-main-body">
+            <div class="container__right-search">
+              <div class="container__right-search-input">
+                <input
+                  title="Tìm kiếm thông tin nhân viên"
+                  placeholder="Tìm theo mã, tên nhân viên"
+                  type="text"
+                />
+                <i class="sprite-search-icon"></i>
+              </div>
+              <i class="sprite-refresh-icon"></i>
+            </div>
+
+            <div class="container__right-table">
+              <table id="container__table">
+                <thead>
+                  <tr>
+                    <th>
+                      <input type="checkbox" />
+                    </th>
+                    <th>MÃ NHÂN VIÊN</th>
+                    <th>TÊN NHÂN VIÊN</th>
+                    <th>GIỚI TÍNH</th>
+                    <th>NGÀY SINH</th>
+                    <th>SỐ CMND</th>
+                    <th>CHỨC DANH</th>
+                    <th>TÊN ĐƠN VỊ</th>
+                    <th>SỐ TÀI KHOẢN</th>
+                    <th>TÊN NGÂN HÀNG</th>
+                    <th>CHI NHÁNH TÀI KHOẢN NGÂN HÀNG</th>
+                    <th>CHỨC NĂNG</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>00012</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Nam</td>
+                    <td>31/12/1969</td>
+                    <td>92920203920</td>
+                    <td>Trưởng Nhóm</td>
+                    <td>Xay Keo - Phối Trộn</td>
+                    <td>7378928383883</td>
+                    <td>Auto Bank</td>
+                    <td>Cầu Giấy</td>
+                    <td>
+                      <span>Sửa</span>
+                      <div class="sprite-dropdown-blue-icon-wraper">
+                        <i class="sprite-dropdown-blue-icon"></i>
+                        <ul class="table-list-option">
+                          <li>Nhân bản</li>
+                          <li class="table-list-option-delete">Xóa</li>
+                          <li>Ngưng sử dụng</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="container__right-main-footer">
+                <div class="container__right-main-footer-left">
+                  <span>Tổng số: <b>1035</b> bản ghi</span>
+                </div>
+
+                <div class="container__right-main-footer-right">
+                  <div class="container__dropdown-wraper">
+                    <ul class="container__dropdown-wraper-list">
+                      <li class="container__dropdown-wraper-list-item">
+                        10 bản ghi trên trang
+                      </li>
+                      <li class="container__dropdown-wraper-list-item">
+                        20 bản ghi trên trang
+                      </li>
+                      <li class="container__dropdown-wraper-list-item">
+                        30 bản ghi trên trang
+                      </li>
+                      <li class="container__dropdown-wraper-list-item">
+                        50 bản ghi trên trang
+                      </li>
+                      <li class="container__dropdown-wraper-list-item">
+                        100 bản ghi trên trang
+                      </li>
+                    </ul>
+                    <div class="container__dropdown-wraper-item">
+                      <span>20 bản ghi trên trang</span>
+                    </div>
+                    <div class="container__dropdown-wraper-icon">
+                      <i class="sprite-dropdown-gray-icon"></i>
+                    </div>
+                  </div>
+                  <div class="container__right-pages">
+                    <span>Trước</span>
+                    <ul>
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>...</li>
+                      <li>52</li>
+                    </ul>
+                    <span>Sau</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="./js/index.js"></script>

@@ -1,0 +1,1 @@
+Tôi tên là Tạ Mạnh Thức, sinh ngày 17/08/2001. Hiện tại tôi sinh viên năm 4 trường HVCN Bưu Chính Viễn Thông.
