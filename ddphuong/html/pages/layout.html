@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <title>Layout</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <header class="header">
+        </header> -->
+        <div class="sidebar">
+            <div class="sidebar__header">
+                <div class="toggle-icon"></div>
+                <div class="bran">
+                    <img class="logo" src="../assets/icon/favicon.ico" alt="Logo">
+                    <p>KẾ TOÁN</p>
+                </div>
+            </div>
+            <div class="sidebar__main">
+                <div class="option">
+                    <div class="option__icon" id="icon--overview"></div>
+                    <div class="option__content">Tổng quan</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--cash"></div>
+                    <div class="option__content">Tiền mặt</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon-deposit"></div>
+                    <div class="option__content">Tiền gửi</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--purchase"></div>
+                    <div class="option__content">Mua hàng</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--sell"></div>
+                    <div class="option__content">Bán hàng</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--bill"></div>
+                    <div class="option__content">Quản lý hoá đơn</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--warehouse"></div>
+                    <div class="option__content">Kho</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--tools"></div>
+                    <div class="option__content">Công cụ dụng cụ</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--fixed-assets"></div>
+                    <div class="option__content">Tài sản cố định</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--tax"></div>
+                    <div class="option__content">Thuế</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--price"></div>
+                    <div class="option__content">Giá thành</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--general"></div>
+                    <div class="option__content">Tổng hợp</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--budget"></div>
+                    <div class="option__content">Ngân sách</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--report"></div>
+                    <div class="option__content">Báo cáo</div>
+                </div>
+                <div class="option">
+                    <div class="option__icon" id="icon--financial-analysis"></div>
+                    <div class="option__content">Phân tích tài chính</div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__header">
+                <div class="header--left">
+                    <div class="header__icon" id="icon--toggle-button"></div>
+                    <div class="header__title">CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC <button
+                            class="arrowdown1"></button></div>
+                </div>
+                <div class="header--right">
+                    <div class="header__icon" id="icon--notification"></div>
+                    <div id="icon--profile-user"></div>
+                    <div id="username">Đỗ Đặng Phương<button class="arrowdown2"></button></div>
+                </div>
+            </div>
+            <div class="content__main">
+                <div class="main__header">
+                    <div class="main__tittle">Nhân viên</div>
+                    <button class="btn btn--primary">Thêm mới nhân viên</button>
+                </div>
+                <div class="content__data">
+                    <div class="data__search">
+                        <div class="search__form">
+                            <input type="text" class="tf tf--normal" placeholder="Tìm theo mã, tên nhân viên">
+                            <div id="icon--search"></div>
+                        </div>
+                        <div id="icon--refresh"></div>
+                    </div>
+                    <div class="table">
+                        <div class="table__toolbar">
+                            <table border="1">
+                                <thead>
+                                    <tr class="table__header">
+                                        <th class="text-align--right" style="width: 50px;">
+                                            <input type="checkbox">
+                                        </th>
+                                        <th class= "text-align--left" style="min-width: 150px;" >MÃ NHÂN VIÊN</th>
+                                        <th class= "text-align--left" style="min-width: 150px;" >TÊN NHÂN VIÊN</th>
+                                        <th class= "text-align--left" style="min-width: 100px;">GIỚI TÍNH</th>
+                                        <th class= "text-align--center" style="width: 100px;" >NGÀY SINH</th>
+                                        <th class= "text-align--left"  style="width: 200px;">SỐ CMND</th>
+                                        <th class= "text-align--left" style="min-width: 150px;">CHỨC DANH</th>
+                                        <th class= "text-align--left" style="min-width: 200px;">TÊN ĐƠN VỊ</th>
+                                        <th class= "text-align--right" style="min-width: 150px;">SỐ TÀI KHOẢN</th>
+                                        <th class= "text-align--right" style="min-width: 150px;">TÊN NGÂN HÀNG</th>
+                                        <th class= "text-align--right"  style="min-width: 220px;">CHI NHÁNH TK NGÂN HÀNG</th>
+                                        <th class= "text-align--center" style="min-width: 150px;">CHỨC NĂNG</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
+                                        <td>00012</td>
+                                        <td>Nguyễn Văn Liệt</td>
+                                        <td>Nam</td>
+                                        <td>35/12/1969</td>
+                                        <td>362520865</td>
+                                        <td>Trưởng nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="myicon icon__edit--dropdown"></div>
+                                            Sửa
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

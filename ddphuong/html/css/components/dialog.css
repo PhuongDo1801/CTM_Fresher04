@@ -1,0 +1,41 @@
+/* Dialog  */
+.dialog {
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    opacity: 100%;
+    width: 400px;
+    height: 173px;
+}
+
+.dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dialog__header p {
+    font-weight: 700;
+    font-size: 20px;
+    color: #1F1F1F;
+    margin: 24px 0px 24px 24px;
+    text-align: left;
+}
+
+.dialog__content {
+    font-weight: 400;
+    font-size: 14px;
+    color: #1F1F1F;
+    padding-left: 24px;
+    padding-bottom: 24px;
+}
+
+.dialog__footer {
+    float: right;
+    margin-right: 24px;
+    margin-bottom: 24px;
+}
+
+.dialog__footer .btn {
+    margin-left: 8px;
+}
+
+/* Popup */

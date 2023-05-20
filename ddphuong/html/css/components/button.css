@@ -1,0 +1,94 @@
+.btn {
+    font-family: 'Roboto';
+    font-weight: 500;
+    opacity: 100%; 
+    text-align: center;
+    min-width: 80px;
+    height: 36px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.button__content {
+    text-align: center;
+}
+.button__title {
+    margin-bottom: 8px;
+}
+.row__content-button {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: row; */
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.btn--primary {
+    color: #FFFFFF;
+    background-color: #50B83C;
+    border: none;
+    padding: 0px 8px;
+     /* top - right - bottom - left*/
+}
+
+.btn--second {
+    color: #1F1F1F;
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6E6;
+
+    /* padding: 8px 16px 8px 16px; */
+}
+
+.btn--link {
+    color: #50B83C;
+    background: none;
+    border: none;
+}
+
+.btn--icon {
+    justify-content: center;
+    background-color: rgba(80,184,60,0.1);
+    background-image: url(../../assets/icon/Sprites.64af8f61.svg);
+    background-repeat: no-repeat;
+    background-position: -20px -303px;
+    width: 40px;
+    height: 36px;
+    border: none;
+    outline: none;
+}
+
+/* .btn--with-icon {
+    display: flex;
+    align-items: center;
+    background-color: #50B83C;
+    outline: none;
+    border: none;
+}
+
+.btn--with-icon .icon--add {
+    background-image: url(../../assets/icon/Sprites.64af8f61.svg);
+    background-repeat: no-repeat;
+    background-position: -34px -314px;
+    width: 20px;
+    height: 20px;
+} */
+
+/* .btn--combo {
+
+} */
+
+.group-btn {
+    display: flex;
+    align-items: center; 
+}
+
+.close-button {
+    border: #FFFFFF;
+    background-color: #fff;
+    margin: 24px 24px 24px 0;
+}
+.close-button img {
+    color: #1F1F1F;
+    background-color: #FFFFFF;
+    width: 24px;
+    height: 24px;
+}

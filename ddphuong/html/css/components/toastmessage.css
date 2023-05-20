@@ -1,0 +1,59 @@
+.toast__content {
+    /* padding-left: 18px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    width: 450px;
+    height: 56px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.toast__icon {
+    background-image: url(../../assets/icon/Sprites.64af8f61.svg);
+    background-repeat: no-repeat;
+    background-position: -848px -312px;
+    width: 20px;
+    height: 20px;
+    /* margin-right: 10px; */
+}
+
+.toast__text {
+    font-weight: 400;
+    font-size: 14px;
+}
+.toast__text--success {
+    color: #50B83C;
+    font-weight: 500;
+}
+.toast__left {
+    /* margin-right: 10px; */
+    display: flex;
+    flex-direction: row;
+}
+
+.toast__action {
+    font-weight: 500;
+    border-bottom: 1px solid #000;
+}
+.toast__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* float: right; */
+    margin-right: 20px;
+}
+.toast__right button {
+    background-image: url(../../assets/icon/Sprites.64af8f61.svg);
+    background-repeat: no-repeat;
+    background-position: -1175px -360px;
+    width: 16px;
+    height: 16px;
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+    padding: 0;
+    margin-left: 20px;
+    /* float: right; */
+}

@@ -1,0 +1,25 @@
+@media screen and (max-width: 1920px) {
+  /* Các kiểu CSS áp dụng khi kích thước màn hình lớn hơn hoặc bằng 1920px */
+  /* ... */
+
+  .content__data .table {
+    height: 700px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+
+  /* Các kiểu CSS áp dụng khi kích thước màn hình nhỏ hơn hoặc bằng 1366px */
+  .content__data .table {
+    height: 450px;
+  }
+}
+
+@media screen and (max-width: 1236px) {
+  /* Màn hình trình duyệt máy tính cá nhân */
+  /* Các kiểu CSS áp dụng khi kích thước màn hình nhỏ hơn hoặc bằng 1236px */
+  .content__data .table {
+    height: 300px;
+  }
+}
+
