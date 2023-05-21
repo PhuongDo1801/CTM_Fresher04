@@ -1,840 +1,804 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Layout</title>
-    <link rel="stylesheet" href="./css/layout.css" />
-    <!-- <link rel="stylesheet" href="./css/responsive.css"> -->
-  </head>
-  <body>
-    <div class="container">
-      <div class="container__left">
-        <div class="container__left-sidebar">
-          <div class="sidebar__header">
-            <i class="multidot-icon"></i>
-            <div class="sidebar__header-bran">
-              <img src="./assets/icon/favicon.ico" alt="" />
-              <p>KẾ TOÁN</p>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layout</title>
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="container__left">
+      <div class="container__left-sidebar">
+        <div class="sidebar__header">
+          <i class="multidot-icon"></i>
+          <div class="sidebar__header-bran">
+            <img src="./assets/icon/favicon.ico" alt="" />
+            <p>KẾ TOÁN</p>
+          </div>
+        </div>
+        <div class="sidebar__main">
+          <div class="option">
+            <div class="option__icon overview-icon"></div>
+            <div class="option__content">Tổng quan</div>
+          </div>
+          <div class="option">
+            <div class="option__icon cash-icon"></div>
+            <div class="option__content">Tiền mặt</div>
+          </div>
+          <div class="option">
+            <div class="option__icon deposits-icon"></div>
+            <div class="option__content">Tiền gửi</div>
+          </div>
+          <div class="option">
+            <div class="option__icon bag-icon"></div>
+            <div class="option__content">Mua hàng</div>
+          </div>
+          <div class="option">
+            <div class="option__icon cart-icon"></div>
+            <div class="option__content">Bán hàng</div>
+          </div>
+          <div class="option">
+            <div class="option__icon bill-icon"></div>
+            <div class="option__content">Quản lý hoá đơn</div>
+          </div>
+          <div class="option">
+            <div class="option__icon wh-icon"></div>
+            <div class="option__content">Kho</div>
+          </div>
+          <div class="option">
+            <div class="option__icon tool-icon"></div>
+            <div class="option__content">Công cụ dụng cụ</div>
+          </div>
+          <div class="option">
+            <div class="option__icon fixed-assets-icon"></div>
+            <div class="option__content">Tài sản cố định</div>
+          </div>
+          <div class="option">
+            <div class="option__icon tax-icon"></div>
+            <div class="option__content">Thuế</div>
+          </div>
+          <div class="option">
+            <div class="option__icon price-icon"></div>
+            <div class="option__content">Giá thành</div>
+          </div>
+          <div class="option">
+            <div class="option__icon composition-icon"></div>
+            <div class="option__content">Tổng hợp</div>
+          </div>
+          <div class="option">
+            <div class="option__icon budget-icon"></div>
+            <div class="option__content">Ngân sách</div>
+          </div>
+          <div class="option">
+            <div class="option__icon report-icon"></div>
+            <div class="option__content">Báo cáo</div>
+          </div>
+          <div class="option">
+            <div class="option__icon analytic-finance-icon"></div>
+            <div class="option__content">Phân tích tài chính</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container__right">
+      <div class="container__right-overlay"></div>
+      <div class="container__right-dialog">
+        <!-- <div class="container__right-dialog-header">
+          <p>Xác nhận</p>
+          <button class="close-icon"></button>
+        </div> -->
+        <div class="container__right-dialog-top">
+          <!-- <i class="question-icon"></i> -->
+          <i class="warning-icon"></i>
+          <span>Bạn có thực sự muốn xóa người dùng này không ?</span>
+        </div>
+        <hr>
+        <div class="container__right-dialog-bottom">
+          <button class="container__right-dialog-btn cancel-btn">Hủy</button>
+          <button class="container__right-dialog-btn accept-btn">Đồng ý</button>
+        </div>
+      </div>
+
+      <div id="container-popup-employee" class="container__right-popup">
+        <div class="container__right-icon-wraper">
+          <i class="info-icon"></i>
+          <i class="close-icon"></i>
+        </div>
+        <div class="container__right-popup-top">
+          <span>Thông tin nhân viên</span>
+          <div>
+            <input title="Là khách hàng" type="checkbox" />
+            <label for="">Là khách hàng</label>
+          </div>
+          <div>
+            <input title="Là nhà cung cấp" type="checkbox" />
+            <label for="">Là nhà cung cấp</label>
+          </div>
+        </div>
+
+        <div class="container__right-popup-body">
+          <div class="container__right-popup-body-top">
+            <div class="container__right-popup-body-top-left">
+              <div>
+                <label for="">Mã <span style="color: red">*</span></label>
+                <input title="Mã nhân viên" placeholder="Mã nhân viên" type="text" />
+              </div>
+              <div>
+                <label for="">Tên <span style="color: red">*</span></label>
+                <input title="Tên nhân viên" placeholder="Tên nhân viên" type="text" />
+              </div>
+
+              <div>
+                <label for="">Đơn vị <span style="color: red">*</span></label>
+                <select title="Phòng nhân viên" name="" id="">
+                  <option value="">Phòng nhân sự</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="">Chức danh</label>
+                <input title="Chức danh nhân viên" value="Chức danh nhân viên" type="text" />
+              </div>
+            </div>
+            <div class="container__right-popup-body-top-right">
+              <div>
+                <label for="">Ngày sinh</label>
+                <input title="Ngày sinh nhân viên" type="date" />
+              </div>
+              <div>
+                <label for="">Giới tính</label>
+                <div>
+                  <input title="Giới tính nam" name="gender" type="radio" />
+                  <label for="">Nam</label>
+
+                  <input title="Giới tính nữ" name="gender" type="radio" />
+                  <label for="">Nữ</label>
+
+                  <input title="Giới tính khác" name="gender" type="radio" />
+                  <label for="">Khác</label>
+                </div>
+              </div>
+              <div>
+                <label for="">Số CMND</label>
+                <input placeholder="Số CMND" title="Số chứng minh thư nhân dân" type="text" />
+              </div>
+
+              <div>
+                <label for="">Ngày cấp</label>
+                <input placeholder="Ngày cấp" title="Ngày cấp" type="date" />
+              </div>
+              <div>
+                <label for="">Nơi cấp</label>
+                <input placeholder="Nơi cấp" title="Nơi cấp" type="text" />
+              </div>
             </div>
           </div>
-          <div class="sidebar__main">
-            <div class="option">
-                <div class="option__icon overview-icon"></div>
-                <div class="option__content">Tổng quan</div>
+          <div class="container__right-popup-body-bottom">
+            <div>
+              <label for="">Địa chỉ</label>
+              <input placeholder="Địa chỉ" title="Địa chỉ" type="text" />
             </div>
-            <div class="option">
-                <div class="option__icon cash-icon"></div>
-                <div class="option__content">Tiền mặt</div>
+
+            <div>
+              <div>
+                <label for="">ĐT di động</label>
+                <input placeholder="Điện thoại di động" title="Điện thoại di động" type="text" />
+              </div>
+              <div>
+                <label for="">ĐT cố định</label>
+                <input placeholder="Điện thoại cố định" title="Điện thoại cố định" type="text" />
+              </div>
+              <div>
+                <label for="">Email</label>
+                <input placeholder="Email" title="Email" type="text" />
+              </div>
             </div>
-            <div class="option">
-                <div class="option__icon deposits-icon"></div>
-                <div class="option__content">Tiền gửi</div>
+
+            <div>
+              <div>
+                <label for="">Tài khoản ngân hàng</label>
+                <input placeholder="Tài khoản ngân hàng" title="Tài khoản ngân hàng" type="text" />
+              </div>
+              <div>
+                <label for="">Tên ngân hàng</label>
+                <input placeholder="Tên ngân hàng" title="Tên ngân hàng" type="text" />
+              </div>
+              <div>
+                <label for="">Chi nhánh</label>
+                <input placeholder="Chi nhánh" title="Chi nhánh" type="text" />
+              </div>
             </div>
-            <div class="option">
-                <div class="option__icon bag-icon"></div>
-                <div class="option__content">Mua hàng</div>
-            </div>
-            <div class="option">
-                <div class="option__icon cart-icon"></div>
-                <div class="option__content">Bán hàng</div>
-            </div>
-            <div class="option">
-                <div class="option__icon bill-icon"></div>
-                <div class="option__content">Quản lý hoá đơn</div>
-            </div>
-            <div class="option">
-                <div class="option__icon wh-icon"></div>
-                <div class="option__content">Kho</div>
-            </div>
-            <div class="option">
-                <div class="option__icon tool-icon"></div>
-                <div class="option__content">Công cụ dụng cụ</div>
-            </div>
-            <div class="option">
-                <div class="option__icon fixed-assets-icon"></div>
-                <div class="option__content">Tài sản cố định</div>
-            </div>
-            <div class="option">
-                <div class="option__icon tax-icon"></div>
-                <div class="option__content">Thuế</div>
-            </div>
-            <div class="option">
-                <div class="option__icon price-icon"></div>
-                <div class="option__content">Giá thành</div>
-            </div>
-            <div class="option">
-                <div class="option__icon composition-icon"></div>
-                <div class="option__content">Tổng hợp</div>
-            </div>
-            <div class="option">
-                <div class="option__icon budget-icon"></div>
-                <div class="option__content">Ngân sách</div>
-            </div>
-            <div class="option">
-                <div class="option__icon report-icon"></div>
-                <div class="option__content">Báo cáo</div>
-            </div>
-            <div class="option">
-                <div class="option__icon analytic-finance-icon"></div>
-                <div class="option__content">Phân tích tài chính</div>
+            <!-- <hr /> -->
+
+            <div class="container__popup-footer">
+              <div>
+                <button>HỦY</button>
+              </div>
+              <div>
+                <button>CẤT</button>
+                <button>CẤT VÀ THÊM</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container__right">
-        <div class="container__right-overlay"></div>
-        <div class="container__right-dialog">
-          <!-- <div class="container__right-dialog-title">
-            <p>Xác nhận</p>
-          </div> -->
-          <div class="container__right-dialog-top">
-            <i class="warning-icon"></i>
-            <span>Bạn có thực sự muốn xóa người dùng này không ?</span>
-          </div>
-          <div class="container__right-dialog-bottom">
-            <button class="container__right-dialog-btn">Hủy</button>
-            <button class="container__right-dialog-btn">Đồng ý</button>
-          </div>
+      <div class="container__right-navbar">
+        <div class="container__right-navbar-left">
+          <i class="menu-icon"></i>
+          <span>CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC</span>
+          <img src="./assets/icon/dropdown.png" alt="" />
         </div>
-
-        <div id="container-popup-employee" class="container__right-popup">
-          <div class="container__right-icon-wraper">
-            <i class="info-icon"></i>
-            <i class="close-icon"></i>
-          </div>
-          <div class="container__right-popup-top">
-            <span>Thông tin nhân viên</span>
-            <div>
-              <input title="Là khách hàng" type="checkbox" />
-              <label for="">Là khách hàng</label>
-            </div>
-            <div>
-              <input title="Là nhà cung cấp" type="checkbox" />
-              <label for="">Là nhà cung cấp</label>
-            </div>
-          </div>
-
-          <div class="container__right-popup-body">
-            <div class="container__right-popup-body-top">
-              <div class="container__right-popup-body-top-left">
-                <div>
-                  <label for="">Mã <span style="color: red">*</span></label>
-                  <input
-                    title="Mã nhân viên"
-                    placeholder="Mã nhân viên"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label for="">Tên <span style="color: red">*</span></label>
-                  <input
-                    title="Tên nhân viên"
-                    placeholder="Tên nhân viên"
-                    type="text"
-                  />
-                </div>
-
-                <div>
-                  <label for="">Đơn vị <span style="color: red">*</span></label>
-                  <select title="Phòng nhân viên" name="" id="">
-                    <option value="">Phòng nhân sự</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label for="">Chức danh</label>
-                  <input
-                    title="Chức danh nhân viên"
-                    value="Chức danh nhân viên"
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div class="container__right-popup-body-top-right">
-                <div>
-                  <label for="">Ngày sinh</label>
-                  <input title="Ngày sinh nhân viên" type="date" />
-                </div>
-                <div>
-                  <label for="">Giới tính</label>
-                  <div>
-                    <input title="Giới tính nam" name="gender" type="radio" />
-                    <label for="">Nam</label>
-
-                    <input title="Giới tính nữ" name="gender" type="radio" />
-                    <label for="">Nữ</label>
-
-                    <input title="Giới tính khác" name="gender" type="radio" />
-                    <label for="">Khác</label>
-                  </div>
-                </div>
-                <div>
-                  <label for="">Số CMND</label>
-                  <input
-                    placeholder="Số CMND"
-                    title="Số chứng minh thư nhân dân"
-                    type="text"
-                  />
-                </div>
-
-                <div>
-                  <label for="">Ngày cấp</label>
-                  <input placeholder="Ngày cấp" title="Ngày cấp" type="date" />
-                </div>
-                <div>
-                  <label for="">Nơi cấp</label>
-                  <input placeholder="Nơi cấp" title="Nơi cấp" type="text" />
-                </div>
-              </div>
-            </div>
-            <div class="container__right-popup-body-bottom">
-              <div>
-                <label for="">Địa chỉ</label>
-                <input placeholder="Địa chỉ" title="Địa chỉ" type="text" />
-              </div>
-
-              <div>
-                <div>
-                  <label for="">ĐT di động</label>
-                  <input
-                    placeholder="Điện thoại di động"
-                    title="Điện thoại di động"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label for="">ĐT cố định</label>
-                  <input
-                    placeholder="Điện thoại cố định"
-                    title="Điện thoại cố định"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label for="">Email</label>
-                  <input placeholder="Email" title="Email" type="text" />
-                </div>
-              </div>
-
-              <div>
-                <div>
-                  <label for="">Tài khoản ngân hàng</label>
-                  <input
-                    placeholder="Tài khoản ngân hàng"
-                    title="Tài khoản ngân hàng"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label for="">Tên ngân hàng</label>
-                  <input
-                    placeholder="Tên ngân hàng"
-                    title="Tên ngân hàng"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label for="">Chi nhánh</label>
-                  <input
-                    placeholder="Chi nhánh"
-                    title="Chi nhánh"
-                    type="text"
-                  />
-                </div>
-              </div>
-              <hr />
-
-              <div class="container__popup-footer">
-                <div>
-                  <button>HỦY</button>
-                </div>
-                <div>
-                  <button>CẤT</button>
-                  <button>CẤT VÀ THÊM</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="container__right-navbar-right">
+          <i class="bell-icon"></i>
+          <i class="user-icon"></i>
+          <span>Đỗ Đặng Phương</span>
+          <img src="./assets/icon/dropdown.png" alt="" />
         </div>
+      </div>
 
-        <div class="container__right-navbar">
-          <div class="container__right-navbar-left">
-            <i class="menu-icon"></i>
-            <span>CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC</span>
-            <img src="./assets/icon/dropdown.png" alt="" />
-          </div>
-          <div class="container__right-navbar-right">
-            <i class="bell-icon"></i>
-            <i class="user-icon"></i>
-            <span>Đỗ Đặng Phương</span>
-            <img src="./assets/icon/dropdown.png" alt="" />
-          </div>
+      <div class="container__right-main">
+        <div class="container__right-main-top">
+          <span>Nhân viên</span>
+          <button id="btn-add-employee">Thêm mới nhân viên</button>
         </div>
-
-        <div class="container__right-main">
-          <div class="container__right-main-top">
-            <span>Nhân viên</span>
-            <button id="btn-add-employee">Thêm mới nhân viên</button>
-          </div>
-          <div class="container__right-main-body">
-            <div class="container__right-search">
-              <div class="container__right-search-input">
-                <input
-                  title="Tìm kiếm thông tin nhân viên"
-                  placeholder="Tìm theo mã, tên nhân viên"
-                  type="text"
-                />
-                <i class="search-icon"></i>
-              </div>
-              <i class="refresh-icon"></i>
+        <div class="container__right-main-body">
+          <div class="container__right-search">
+            <div class="container__right-search-input">
+              <input title="Tìm kiếm thông tin nhân viên" placeholder="Tìm theo mã, tên nhân viên" type="text" />
+              <i class="search-icon"></i>
             </div>
+            <i class="refresh-icon"></i>
+          </div>
 
-            <div class="container__right-table">
-              <table class="container__table">
-                <thead>
-                  <tr>
-                    <th class="text-align-center" style="min-width: 50px;">
-                      <input type="checkbox" />
-                    </th>
-                    <th class="text-align-left" style="min-width: 150px;">MÃ NHÂN VIÊN</th>
-                    <th class="text-align-left" style="min-width: 150px;">TÊN NHÂN VIÊN</th>
-                    <th class="text-align-left" style="min-width: 100px;">GIỚI TÍNH</th>
-                    <th class="text-align-center" style="min-width: 100px;">NGÀY SINH</th>
-                    <th class="text-align-left" style="min-width: 150px;">
-                      <div class="tooltip" title="Số chứng minh nhân dân">Số CMND
-                        <!-- <span class="tooltiptext">Số chứng minh nhân dân</span> -->
-                      </div>
-                    </th>
-                    <th class="text-align-left" style="min-width: 150px;">CHỨC DANH</th>
-                    <th class="text-align-left" style="min-width: 150px;">TÊN ĐƠN VỊ</th>
-                    <th class="text-align-left" style="min-width: 150px;">SỐ TÀI KHOẢN</th>
-                    <th class="text-align-left" style="min-width: 150px;">TÊN NGÂN HÀNG</th>
-                    <th class="text-align-left" style="min-width: 300px;">
-                      <div class="tooltip" title="Chi nhánh tài khoản ngân hàng">Chi nhánh TK ngân hàng
-                        <!-- <span class="tooltiptext">Chi nhánh tài khoản ngân hàng</span> -->
-                      </div>
-                    </th>
-                    <th class="text-align-center" style="min-width: 150px;">CHỨC NĂNG</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1649</td>
-                    <td>Nguyễn Đức Thịnh</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Thành viên</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1647</td>
-                    <td>Bùi Ngọc Tiến</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Thành viên</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1653</td>
-                    <td>Nguyễn Quang Minh</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Thành viên</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1641</td>
-                    <td>Trần Tuấn Anh</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Thành viên</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1644</td>
-                    <td>Vũ Đinh Tiến</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Thành viên</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="text-align-center">
-                      <input type="checkbox" />
-                    </td>
-                    <td>MF1645</td>
-                    <td>Đỗ Đặng Phương</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">18/01/2001</td>
-                    <td>00120103545</td>
-                    <td>Trưởng Nhóm</td>
-                    <td>Customize</td>
-
-                    <td>101870479963</td>
-                    <td>VietinBank</td>
-                    <td>Hai Bà Trưng</td>
-                    <td class="text-align-center">
-                      <span>Sửa</span>
-                      <div class="dropdown-blue-icon-wraper">
-                        <i class="dropdown-blue-icon"></i>
-                        <ul class="table-list-option">
-                          <li>Nhân bản</li>
-                          <li class="table-list-option-delete">Xóa</li>
-                          <li>Ngưng sử dụng</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="container__right-main-footer">
-                <div class="container__right-main-footer-left">
-                  <span>Tổng số: <b>1035</b> bản ghi</span>
-                </div>
-
-                <div class="container__right-main-footer-right">
-                  <div class="container__dropdown-wraper">
-                    <ul class="container__dropdown-wraper-list">
-                      <li class="container__dropdown-wraper-list-item">
-                        10 bản ghi trên trang
-                      </li>
-                      <li class="container__dropdown-wraper-list-item">
-                        20 bản ghi trên trang
-                      </li>
-                      <li class="container__dropdown-wraper-list-item">
-                        30 bản ghi trên trang
-                      </li>
-                      <li class="container__dropdown-wraper-list-item">
-                        50 bản ghi trên trang
-                      </li>
-                      <li class="container__dropdown-wraper-list-item">
-                        100 bản ghi trên trang
-                      </li>
-                    </ul>
-                    <div class="container__dropdown-wraper-item">
-                      <span>20 bản ghi trên trang</span>
+          <div class="container__right-table">
+            <table class="container__table">
+              <thead>
+                <tr>
+                  <th class="text-align-center" style="min-width: 50px;">
+                    <input type="checkbox" />
+                  </th>
+                  <th class="text-align-left" style="min-width: 150px;">MÃ NHÂN VIÊN</th>
+                  <th class="text-align-left" style="min-width: 150px;">TÊN NHÂN VIÊN</th>
+                  <th class="text-align-left" style="min-width: 100px;">GIỚI TÍNH</th>
+                  <th class="text-align-center" style="min-width: 100px;">NGÀY SINH</th>
+                  <th class="text-align-left" style="min-width: 150px;">
+                    <div class="tooltip" title="Số chứng minh nhân dân">Số CMND
+                      <!-- <span class="tooltiptext">Số chứng minh nhân dân</span> -->
                     </div>
-                    <div class="container__dropdown-wraper-icon">
-                      <i class="dropdown-gray-icon"></i>
+                  </th>
+                  <th class="text-align-left" style="min-width: 150px;">CHỨC DANH</th>
+                  <th class="text-align-left" style="min-width: 150px;">TÊN ĐƠN VỊ</th>
+                  <th class="text-align-left" style="min-width: 150px;">SỐ TÀI KHOẢN</th>
+                  <th class="text-align-left" style="min-width: 150px;">TÊN NGÂN HÀNG</th>
+                  <th class="text-align-left" style="min-width: 300px;">
+                    <div class="tooltip" title="Chi nhánh tài khoản ngân hàng">Chi nhánh TK ngân hàng
+                      <!-- <span class="tooltiptext">Chi nhánh tài khoản ngân hàng</span> -->
                     </div>
+                  </th>
+                  <th class="text-align-center" style="min-width: 150px;">CHỨC NĂNG</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1649</td>
+                  <td>Nguyễn Đức Thịnh</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Thành viên</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1647</td>
+                  <td>Bùi Ngọc Tiến</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Thành viên</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1653</td>
+                  <td>Nguyễn Quang Minh</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Thành viên</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1641</td>
+                  <td>Trần Tuấn Anh</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Thành viên</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1644</td>
+                  <td>Vũ Đinh Tiến</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Thành viên</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-align-center">
+                    <input type="checkbox" />
+                  </td>
+                  <td>MF1645</td>
+                  <td>Đỗ Đặng Phương</td>
+                  <td>Nam</td>
+                  <td class="text-align-center">18/01/2001</td>
+                  <td>00120103545</td>
+                  <td>Trưởng Nhóm</td>
+                  <td>Customize</td>
+
+                  <td>101870479963</td>
+                  <td>VietinBank</td>
+                  <td>Hai Bà Trưng</td>
+                  <td class="text-align-center">
+                    <span>Sửa</span>
+                    <div class="dropdown-blue-icon-wraper">
+                      <i class="dropdown-blue-icon"></i>
+                      <ul class="table-list-option">
+                        <li>Nhân bản</li>
+                        <li class="table-list-option-delete">Xóa</li>
+                        <li>Ngưng sử dụng</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="container__right-main-footer">
+              <div class="container__right-main-footer-left">
+                <span>Tổng số: <b>1035</b> bản ghi</span>
+              </div>
+
+              <div class="container__right-main-footer-right">
+                <div class="container__dropdown-wraper">
+                  <ul class="container__dropdown-wraper-list">
+                    <li class="container__dropdown-wraper-list-item">
+                      10 bản ghi trên trang
+                    </li>
+                    <li class="container__dropdown-wraper-list-item">
+                      20 bản ghi trên trang
+                    </li>
+                    <li class="container__dropdown-wraper-list-item">
+                      30 bản ghi trên trang
+                    </li>
+                    <li class="container__dropdown-wraper-list-item">
+                      50 bản ghi trên trang
+                    </li>
+                    <li class="container__dropdown-wraper-list-item">
+                      100 bản ghi trên trang
+                    </li>
+                  </ul>
+                  <div class="container__dropdown-wraper-item">
+                    <span>20 bản ghi trên trang</span>
                   </div>
-                  <div class="container__right-pages">
-                    <span>Trước</span>
-                    <ul>
-                      <li>1</li>
-                      <li>2</li>
-                      <li>3</li>
-                      <li>...</li>
-                      <li>52</li>
-                    </ul>
-                    <span>Sau</span>
+                  <div class="container__dropdown-wraper-icon">
+                    <i class="dropdown-gray-icon"></i>
                   </div>
+                </div>
+                <div class="container__right-pages">
+                  <span>Trước</span>
+                  <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>...</li>
+                    <li>52</li>
+                  </ul>
+                  <span>Sau</span>
                 </div>
               </div>
             </div>
@@ -842,7 +806,9 @@
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 
 <script src="./js/main.js" type="module"></script>

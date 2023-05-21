@@ -180,3 +180,10 @@
 	width: 36px;
 	height: 36px;
 }
+
+.question-icon {
+  background: url('imgs/Sprites.64af8f61.svg') no-repeat -832px -462px;
+	width: 36px;
+	height: 36px;
+  display: block;
+}
