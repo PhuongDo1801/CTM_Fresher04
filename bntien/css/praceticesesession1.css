@@ -1,0 +1,45 @@
+@import url(./varialble.css);
+@import url(../css/components/button.css);
+@import url(../css/components/combobox.css);
+@import url(../css/components/input.css);
+@import url(../css/components/dialog.css);
+@import url(../css/components/popup.css);
+@import url(../css/components/form.css);
+@import url(../css/components/toastmessage.css);
+@import url(../css/components/table.css);
+@import url(../css/components/icon.css);
+
+@font-face {
+    font-family: RobotoRegular;
+    src: url('../assets/font/Roboto-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: RobotoBold;
+    src: url('../assets/font/Roboto-Bold.ttf');
+}
+
+html, body {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    font-family: RobotoRegular;
+    outline: none;
+    border: none;
+}
+
+.components {
+    border: 5px solid rgb(22, 229, 95);
+    border-radius: 4px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.feature-btn button {
+    margin-right: 100px;
+}
+
+.feature-btn {
+    display: flex;
+}

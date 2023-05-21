@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập nhóm - viện</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/blockexercise.css">
+    <script src="../js/blockexercise.js"></script>
+</head>
+<body>
+    <div class="dialog-employee position-display-center" id="dialog-warning-employee">
+        <div class="dialog-content">
+            <div class="warning-yellow-icon dialog-content-icon"></div>
+            <div class="dialog-content-main">
+                <p>Mã nhân viên &lt;NV-0001&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại.</p>
+            </div>
+        </div>
+        <div class="dialog-warning-footer">
+            <button class="btn btn-default">
+                <div class="text">
+                    Đồng ý
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="dialog-employee position-display-center" id="dialog-danger-employee">
+        <div class="dialog-content">
+            <div class="danger-red-icon dialog-content-icon"></div>
+            <div class="dialog-content-main">
+                <p>Tên không được để trống.</p>
+            </div>
+        </div>
+        <div class="dialog-danger-footer">
+            <button class="btn btn-default">
+                <div class="text">
+                    Đóng
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="dialog-employee position-display-center" id="dialog-warning-delete-employee">
+        <div class="dialog-content">
+            <div class="warning-yellow-icon dialog-content-icon"></div>
+            <div class="dialog-content-main">
+                <p>Bạn có thực sự muốn xóa nhân viên &lt;000579&gt; không?</p>
+            </div>
+        </div>
+        <div class="dialog-warning-delete-footer">
+            <button class="btn btn-extra">
+                <div class="text-extra">
+                    Không
+                </div>
+            </button>
+            <button class="btn btn-default btn-no-minwwidth">
+                <div class="text">
+                    Có
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="dialog-employee position-display-center" id="dialog-question-employee">
+        <div class="dialog-content">
+            <div class="question-blue-icon dialog-content-icon"></div>
+            <div class="dialog-content-main">
+                <p>Dữ liệu đã bị thay đổi. Bạn có muốn cất không?</p>
+            </div>
+        </div>
+        <div class="dialog-question-footer">
+            <div class="dialog-question-footer-left">
+                <button class="btn btn-extra btn-no-minwwidth">
+                    <div class="text-extra">
+                        Hủy
+                    </div>
+                </button>
+            </div>
+            <div class="dialog-question-footer-right">
+                <button class="btn btn-extra">
+                    <div class="text-extra">
+                        Không
+                    </div>
+                </button>
+                <button class="btn btn-default btn-no-minwwidth">
+                    <div class="text">
+                        Có
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="detail-info-employee" class="position-display-center">
+        <div class="employee-toolbar">
+            <img class="icon-tb" src="../assets/icon/question.png" alt="">
+            <img id="employee-exit" onclick="closeDetailInfoEmployee()" class="icon-tb" src="../assets/icon/x.svg" alt="">
+        </div>
+        <div class="employee-main">
+            <div class="employee-title">
+                <p><b>THÔNG TIN NHÂN VIÊN</b></p>
+                <div class="employee-check">
+                    <input type="checkbox">
+                    <span>Là khách hàng</span>
+                </div>
+                <div class="employee-check">
+                    <input type="checkbox">
+                    <span>Là nhà cung cấp</span>
+                </div>
+            </div>
+            <div class="employee-content">
+                <div class="half-content">
+                    <div class="col-md-n">
+                        <label>Mã <span class="s-require">*</span></label>
+                        <input type="text" class="textfield" name="" id="e-textfield">
+                    </div>
+                    <div class="col-md-tb">
+                        <label>Tên <span class="s-require">*</span></label>
+                        <input type="text" class="textfield" name="" id="e-textfield">
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="col-md-n">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="textfield" name="" id="e-textfield">
+                    </div>
+                    <div class="col-md-tb">
+                        <label>Giới tính</label>
+                        <div class="e-gender">
+                            <input type="radio" name="gender">
+                            <span>Nam</span>
+                            <input type="radio" name="gender">
+                            <span>Nữ</span>
+                            <input type="radio" name="gender">
+                            <span>Khác</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="col-md-l">
+                        <label>Đơn vị <span class="s-require">*</span></label>
+                        <div class="e-cbb">
+                            <div class="e-textfield-cbb">
+                                <input type="text" class="textfield" id="e-textfield">
+                            </div>
+                            <i class="function-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="col-md-tb">
+                        <label title="Số chứng minh nhân dân">Số CMND</label>
+                        <input type="text" class="textfield" name="" id="e-textfield">
+                    </div>  
+                    <div class="col-md-n">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="textfield" name="" id="e-textfield">
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="col-md-l">
+                        <label>Chức danh</label>
+                        <input type="text" class="textfield" name="" id="e-textfield">
+                    </div>
+                </div>
+                <div class="half-content">
+                    <div class="col-md-l">
+                        <label>Nơi cấp</label>
+                        <input type="text" class="textfield" name="" id="e-textfield">
+                    </div>
+                </div>
+                <div class="full-content" id="content-null">
+
+                </div>
+                <div class="full-content">
+                    <label>Địa chỉ</label>
+                    <input type="text" class="textfield" name="" id="e-textfield">
+                </div>
+                <div class="full-content">
+                    <div class="full-content-quarter">
+                        <div class="col-md-quater">
+                            <label title="Điện thoại di động">ĐT di động</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                        <div class="col-md-quater">
+                            <label title="Điện thoại cố định">ĐT cố định</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                        <div class="col-md-quater">
+                            <label>Email</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                    </div>
+                </div>
+                <div class="full-content">
+                    <div class="full-content-quarter">
+                        <div class="col-md-quater">
+                            <label>Tài khoản ngân hàng</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                        <div class="col-md-quater">
+                            <label>Tên ngân hàng</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                        <div class="col-md-quater">
+                            <label>Chi nhánh</label>
+                            <input type="text" class="textfield" name="" id="e-textfield">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="employee-action">
+                <div class="action-left">
+                    <button class="btn btn-extra">Hủy</button>
+                </div>
+                <div class="action-right">
+                    <button class="btn btn-extra">Cất</button>
+                    <button id="btn-add-close" class="btn btn-default text">Cất và thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="container">
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-logo">
+                <i class="icon-tb toggle toggle-icon"></i>
+                <img class="icon-l logo" src="../assets/img/favicon.ico" alt="img-logo">
+                <span>KẾ TOÁN</span>
+            </div>
+            <div class="menu">
+                <ul class="nav">
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb overview-icon"></i>
+                            <span>Tổng quan</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb cash-icon"></i>
+                            <span>Tiền mặt</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb deposits-icon"></i>
+                            <span>Tiền gửi</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb bag-icon"></i>
+                            <span>Mua hàng</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb cart-icon"></i>
+                            <span>Bán hàng</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb bill-icon"></i>
+                            <span>Quản lí hóa đơn</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb warehouse-icon"></i>
+                            <span>Kho</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb tool-icon"></i>
+                            <span>Công cụ dụng cụ</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb asset-icon"></i>
+                            <span>Tài sản cố định</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb tax-icon"></i>
+                            <span>Thuế</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb price-icon"></i>
+                            <span>Giá thành</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb synthetic-icon"></i>
+                            <span>Tổng hợp</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb budget-icon"></i>
+                            <span>Ngân sách</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb report-icon"></i>
+                            <span>Báo cáo</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">
+                            <i class="icon-tb finance-icon"></i>
+                            <span>Phân tích tài chính</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="content" class="content">
+            <div class="content-header">
+                <div class="header-title">
+                    <img id="gn" class="icon-tb" src="../assets/icon/icon-gn.png" alt="icon-gn">
+                    <p>CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUI PHÚC </p>
+                    <img class="icon-tb" src="../assets/icon/arrow-down.svg" alt="icon-dropdown">
+                </div>
+                <div class="header-action">
+                    <img class="icon-l" src="../assets/icon/bell.png" alt="">
+                    <div class="info-user">
+                        <img class="icon-l img-shadow" src="../assets/img/default-avatar.jpg" alt="avatar">
+                        <p>Nguyễn Văn Mạnh</p>
+                        <img class="icon-tb" src="../assets/icon/arrow-down.svg" alt="icon-dropdown">
+                    </div>
+                </div>
+            </div>
+            <div id="content-main" class="content-main">
+                <div class="content-title">
+                    <h1>Nhân viên</h1>
+                    <button onclick="openDetailInfoEmployee()" class="btn btn-default">
+                        <div class="text">
+                            Thêm nhân viên mới
+                        </div>
+                    </button>
+                </div>
+                <div class="content-main-body">
+                    <div class="content-action">
+                        <div class="search-employee">
+                            <input type="search" placeholder="Tìm theo mã, tên nhân viên" name="search-employee" id="search-employee">
+                            <img class="icon-tb" src="../assets/icon/search.png" alt="icon-search">
+                        </div>
+                        <img class="icon-l action-refresh" src="../assets/icon/refresh.png" alt="icon-refresh">
+                    </div>
+                    <div id="list-employee" class="list-employee">
+                        <form action="">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></th>
+                                        <th class="e-id">MÃ NHÂN VIÊN</th>
+                                        <th>TÊN NHÂN VIÊN</th>
+                                        <th class="e-id">GIỚI TÍNH</th>
+                                        <th class="text-center e-birthday">NGÀY SINH</th>
+                                        <th><span title="Số chứng minh nhân dân">Số CMND</span></th>
+                                        <th>CHỨC DANH</th>
+                                        <th>TÊN ĐƠN VỊ</th>
+                                        <th>SỐ TÀI KHOẢN</th>
+                                        <th>TÊN NGÂN HÀNG</th>
+                                        <th title="Chi nhánh tài khoản ngân hàng">CHI NHÁNH TK NGÂN HÀNG</th>
+                                        <th class="text-center employee-border-right e-birthday">CHỨC NĂNG</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="employee-border-left"><input class="checkbox-select-row" type="checkbox" name="" id=""></td>
+                                        <td class="e-id">0001</td>
+                                        <td>Bùi Ngọc Tiến</td>
+                                        <td class="e-id">Nam</td>
+                                        <td class="text-center e-birthday">31/12/1969</td>
+                                        <td>043436894</td>
+                                        <td>Trưởng Nhóm</td>
+                                        <td>Xay Keo - Phối Trộn</td>
+                                        <td>0549330586229</td>
+                                        <td>Vietcombank</td>
+                                        <td>Thanh Hóa</td>
+                                        <td class="text-center employee-border-right e-birthday" id="function-table">
+                                            <span>Sửa</span>
+                                            <div class="function-table-content" onclick="openSelectFunction()">
+                                                <div class="function-icon-table function-icon-select">
+                                                    <ul id="table-select-function" class="menu-function-select">
+                                                        <li>Nhân bản</li>
+                                                        <li>Xóa</li>
+                                                        <li>Ngừng sử dụng</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div id="pagination" class="pagination">
+                        <p>Tổng số: <b>1035</b> bản ghi</p>
+                        <div class="pagination-detail">
+                            <div class="pagination-detail-pagesize">
+                                <div class="pagination-detail-pagesize-content">
+                                        20 bản ghi trên trang
+                                </div>
+                                <div class="menu-paging-select" onclick="openSelectPaging()">
+                                    <div class="function-icon"></div>
+                                    <ul id="menu-paging" class="menu-paging">
+                                        <li>10 bản ghi trên trang</li>
+                                        <li>20 bản ghi trên trang</li>
+                                        <li>30 bản ghi trên trang</li>
+                                        <li>50 bản ghi trên trang</li>
+                                        <li>100 bản ghi trên trang</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <ul class="page-number">
+                                    <li>Trước</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>Sau</li>
+                                </ul>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
