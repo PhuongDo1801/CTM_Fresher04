@@ -1,0 +1,20 @@
+.header {
+    background-color: aqua;
+    height: 50px;
+    width: 100%;
+    float: left;
+}
+
+.sidebar {
+    background-color: burlywood;
+    width: 200px;
+    float: left;
+    height: calc(100vh - 50px);
+}
+
+.main {
+    background-color: yellowgreen;
+    width: calc(100% - 200px);
+    float: left;
+    height: calc(100vh - 50px);
+}

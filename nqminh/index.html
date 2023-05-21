@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./assets/image/favicon.ico" type="image/x-icon">
+  <title>Phần mềm kế toán</title>
+  <link rel="stylesheet" href="./css/main/main.css" />
+  <link rel="stylesheet" href="./css/main/layout.css" />
+  <link rel="stylesheet" href="./css/main/variable.css" />
+  <link rel="stylesheet" href="./css/main/icon.css" />
+  <link rel="stylesheet" href="./css/main/navbar.css" />
+  <link rel="stylesheet" href="./css/main/header.css" />
+  <link rel="stylesheet" href="./css/main/content.css" />
+  <link rel="stylesheet" href="./css/main/popup.css">
+  <link rel="stylesheet" href="./css/base/base.css">
+</head>
+
+<body>
+  <div class="box">
+    <header class="header">
+      <div class="header__left">
+        <div class="icon--menu-header"></div>
+        <div class="header__left__title">
+          CÔNG TY TNNH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUI PHÚC
+        </div>
+        <div class="icon--down-medium"></div>
+      </div>
+      <div class="header__right">
+        <div class="icon--bell"></div>
+        <div class="icon--profile"></div>
+        <div>Nguyễn Quang Minh</div>
+        <div class="icon--down-small"></div>
+      </div>
+    </header>
+    <nav class="navbar">
+      <div class="navbar__title">
+        <div class="icon--menu-navbar"></div>
+        <div class="navbar__title__right">
+          <div class="icon--accountant"></div>
+          <div class="navbar__title__right__item">Kế toán</div>
+        </div>
+      </div>
+      <div class="navbar__list">
+        <div class="navbar__list__item">
+          <div class="icon--total"></div>
+          <div>Tổng quan</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--money"></div>
+          <div>Tiền mặt</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--deposits"></div>
+          <div>Tiền gửi</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--buy"></div>
+          <div>Mua hàng</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--sell"></div>
+          <div>Bán hàng</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--order-management"></div>
+          <div>Quản lý hóa đơn</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--storage"></div>
+          <div>Kho</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--tool"></div>
+          <div>Công cụ dụng cụ</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--fixed-asset"></div>
+          <div>Tài sản cố định</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--tax"></div>
+          <div>Thuế</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--price"></div>
+          <div>Giá thành</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--general"></div>
+          <div>Tổng hợp</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--budget"></div>
+          <div>Ngân sách</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--report"></div>
+          <div>Báo cáo</div>
+        </div>
+        <div class="navbar__list__item">
+          <div class="icon--financial-analysis"></div>
+          <div>Phân tích tài chính</div>
+        </div>
+      </div>
+    </nav>
+    <main class="content">
+      <div class="content__title">
+        <h1>Nhân viên</h1>
+        <div class="button add-employee button--primary">Thêm mới nhân viên</div>
+      </div>
+      <div class="content__search">
+        <div class="input-custom content__search__input">
+          <input class="content__search__input__title" type="text" placeholder="Tìm theo mã, tên nhân viên" />
+          <div class="icon--search content__search__input__icon"></div>
+        </div>
+        <span class="icon--refresh"></span>
+      </div>
+      <div class="content__table">
+        <div class="content__table-container">
+          <table class="content__table-box">
+            <thead class="content__table__title">
+              <tr>
+                <th><input type="checkbox" /></th>
+                <th>MÃ NHÂN VIÊN</th>
+                <th>TÊN NHÂN VIÊN</th>
+                <th>GIỚI TÍNH</th>
+                <th class="text-align-center">NGÀY SINH</th>
+                <th>SỐ CMND</th>
+                <th>CHỨC DANH</th>
+                <th>TÊN ĐƠN VỊ</th>
+                <th>SỐ TÀI KHOẢN</th>
+                <th>TÊN NGÂN HÀNG</th>
+                <th>CHI NHÁNH TK NGÂN HÀNG</th>
+                <th class="text-align-center">CHỨC NĂNG</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>0012</td>
+                <td>Nguyễn Văn Liệt</td>
+                <td>Nam</td>
+                <td>11/07/2000</td>
+                <td>163361213</td>
+                <td>Trưởng nhóm</td>
+                <td>Xay Keo - Phối Trộn</td>
+                <td>20312321312</td>
+                <td>VP bank</td>
+                <td>Nam Từ Liên - Hà Nội</td>
+                <td class="table-edit-column">
+                  <div class="table-edit-button">Sửa</div>
+                  <div class="table-edit-column__icon">
+                    <div class="icon--down-color"></div>
+                  </div>
+                  <ul class="table-edit-column__list">
+                    <li>Nhân bản</li>
+                    <li>Xóa</li>
+                    <li>Ngừng sử dụng</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="content__table__paging">
+        <div class="content__table__paging__total">
+          <span>Tổng số: </span>
+          <strong>1035</strong>
+          <span>bản ghi</span>
+        </div>
+        <div class="content__table__paging__quantity">
+          <div class="content__table__paging__quantity__item">
+            <div>
+              <span>20</span>
+              <span>bảng ghi trên 1 trang</span>
+            </div>
+            <div class="icon--up-gray"></div>
+            <ul class="paging__display-setting">
+              <li>10 bảng ghi trên 1 trang</li>
+              <li>20 bảng ghi trên 1 trang</li>
+              <li>30 bảng ghi trên 1 trang</li>
+              <li>50 bảng ghi trên 1 trang</li>
+              <li>100 bảng ghi trên 1 trang</li>
+            </ul>
+          </div>
+          <div class="paging__unit">
+            <span>Trước</span>
+            <strong>1</strong>
+            <div>2</div>
+            <div>3</div>
+            <div>...</div>
+            <div>52</div>
+            <span>Sau</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="form-detail">
+    <div class="detail-employee">
+      <div class="detail-employee__title">
+        <div class="detail-employee__title__item">
+          <h1>Thông tin nhân viên</h1>
+          <div>
+            <input type="checkbox">
+            <label>Là khách hàng</label>
+          </div>
+          <div>
+            <input type="checkbox">
+            <label>Là nhà cung cấp</label>
+          </div>
+        </div>
+        <div class="detail-employee__title__item">
+          <div class="icon--info"></div>
+          <div class="icon--close detail-employee__title__item__close-icon"></div>
+        </div>
+      </div>
+      <div class="detail-employee__list">
+        <div class="detail-employee__item-group w-50">
+          <div class="detail-employee__item w-40">
+            <label for="">Mã <span style="color: #E60000;">*</span></label>
+            <input placeholder="Nhập mã nhân viên" type="text" class="input-custom">
+          </div>
+          <div class="detail-employee__item w-60">
+            <label for="">Tên <span style="color: #E60000;">*</span></label>
+            <input placeholder="Nhập tên nhân viên" type="text" class="input-custom">
+          </div>
+        </div>
+        <div class="detail-employee__item-group w-50">
+          <div class="detail-employee__item w-200">
+            <label for="">Ngày sinh</label>
+            <input type="date" placeholder="Nhập ngày sinh" class="input-custom">
+          </div>
+          <div class="detail-employee__item w-250">
+            <label>Giới tính</label>
+            <div class="detail-employee__item-group">
+              <div class="detail-employee__radio">
+                <input type="radio"  id="checkbox1" name="sex" value="option1">
+                <label>Nam</label>
+              </div>
+              <div class="detail-employee__radio">
+                <input type="radio"  id="checkbox2" name="sex" value="option2">
+                <label>Nữ</label>
+              </div>
+              <div class="detail-employee__radio">
+                <input type="radio"  id="checkbox3" name="sex" value="option3">
+                <label>Khác</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="detail-employee__item detail-employee__unit w-50">
+          <label for="">Đơn vị <span style="color: #E60000;">*</span></label>
+          <input placeholder="Nhập đơn vị" class="input-custom" type="text">
+          <ul class="detail-employee__unit__list">
+            <li class="detail-employee__unit__item">Misa</li>
+            <li class="detail-employee__unit__item">Fpt</li>
+            <li class="detail-employee__unit__item">Vietel</li>
+          </ul>
+        </div>
+        <div class="detail-employee__item-group w-50">
+          <div class="detail-employee__item w-60">
+            <label title="Số chứng minh nhân dân">Số CMND</label>
+            <input placeholder="Nhấp số chứng minh nhân dân" class="input-custom" type="text">
+          </div>
+          <div class="detail-employee__item w-40">
+            <label for="">Ngày cấp</label>
+            <input placeholder="Nhập ngày cấp" class="input-custom" type="date">
+          </div>
+        </div>
+        <div class="detail-employee__item w-50">
+          <label for="">Chức danh</label>
+          <input placeholder="Nhập chức danh" class="input-custom" type="text">
+        </div>
+        <div class="detail-employee__item w-50">
+          <label for="">Nơi cấp</label>
+          <input placeholder="Nhập nơi cấp" class="input-custom" type="text">
+        </div>
+        <div class="detail-employee__item w-100">
+          <label for="">Địa chỉ</label>
+          <input placeholder="Nhập địa chỉ" class="input-custom" type="text">
+        </div>
+        <div class="detail-employee__item-group w-100">
+          <div class="detail-employee__item w-25">
+            <label title="Điện thoại di động">ĐT di động</label>
+            <input placeholder="Nhập só điện thoại di động" class="input-custom" type="text">
+          </div>
+          <div class="detail-employee__item w-25">
+            <label title="Điện thoại cố định">ĐT cố định</label>
+            <input placeholder="Nhập số điện thoại cố định" class="input-custom" type="text">
+          </div>
+          <div class="detail-employee__item w-25">
+            <label for="">Email</label>
+            <input placeholder="Nhập email" class="input-custom" type="text">
+          </div>
+        </div>
+        <div class="detail-employee__item-group w-100">
+          <div class="detail-employee__item w-25">
+            <label for="">Tài khoản ngân hàng</label>
+            <input placeholder="Nhập tài khoản ngân hàng" class="input-custom" type="text">
+          </div>
+          <div class="detail-employee__item w-25">
+            <label for="">Tên tài khoản</label>
+            <input placeholder="Nhập tên tài khoản" class="input-custom" type="text">
+          </div>
+          <div class="detail-employee__item w-25">
+            <label for="">Chi nhánh</label>
+            <input placeholder="Nhập chi nhánh" class="input-custom" type="text">
+          </div>
+        </div>
+      </div>
+      <hr class="bt-48">
+      <div class="detail-employee__action">
+        <div class="button button--secondary">Hủy</div>
+        <div class="detail-employee__item-group">
+          <div class="button button--secondary">Cất</div>
+          <div class="button button--primary">Cất và thêm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="message__employee-exist">
+    <div class="message__employee-exist__content">
+      <div class="icon--warning"></div>
+      <div>Mã nhân viên &ltNV-0001&gt đã tồn tại trong hệ thống, vui lòng kiểm tra lại.</div>
+    </div>
+    <hr>
+    <div class="button button--primary message__employee-exist__button">Đồng ý</div>
+  </div>
+</body>
+<script src="./js/index.js"></script>
+
+</html>

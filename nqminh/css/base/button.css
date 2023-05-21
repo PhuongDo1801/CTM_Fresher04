@@ -1,0 +1,113 @@
+
+/* Button */
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.button {
+    height: 32px;
+    border-radius: 4px;
+    font-size: var(--font-size-primary);
+    line-height: var(--line-height-primary);
+    color: white;
+    border: 1px solid #ccc;
+    color: black;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.button:active {
+    opacity: 1;
+}
+
+.button--primary {
+    background-color: #50B83C;
+    color: white;
+    border: none;
+    padding: 0 12px;
+}
+
+.button--secondary {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 0 12px;
+}
+
+.button--link {
+    color: #50B83C;
+    border: none;
+}
+
+.icon-plus {
+    background: url('../assets/img/Sprites.64af8f61.svg') no-repeat -791px -303px;
+    width: 36px;
+    height: 36px;
+}
+
+.icon-down {
+    background: url('../assets/img/down.svg') no-repeat;
+
+}
+
+.button--icon {
+    width: 36px;
+    border: none;
+    background-color: #51b83c2d;
+}
+
+.button--combo {
+	height: 36px;
+    width: fit-content;
+    display: flex;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    padding-left: 12px;
+}
+
+.button--combo > img {
+    background-color: #50B83C;
+}
+
+.button--combo > div {
+    height: 36px;
+    background-color: #50B83C;
+    margin-right: 1px;
+}
+
+.button--combo > img {
+    border-end-end-radius: 4px;
+    border-start-end-radius: 4px;
+}
+
+.button--combo > div {
+    padding: 0 12px;
+    border-end-start-radius: 4px;
+    border-start-start-radius: 4px;
+}
+
+.button--with-icon {
+    width: fit-content;
+    background-color: #50B83C;
+    display: flex;
+	height: 36px;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    padding-right: 12px;
+}
+
+.button--reject {
+    background-color: #FF0000;
+    color: white;
+    border: none;
+}

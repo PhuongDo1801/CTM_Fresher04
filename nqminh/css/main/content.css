@@ -1,0 +1,323 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.content__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+}
+
+.content__search {
+  background-color: var(--primary-color);
+  padding: 12px 12px;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+}
+
+.content__search__input {
+  height: 32px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  position: relative;
+  font-size: var(--font-size-primary);
+  line-height: var(--line-height-primary);
+}
+
+.content__search__input::placeholder {
+  line-height: var(--line-height-primary);
+  font-size: var(--font-size-primary);
+}
+
+.content__search__input__title {
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  outline: #885656;
+  padding: 0 16px 0 8px;
+  cursor: pointer;
+  font-size: var(--font-size-primary);
+  line-height: var(--line-height-primary);
+  border: 1px solid var(--box-shadow-color);
+}
+
+.content__search__input__title:hover {
+  background-color: var(--hover-table-row-color);
+  opacity: 0.5;
+}
+
+.content__search__input__title:focus {
+  border: 1px solid #50b83c;
+}
+
+.content__search__input__icon {
+  position: absolute;
+  right: 0;
+}
+
+/* table */
+
+.content__table {
+  display: flex;
+  overflow: scroll;
+  flex-grow: 1;
+  padding: 0 12px;
+  background-color: var(--primary-color);
+}
+
+.content__table::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0;
+  height: 0;
+}
+
+.content__table-container {
+  width: 100%;
+  border-radius: 4px;
+  overflow: scroll;
+}
+
+/* Tùy chỉnh thanh cuộn trên trình duyệt Chrome và Safari */
+.content__table-container::-webkit-scrollbar {
+  width: 10px; /* Độ rộng của thanh cuộn */
+  height: 10px;
+}
+
+/* Tùy chỉnh phần đòn bẩy trong thanh cuộn */
+.content__table-container::-webkit-scrollbar-thumb {
+  background-color: #999; /* Màu sắc của phần đòn bẩy */
+  border-radius: 4px; /* Bo góc của phần đòn bẩy */
+}
+
+/* Tùy chỉnh phần nền trong thanh cuộn */
+.content__table-container::-webkit-scrollbar-track {
+  background-color: var(--primary-color); /* Màu sắc của phần nền */
+}
+
+.content__table-box {
+  border-collapse: collapse;
+  background-color: var(--primary-color);
+  width: 100%;
+}
+
+tbody > tr:hover {
+  background-color: var(--hover-table-row-color);
+  cursor: pointer;
+}
+
+thead {
+  background-color: #edeef1;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+thead > tr > th:first-child {
+  border-top-left-radius: 4px;
+}
+
+thead > tr > th:last-child {
+  border-top-right-radius: 4px;
+}
+
+tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+tbody {
+  height: 500px  
+}
+
+td,th {
+  height: 40px;
+  text-align: left;
+  padding: 0 10px;
+  border-right: 1px solid var(--box-shadow-color);
+  white-space: nowrap;
+}
+
+td:last-child,
+th:last-child {
+  border-right: none;
+}
+
+.table-edit-column {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #0062CC;
+  position: relative;
+}
+
+.table-edit-column > .table-edit-column__icon {
+  padding: 6px 8px;
+  border: 1px solid var(--primary-color);
+}
+
+.table-edit-column:hover > .table-edit-column__icon {
+  border: 1px solid #0062CC;
+}
+
+/* .table-edit-column:hover .table-edit-column__list {
+  display: block;
+} */
+
+.table-edit-column__list {
+  display: none;
+  background-color: var(--primary-color);
+  z-index: 999;
+  position: absolute;
+  top: 75%;
+  width: 150px;
+  height: 96px;
+  color: black;
+  border: 1px solid var(--box-shadow-color);
+  right: 12px;
+}
+
+.table-edit-column__list > li {
+  list-style: none;
+  text-align: left;
+  padding: 0 12px;
+  height: 32px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.table-edit-column__list > li:hover {
+  background-color: var(--border-input-color);
+  color: #50b83c;
+  font-weight: 600;
+}
+
+tr {
+  border-bottom: 1px solid var(--box-shadow-color);
+}
+
+tr > td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+tr > td:nth-child(5) {
+  text-align: center;
+}
+
+tr > td:first-child, tr > th:first-child {
+  position: fixed;
+  background-color: white;
+  line-height: 40px;
+}
+
+.content__table__paging {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  height: 40px;
+}
+
+.content__table__paging__quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.content__table__paging__quantity__item {
+  display: flex;
+  padding: 6px 12px;
+  border: 1px solid var(--box-shadow-color);
+  align-items: center;
+  width: 210px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.content__table__paging__quantity strong {
+  border: 1px solid var(--box-shadow-color);
+  padding: 2px 10px;
+}
+
+.paging__unit {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.content__table__paging__quantity__item:hover {
+  cursor: pointer;
+}
+
+@keyframes increaseSize {
+  0% {
+    height: 32px;
+  }
+  100% {
+    height: 160px;
+  }
+}
+
+.paging__display-setting {
+  display: none;
+  position: absolute;
+  background-color: var(--primary-color);
+  border: 1px solid var(--box-shadow-color);
+  bottom: 32px;
+  width: calc(100% + 2px);
+  left: -1px;
+}
+
+.paging__display-setting > li {
+  list-style: none;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 12px;
+}
+
+.paging__display-setting > li:hover {
+  color: var(--primary-color);
+  background-color: #50b83c;
+}
+
+.message__employee-exist {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: var(--primary-color);
+  box-shadow: 0px 4px 10px 4px var(--box-shadow-color);
+  z-index: 9999;
+  padding: 32px;
+  display: none;
+}
+
+.message__employee-exist__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.message__employee-exist__content > div:last-child {
+  width: 300px;
+}
+
+.message__employee-exist__button {
+  float: right;
+  margin-top: 12px;
+}
