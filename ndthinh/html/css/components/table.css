@@ -39,6 +39,8 @@
     font-size: 14px;
     font-weight: 400;
   }
+
+ 
   .table__body tr td:nth-child(2) {
     height: 48px;
     display: flex;
@@ -124,6 +126,9 @@
   padding: 0 10px; 
 }
 
+
+
+
 #container__table th{
   height: 48px;
   background-color:#F5F5F5 ;
@@ -136,11 +141,40 @@
 }
 
 
+
 #container__table td{
   height: 48px;
   font-size: 14px;
   color: #333;
 }
+
+
+
+#container__table td:first-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#container__table th:first-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#container__table td:first-child input[type=checkbox]{
+ width: 20px;
+ height: 20px;
+}
+
+#container__table th:first-child input[type=checkbox]{
+  width: 20px;
+ height: 20px;
+} 
+
+
 
 #container__table td:last-child div{
   width: 40px;
