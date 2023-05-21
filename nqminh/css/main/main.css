@@ -1,0 +1,40 @@
+@import url(../base/button.css);
+@import url(../base/input.css);
+
+@font-face {
+    font-family: 'notosans';
+    src: url('../../assets/fonts/notosans-bold.3ede5aff.woff2') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'notosans';
+    src: url('../../assets/fonts/notosans-italic.1c1aaac9.woff2') format('truetype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'notosans';
+    src: url('../../assets/fonts/notosans-regular.2cb88a13.woff2') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'notosans';
+    src: url('../../assets/fonts/notosans-semibold.df3e6dc4.woff2') format('truetype');
+    font-weight: 600;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: var(--font-size-primary);
+    font-family: notosans;
+}
+
+input[type=date] {
+    font-size: var(--font-size-primary);
+    line-height: var(--line-height-primary);
+    font-family: notosans;
+}

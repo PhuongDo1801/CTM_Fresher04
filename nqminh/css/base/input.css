@@ -1,0 +1,21 @@
+
+.input-custom {
+    height: 32px;
+    border-radius: 4px;
+    outline: #885656;
+    border: 1px solid var(--border-input-color);
+    padding-left: 12px;
+    cursor: pointer;
+    font-size: var(--font-size-primary);
+    line-height: var(--line-height-primary);
+    line-height: 32px;
+}
+
+.input-custom:hover {
+    background-color: var(--border-input-color);
+    opacity: 0.5;
+}
+
+.input-custom:focus {
+    border: 1px solid #50B83C;
+}

@@ -1,0 +1,73 @@
+.w-50 {
+    width: 48%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+.w-75 {
+    width: 25%;
+}
+
+.w-33 {
+    width: 33%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-250 {
+    width: 250px;
+}
+
+.w-200 {
+    width: 200px;
+}
+
+h1 {
+    font-size: var(--line-height-title);
+    line-height: var(--line-height-heading);
+}
+
+label {
+    font-weight: 600;
+}
+
+.bt-48 {
+    margin-top: 48px;
+}
+
+hr {
+    border-top: 1px solid #ccc;
+    background-color: white;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}

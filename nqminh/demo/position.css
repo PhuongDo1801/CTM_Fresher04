@@ -1,0 +1,30 @@
+.header {
+    background-color: aqua;
+    height: 50px;
+    width: 100%;
+    position: sticky;
+    z-index: 999;
+    top: 0;
+}
+
+.sidebar {
+    background-color: burlywood;
+    width: 200px;
+    height: calc(100vh - 50px);
+}
+
+.sidebar__home {
+    position: sticky;
+    overflow-y: scroll;
+    top: 10px;
+    height: 200px;
+}
+
+.main {
+    background-color: yellowgreen;
+    width: calc(100% - 200px);
+    height: calc(100vh - 50px);
+    position: absolute;
+    top: 50px;;
+    left: 200px;
+}
