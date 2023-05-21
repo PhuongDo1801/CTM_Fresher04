@@ -1,64 +1,51 @@
-@import url(./components/button.css);
-@import url(./components/textfield.css);
-@import url(./components/popup.css);
-@import url(./components/dialog.css);
-@import url(./components/form.css);
-@import url(./components/table.css);
-@import url(./components/combobox.css);
-@import url(./components/toastmessage.css);
-@import url(./components/layout.css);
+@import url("./components/button.css");
+@import url("./components/combobox.css");
+@import url("./components/dialog.css");
+@import url("./components/input.css");
+@import url("./components/popup.css");
+@import url("./components/table.css");
+@import url("./components/toastmessage.css");
+@import url("./components/icons.css");
+
+@font-face {
+  font-family: "roboto";
+  src: url("../assets/fonts/Roboto-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("../assets/fonts/Roboto-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("../assets/fonts/Roboto-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("../assets/fonts/Roboto-Medium.ttf");
+  font-weight: 500;
+}
 
 * {
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "roboto";
 }
 
-/* .html {
-    margin: 0;
-    padding: 0;
-} */
-
-html {
-    background-color: #F5F5F5;
-    font-size: 14px;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url(../assets/font/Roboto-Regular.ttf);
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url(../assets/font/Roboto-Medium.ttf);
-    font-weight: 500;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url(../assets/font/Roboto-Bold.ttf);
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url(../assets/font/Roboto-Light.ttf);
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url(../assets/font/Roboto-Italic.ttf);
-    font-weight: 400;
-    font-style: italic;
-}
-.row {
-    margin-bottom: 24px;
-}
-
-.row__title {
-    margin-bottom: 8px;
+body {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
 }

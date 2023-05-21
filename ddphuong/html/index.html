@@ -1,274 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
-    <script type="module" src="./js/main.js"></script>
-    <title>Đỗ Đặng Phương</title>
-</head>
-
-<body>
-    <p>Bài tập thực hành về html của Misa dựa theo nguyên tắc được cung cấp</p>
-    <div class="containerindex">
-        <div class="row" id="row-button">
-            <div class="row__title">1. Button</div>
-            <div class="row__content-button">
-                <div class="button">
-                    <div class="button__title">Button chính</div>
-                    <div class="button__content">
-                        <button class="btn btn--primary">Button</button>
-                    </div>
-                </div>
-
-                <div class="button">
-                    <div class="button__title">Button phụ</div>
-                    <div class="button__content">
-                        <button class="btn btn--second">Button</button>
-                    </div>
-                </div>
-
-                <div class="button">
-                    <div class="button__title">Link button</div>
-                    <div class="button__content">
-                        <button class="btn btn--link">Button</button>
-                    </div>
-                </div>
-
-                <div class="button">
-                    <div class="button__title">Icon button</div>
-                    <div class="button__content">
-                        <button class="btn--icon"></button>
-                    </div>
-                </div>
-
-                <!-- <div class="button">
-                    <div class="button__title">Combo button</div>
-                    <div class="button__content">
-                        <button class="btn btn--combo">Button</button>
-                    </div>
-                </div> -->
-
-                <!-- <div class="button">
-                    <div class="button__title">Button with icon</div>
-                    <div class="button__content">
-                        <button class="btn btn--with-icon"><span class="icon--add"></span>Button</button>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-
-        <div class="row" id="row-textfield">
-            <div class="row__title">2. Textfield</div>
-            <div class="row__content-textfield">
-                <div class="textfield">
-                        <label for="" class="tf__label">Normal field</label>
-                        <input type="text" placeholder="Place holder" class="tf tf--normal">
-                </div>
-                <div class="textfield">
-                        <label for="" class="tf__label">Error Field</label>
-                        <input type="text" placeholder="" class="tf tf--error">
-                        <p class="tf--error-message">&ltTên trường&gt không được để trống</p>
-                </div>
-                <div class="textfield">
-                        <label for="" class="tf__label">Textfield read only</label>
-                        <input type="text" value="Read Only" class="tf tf--readonly" readonly>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" id="row-dialog-popup-form">
-            <div class="row__title">3. Dialog/Popup/Form</div>
-            <div class="row__content">
-                <div class="dialog">
-                    <div class="dialog__header">
-                        <p>Tiêu đề</p>
-                        <button class="close-button"><img src="./assets/img/x.png" alt="x"></button>
-                    </div>
-                    <div class="dialog__content">
-                        Nội dung chi tiết
-                    </div>
-                    <!-- <div></div> -->
-                    <div class="dialog__footer">
-                        <button class="btn btn--second">Button 2</button>
-                        <button class="btn btn--primary">Button 1</button>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="popup">
-                    <div class="popup__header">
-                        <p>Tiêu đề</p>
-                        <button class="close-button"><img src="./assets/img/x.png" alt=""></button>
-                    </div>
-                    <div class="popup__content">
-                        <p>Mô tả</p>
-                        <div class="popup__textfield">
-                            <label for="" class="pu__tf-label">Label 1</label>
-                            <input type="text" placeholder="" class="tf--normal pu__tf-content--1">
-                        </div>
-                        <div class="popup__textfield">
-                            <label for="" class="pu__tf-label">Label 2</label>
-                            <input type="text" placeholder="" class="tf--normal pu__tf-content--2">
-                        </div>
-                    </div>
-                    <div class="popup__footer">
-                        <button class="btn btn--second" id="action2-left">Action 2</button>
-                        <div class="group-btn">
-                            <button class="btn btn--second" id="action2-right">Action 2</button>
-                            <button class="btn btn--primary" id="action1">Action 1</button>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="form">
-                    <div class="form__header">
-                        <p>Đăng ký tài khoản</p>
-                    </div>
-                    <div class="form__content">
-                        <div class="form__content--element">
-                            <label for="" class="form__label" id="name">Họ và tên</label>
-                            <input type="text" placeholder="Họ tên đầy đủ" class="form__input form__input--name">
-                        </div>
-                        <div class="form__content--element">
-                            <label for="" class="form__label" id="sex">Giới tính</label>
-                            <div class="radio">
-                                <input type="radio" id="radio1" name="radioGroup" value="male">
-                                <label for="male">Nam</label>
-                            </div>
-                            <div class="radio">
-                                <input type="radio" id="radio2" name="radioGroup" value="female">
-                                <label for="female">Nữ</label>
-                            </div>
-                        </div>
-                        <div class="form__content--element">
-                            <label for="" class="form__label" id="dateofbirth">Ngày sinh</label>
-                            <div class="input--date">
-                                <input type="date" placeholder="" class="form__input form__input--dob">
-                                <div id="icon--calendar"></div>
-                            </div>    
-                        </div>
-                        <div class="form__content--element form__input--last">
-                            <label for="" class="form__label" id="email">Địa chỉ email</label>
-                            <input type="text" placeholder="example@gmail.com" class="form__input form__input--email">
-                        </div>
-                    </div>
-                    <div class="form__footer">
-                        <!-- <button class="btn btn__second" id="action2-left">Action 2</button> -->
-                        <div class="group-btn">
-                            <button class="btn btn--second" id="btn1">Huỷ</button>
-                            <button class="btn btn--primary" id="btn2">Đăng ký</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" id="row_table">
-            <div class="row__title">4. Table</div>
-            <div class="row__content table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>Header A</th>
-                            <th>Header B</th>
-                            <th>Header C</th>
-                            <th>Header D</th>
-                            <th>Header E</th>
-                            <th>Header F</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Cell A1</td>
-                            <td>Cell B1</td>
-                            <td>Cell C1</td>
-                            <td>Cell D1</td>
-                            <td>Cell E1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Cell A1</td>
-                            <td>Cell B1</td>
-                            <td>Cell C1</td>
-                            <td>Cell D1</td>
-                            <td>Cell E1</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Cell A1</td>
-                            <td>Cell B1</td>
-                            <td>Cell C1</td>
-                            <td>Cell D1</td>
-                            <td>Cell E1</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Cell A1</td>
-                            <td>Cell B1</td>
-                            <td>Cell C1</td>
-                            <td>Cell D1</td>
-                            <td>Cell E1</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="table__paging"></div>
-            </div>
-        </div>
-        <div class="row" id="row_combobox">
-            <div class="row__title">5. Combobox</div>
-            <div class="row__content">
-                <div class="combobox">
-                    <label for="">Label field</label>
-                    <div class="combobox__input">
-                        <input type="text" placeholder="Type here" autocomplete="on">
-                        <button type="button" class="btn-show-options">
-                            <img src="./assets/img/arrowdown2.png" alt="Show options">
-                        </button>
-                    </div>
-
-                    <ul>
-                        <!-- <li class="default">Select an option</li> -->
-                        <li>Option 1</li>
-                        <li>Option 2</li>
-                        <li>Option 3</li>
-                        <li>Option 4</li>
-                        <li>Option 5</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="row_toastmessage">
-            <div class="row__title">6. Toast message</div>
-            <div class="row__content">
-                <div class="toast__content">
-                    <div class="toast__left">
-                        <div class="toast__icon"></div>
-                        <div class="toast__text"><span class="toast__text--success">Thành công! </span>Công việc đã bị xoá.</div>
-                    </div>
-                    <div class="toast__right">
-                        <span class="toast__action">Hoàn tác</span>
-                        <button class=""></button>
-                    </div>   
-                </div>
-            </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <!-- button -->
+    <div class="button-container">
+      <button class="button button--success">Button</button>
+      <button class="button button--normal">Button</button>
     </div>
 
-</body>
+    <!-- input -->
 
+    <div class="input-container">
+      <label title="Text input" class="label" for="input-text"
+        >Field lable</label
+      >
+      <input
+        id="input-text"
+        class="input input--border-green"
+        placeholder="Place holder"
+      />
+    </div>
+
+    <!-- dialog -->
+    <div class="dialog-container">
+      <div class="dialog">
+        <div class="dialog__top">
+          <span class="dialog__top-title">Tiêu đề</span>
+          <div class="dialog__top-icon">
+            <img src="./assets/icon/close.svg" alt="" />
+          </div>
+        </div>
+        <div class="dialog__body">
+          <span class="dialog__body-desc">Mô tả</span>
+        </div>
+        <div class="dialog__footer">
+          <button class="dialog__footer-button dialog__footer-button--normal">
+            Button 2
+          </button>
+          <button class="dialog__footer-button dialog__footer-button--success">
+            Button 1
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- popup -->
+    <div class="popup">
+      <div class="popup__top">
+        <span class="popup__top-title"> Đăng kí tài khoản </span>
+        <div class="popup__top-icon">
+          <img src="./assets/icon/close.svg" alt="" />
+        </div>
+      </div>
+      <div class="popup-des">
+        <span>Vui lòng điền các thông tin dưới đây để hoàn thành</span>
+      </div>
+
+      <div class="popup-input-text">
+        <label for="">Họ và tên <span>*</span></label>
+        <input type="text" placeholder="Họ và tên đầy đủ" />
+      </div>
+
+      <div class="popup-input-radio-container">
+        <span class="popup-input-radio__title">Giới tính</span>
+        <div class="popup-input-radio">
+          <div class="popup-input-radio__male">
+            <input id="male" type="radio" value="nam" name="gender" />
+            <label for="male" title="Phái nam">Nam</label>
+          </div>
+          <div class="popup-input-radio__female">
+            <input id="female" type="radio" value="nữ" name="gender" />
+            <label for="female" title="Phái nữ">Nữ</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup-input-text">
+        <label for="">Ngày sinh <span>*</span></label>
+        <input type="text" placeholder="dd/MM/yyyy" />
+      </div>
+
+      <div class="popup-input-text">
+        <label for="">Địa chỉ email </label>
+        <input type="text" placeholder="example@email.com" />
+      </div>
+      <div class="popup-footer">
+        <button class="popup-footer_btn btn--cancel">Hủy</button>
+        <button class="popup-footer_btn btn--register">Đăng ký</button>
+      </div>
+    </div>
+
+    <!-- toast message -->
+    <div class="toast-message">
+      <div class="toast-message__left">
+        <div class="toast-message__left-icon">
+          <div class="sprite-done-icon"></div>
+        </div>
+        <div class="toast-message__left-content">
+          <span>Thành công!</span>
+          <span>Công việc đã bị xóa.</span>
+        </div>
+      </div>
+      <div class="toast-message__right">
+        <div class="toast-message__right-content">
+          <span>Hoàn tác</span>
+        </div>
+        <div class="toast-message__right-icon">
+          <img src="./assets/icon/close.svg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- table -->
+    <table id="table">
+      <thead class="table__head">
+        <tr>
+          <th>
+            <div class="table__checkbox"></div>
+          </th>
+          <th>Header A</th>
+          <th>Header B</th>
+          <th>Header C</th>
+          <th>Header D</th>
+          <th>Header E</th>
+          <th>Header F</th>
+        </tr>
+      </thead>
+
+      <tbody class="table__body">
+        <tr>
+          <td>
+            <div class="table__checkbox"></div>
+          </td>
+          <td>
+            <div class="table__round-icon"></div>
+            <span>Cell A1</span>
+          </td>
+          <td>
+            <span>Cell B1</span>
+          </td>
+          <td>
+            <span>Cell C1</span>
+          </td>
+          <td>
+            <span>Cell D1</span>
+          </td>
+          <td>
+            <span>Cell E1</span>
+          </td>
+          <td>
+            <span>1</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="table__checkbox"></div>
+          </td>
+          <td>
+            <div class="table__round-icon"></div>
+            <span>Cell A2</span>
+          </td>
+          <td>
+            <span>Cell B2</span>
+          </td>
+          <td>
+            <span>Cell C2</span>
+          </td>
+          <td>
+            <span>Cell D2</span>
+          </td>
+          <td>
+            <span>Cell E2</span>
+          </td>
+          <td>
+            <span>2</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="table__checkbox"></div>
+          </td>
+          <td>
+            <div class="table__round-icon"></div>
+            <span>Cell A3</span>
+          </td>
+          <td>
+            <span>Cell B3</span>
+          </td>
+          <td>
+            <span>Cell C3</span>
+          </td>
+          <td>
+            <span>Cell D3</span>
+          </td>
+          <td>
+            <span>Cell E3</span>
+          </td>
+          <td>
+            <span>3</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="table__checkbox"></div>
+          </td>
+          <td>
+            <div class="table__round-icon"></div>
+            <span>Cell A4</span>
+          </td>
+          <td>
+            <span>Cell B4</span>
+          </td>
+          <td>
+            <span>Cell C4</span>
+          </td>
+          <td>
+            <span>Cell D4</span>
+          </td>
+          <td>
+            <span>Cell E4</span>
+          </td>
+          <td>
+            <span>4</span>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot class="table_footer">
+        <tr>
+          <td colspan="3">Tổng: <b>4</b></td>
+          <td colspan="2">
+            <div>
+              <span>Số bản ghi/trang: </span>
+              <span style="color: #1f1f1f; margin-left: 4px"> 10</span>
+              <img src="./assets/icon/dropdown.png" alt="" />
+            </div>
+          </td>
+          <td>
+            <span> <b>1 - 4</b>&nbsp; bản ghi </span>
+          </td>
+          <td>
+            <div>
+              <img src="./assets/icon/back.svg" alt="" />
+              <img src="./assets/icon/next.png" alt="" />
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- combobox -->
+    <div class="combobox-container">
+      <div class="combobox__top">
+        <label for="combobox-input" title="Combobox text input"
+          >Field lable</label
+        >
+        <div class="combobox__input-container">
+          <input id="combobox-input" type="text" placeholder="Type here" />
+          <img src="./assets/icon/dropdown.png" alt="" />
+        </div>
+      </div>
+      <div class="combobox__body">
+        <ul class="combobox__value-list">
+          <li>
+            <span>- Chọn giá trị -</span>
+            <img src="./assets/icon/done.png" alt="" />
+          </li>
+          <li>Hà Nội</li>
+          <li>TP.Hồ Chí Minh</li>
+          <li>Đà Nẵng</li>
+          <li>Hải Phòng</li>
+          <li>Hải Dương</li>
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>
