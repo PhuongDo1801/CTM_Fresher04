@@ -39,6 +39,8 @@
     font-size: 14px;
     font-weight: 400;
   }
+
+ 
   .table__body tr td:nth-child(2) {
     height: 48px;
     display: flex;
@@ -115,14 +117,17 @@
   border-collapse: collapse;
   text-align: left;
   max-height: calc(100vh - 179px);
-  height:calc(100vh - 279px) ;
   overflow: auto;
+  height: auto;
 }
 
 #container__table th,td{
   border: 1px solid #EEEEEE;
   padding: 0 10px; 
 }
+
+
+
 
 #container__table th{
   height: 48px;
@@ -136,11 +141,59 @@
 }
 
 
+
 #container__table td{
   height: 48px;
   font-size: 14px;
   color: #333;
 }
+
+
+
+#container__table td:first-child{
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100%;
+}
+
+
+#container__table td:nth-child(5){
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100%;
+  text-align: center;
+}
+
+#container__table th:first-child{
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100%;
+  position: sticky;
+  top: -1px;
+  z-index: 88;
+}
+
+#container__table th:nth-child(5){
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  text-align: center;
+}
+
+#container__table td:first-child input[type=checkbox]{
+ width: 20px;
+ height: 20px;
+}
+
+#container__table th:first-child input[type=checkbox]{
+  width: 20px;
+ height: 20px;
+} 
+
+
 
 #container__table td:last-child div{
   width: 40px;
