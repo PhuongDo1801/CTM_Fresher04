@@ -118,8 +118,13 @@
   margin-top: 32px;
 }
 
+/* .container__right-dialog-top i {
+  width: 40px;
+  height: 36px;
+} */
+
 .container__right-dialog-top span {
-  margin-left: 20px;
+  margin-left: 24px;
 }
 
 .container__right-dialog-bottom {

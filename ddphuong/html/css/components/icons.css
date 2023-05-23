@@ -182,8 +182,8 @@
 }
 
 .question-icon {
-  background: url('imgs/Sprites.64af8f61.svg') no-repeat -832px -462px;
-	width: 36px;
+  background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -832px -462px;
+	width: 40px;
 	height: 36px;
   display: block;
 }

@@ -94,8 +94,8 @@
           <button class="close-icon"></button>
         </div> -->
         <div class="container__right-dialog-top">
-          <!-- <i class="question-icon"></i> -->
-          <i class="warning-icon"></i>
+          <div class="question-icon"></div>
+          <!-- <i class="warning-icon"></i> -->
           <span>Bạn có thực sự muốn xóa người dùng này không ?</span>
         </div>
         <hr>
@@ -108,7 +108,7 @@
       <div id="container-popup-employee" class="container__right-popup">
         <div class="container__right-icon-wraper">
           <i class="info-icon"></i>
-          <i class="close-icon"></i>
+          <i class="close-icon" id="close-icon-add-employee"></i>
         </div>
         <div class="container__right-popup-top">
           <span>Thông tin nhân viên</span>
@@ -258,16 +258,16 @@
           </div>
 
           <div class="container__right-table">
-            <table class="container__table">
+            <table class="container__table" id="table-employee-list">
               <thead>
                 <tr>
-                  <th class="text-align-center" style="min-width: 50px;">
+                  <th class="text-align-center" style="min-width: 50px;" type="checkbox">
                     <input type="checkbox" />
                   </th>
-                  <th class="text-align-left" style="min-width: 150px;">MÃ NHÂN VIÊN</th>
-                  <th class="text-align-left" style="min-width: 150px;">TÊN NHÂN VIÊN</th>
-                  <th class="text-align-left" style="min-width: 100px;">GIỚI TÍNH</th>
-                  <th class="text-align-center" style="min-width: 100px;">NGÀY SINH</th>
+                  <th class="text-align-left" style="min-width: 150px;" model-name="EmployeeCode">MÃ NHÂN VIÊN</th>
+                  <th class="text-align-left" style="min-width: 150px;" model-name="FullName">TÊN NHÂN VIÊN</th>
+                  <th class="text-align-left" style="min-width: 100px;" model-name="GenderName">GIỚI TÍNH</th>
+                  <th class="text-align-center" style="min-width: 100px;" model-name="DateOfBirth" type="date">NGÀY SINH</th>
                   <th class="text-align-left" style="min-width: 150px;">
                     <div class="tooltip" title="Số chứng minh nhân dân">Số CMND
                       <!-- <span class="tooltiptext">Số chứng minh nhân dân</span> -->

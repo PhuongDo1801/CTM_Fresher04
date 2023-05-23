@@ -1,9 +1,10 @@
 import './components/dialog.js';
-import './components/dropdown-icon.js';
+// import './components/dropdown-icon.js';
 import './components/list-options.js';
 import './components/pageing.js';
-import './components/popup-employ.js';
-import './components/tooltip.js';
+// import './components/popup-employ.js';
+// import './components/tooltip.js';
+import './components/employee.js'
 
 /* popup employee */
 // const popupEmployee = document.getElementById("container-popup-employee");

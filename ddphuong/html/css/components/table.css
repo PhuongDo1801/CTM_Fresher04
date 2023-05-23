@@ -113,7 +113,8 @@
 .container__table{
   background-color: #FFFFFF;
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   /* text-align: left; */
   max-height: calc(100vh - 179px);
   height:calc(100vh - 279px) ;
