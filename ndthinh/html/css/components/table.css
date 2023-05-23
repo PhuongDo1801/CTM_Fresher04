@@ -117,8 +117,8 @@
   border-collapse: collapse;
   text-align: left;
   max-height: calc(100vh - 179px);
-  height:calc(100vh - 279px) ;
   overflow: auto;
+  height: auto;
 }
 
 #container__table th,td{
@@ -151,17 +151,36 @@
 
 
 #container__table td:first-child{
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   height: 100%;
 }
 
-#container__table th:first-child{
-  display: flex;
+
+#container__table td:nth-child(5){
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   height: 100%;
+  text-align: center;
+}
+
+#container__table th:first-child{
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100%;
+  position: sticky;
+  top: -1px;
+  z-index: 88;
+}
+
+#container__table th:nth-child(5){
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  text-align: center;
 }
 
 #container__table td:first-child input[type=checkbox]{
