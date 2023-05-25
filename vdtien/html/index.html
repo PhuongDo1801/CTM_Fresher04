@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets//styles/global.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>1. Button</h1>
+    <!-- Button -->
+    <div class="button-wrapper flex justify-center items-center">
+
+        <div class="btn btn--pri">Button</div>
+        <div class="btn btn--sub">Button</div>
+        <div class="btn btn--link">Button</div>
+        <div class="btn-icon flex items-center justify-center">
+            <div class="icon icon--plus"></div>
+        </div>
+        <div class="btn-combobox">
+            <div class="btn-combobox__button btn btn--pri">Button</div>
+            <div class="vertical-border"></div>
+            <div class="btn-combobox__icon icon-wrapper">
+                <div class="icon icon--chevron-left-medium-white"></div>
+            </div>
+        </div>
+        <div class="btn-w-icon">
+            <div class="icon-wrapper">
+                <div class="icon icon--warning-medium"></div>
+            </div>
+            <span class="text">Button</span>
+        </div>
+    </div>
+
+
+
+
+    <!-- Textfield (Input) -->
+    <h1>2.Textfield</h1>
+    <label>Label
+        <input type="text" name="input" placeholder="Placeholder">
+    </label>
+    <!-- Dialog/Popup/Form -->
+    <!-- Popup -->
+    <!-- class="popup-wrapper flex justify-center items-center" -->
+    <div>
+        <div class="popup-container flex flex-col mx-auto mb-4">
+            <div class="popup__header">
+                <span class="popup-header__title">Tiêu đề</span>
+                <div class="icon-wrapper w-6 h-6">
+                    <div class="icon icon--close"></div>
+                </div>
+            </div>
+            <div class="popup__content flex justify-start items-center gap-0-24">
+                <div class="popup-content__icon flex ">
+
+                </div>
+                <div class="popup-content__text">Mô tả chi tiết</div>
+            </div>
+            <div class="popup__bottom">
+                <div class="btn btn--pri">Button</div>
+                <div class="btn btn--sub">Button</div>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog -->
+    <!-- Toast Message -->
+    <div class="toast-message">
+        <div class="toast__icon icon-wrapper">
+            <div class="icon icon--success"></div>
+        </div>
+        <div class="toast__content">
+            <span class="toast__title toast__title--success">Thành công!</span>
+            <span class="content">Công việc bị xóa</span>
+        </div>
+        <div class="toast__close icon icon--close-small">
+
+        </div>
+    </div>
+    <!-- Table -->
+    <div class="content-body__table flex flex-col flex-1 ml-3"
+        style="width: 720px !important;height: 400px;min-width: unset;">
+        <div class="table-wrapper flex-1">
+            <table id="tbEmployee">
+                <thead>
+                    <tr>
+                        <th style="min-width: 40px; width: 40px" class="th-anchor">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </th>
+                        <div class="d-contents">
+                            <th style="min-width: 160px">Mã nhân viên</th>
+                            <th style="min-width: 160px">Tên nhân viên</th>
+                            <th style="min-width: 160px">Giới tính</th>
+                            <th style="min-width: 160px">Ngày sinh</th>
+                            <th style="min-width: 160px">Số CMND</th>
+                            <th style="min-width: 160px">Chức danh</th>
+                            <th style="min-width: 160px">Tên đơn vị</th>
+                            <th style="min-width: 160px">Số tài khoản</th>
+                            <th style="min-width: 160px">Tên ngân hàng</th>
+                            <th style="min-width: 160px">
+                                Chi nhánh ngân hàng
+                            </th>
+                        </div>
+
+                        <th style="min-width: 160px" class="th-anchor th-anchor--end">
+                            Chức năng
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-anchor td-anchor--start">
+                            <input type="checkbox" style="width: 24px; height: 24px" />
+                        </td>
+                        <td>MF1444</td>
+                        <td>Vũ Đình Tiến</td>
+                        <td>Nam</td>
+                        <td>03/10/2001</td>
+                        <td>123456789</td>
+                        <td>Fresher</td>
+                        <td>Customize</td>
+                        <td>123456789</td>
+                        <td>ViettinBank</td>
+                        <td>Hai Bà Trưng</td>
+                        <td class="td-anchor td-anchor--end td-action">
+                            <div class="flex items-center justify-center h-full">
+                                <a href="" class="text-blue font-semi-bold h-full flex items-center px-4">Sửa</a>
+
+                                <div class="flex justify-center items-center w-8 h-8 poiter td-action__icon">
+                                    <div class="icon icon--down-small-blue"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination flex-0">
+            <div class="pagination-container flex justify-between items-center px-4 py-2 w-full">
+                <div class="pagination__left flex items-center justify-center">
+                    <div class="pagination-left__total-record">
+                        Tổng số:
+                        <b class="">123</b>
+                        bản ghi
+                    </div>
+                </div>
+                <div class="pagination__right flex items-center justify-center">
+                    <div class="record-in-page">
+                        <div class="dropdown-wrapper">
+                            <label for="" class="w-auto m-0">
+                                <div class="dropdown-container flex items-center">
+                                    <input type="text" class="m-0 flex-1 border-radius-0" readonly
+                                        value="-20 bản ghi trên một trang" />
+                                    <div class="icon-wrapper pointer">
+                                        <div class="flex justify-center items-center w-8 h-8 poiter">
+                                            <div class="icon icon--down-small-black"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="list-number-page flex items-center ">
+                        <div class="pointer  pagination__prev no-click-page mr-3">Truoc</div>
+                        <div class="page-list flex items-center">
+                            <div class="pointer page-item page-item--current ">1</div>
+                            <div class="pointer page-item ">2</div>
+                            <div class="pointer page-item ">3</div>
+                            <div class="pointer page-item ">...</div>
+                            <div class="pointer page-item ">10</div>
+                        </div>
+                        <div class="pointer pagination__next ml-3">Sau</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Combobox -->
+    <div class="combobox inline-block ml-3">
+        <label class="combobox-wrapper m-0">
+            Combobox
+            <div class="combobox-container flex items-center mt-2">
+                <input type="text" class="combobox__input flex-1 m-0" placeholder="Placeholder">
+                <div class="icon-wrapper combobox__icon">
+                    <div class="icon icon--chevron-down">
+                    </div>
+                </div>
+            </div>
+        </label>
+
+        <ul class="combobox__list-search">
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+            <li class="list-search__item">
+                Vu Dinh Tien
+            </li>
+
+        </ul>
+        <!-- <div class="vertical-border"></div> -->
+    </div>
+    <!-- notice-v2 -->
+    <!-- notice error -->
+
+    <div class="popup-container flex flex-col mx-auto mb-4">
+        <div class="popup__content flex justify-start items-center gap-0-16">
+            <div class="popup-content__icon flex items-center justify-center w-12 h-12">
+                <div class="icon icon--error-big"></div>
+            </div>
+            <div class="popup-content__text">Tên không được để trống</div>
+        </div>
+        <div class="popup__bottom flex justify-center mt-6">
+            <div class="btn btn--pri">Đóng</div>
+        </div>
+    </div>
+    <!-- notice info -->
+    <div class="popup-container flex flex-col mx-auto mb-4">
+        <div class="popup__content flex justify-start items-center gap-0-16">
+            <div class="popup-content__icon flex items-center justify-center w-12 h-12">
+                <div class="icon icon--info-big"></div>
+            </div>
+            <div class="popup-content__text">Dữ liệu đã bị thay đổi. Bạn có muốn cất không?</div>
+        </div>
+        <div class="popup__bottom flex items-center justify-between mt-6">
+            <div class="popup-botoom__left">
+
+                <div class="btn btn--sub">Hủy</div>
+            </div>
+            <div class="popup-bottom__right flex items-center ">
+                <div class="btn btn--sub">Không</div>
+                <div class="btn btn--pri">Có</div>
+
+            </div>
+        </div>
+    </div>
+    <!-- notice warning -->
+    <div class="popup-container flex flex-col mx-auto mb-4">
+        <div class="popup__content flex justify-start items-center gap-0-16">
+            <div class="popup-content__icon flex items-center justify-center w-12 h-12">
+                <div class="icon icon--warning-big"></div>
+            </div>
+            <div class="popup-content__text">Bạn có thực sự muốn xóa Nhân viên <4343> không?</div>
+        </div>
+        <div class="popup__bottom flex items-center justify-between mt-6">
+            <div class="btn btn--sub">Không</div>
+            <div class="btn btn--pri">Có</div>
+        </div>
+    </div>
+</body>
+
+</html>
