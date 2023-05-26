@@ -1,0 +1,146 @@
+@import url("./components/button.css");
+@import url("./components/input.css");
+@import url("./components/dialog.css");
+@import url("./components/popup.css");
+@import url("./components/toast_msg.css");
+@import url("./components/table.css");
+@import url("./components/combobox.css");
+@import url("./components/context_menu.css");
+@import url("./components/warning_input.css");
+@import url("./components/icon.css");
+@import url("./layout.css");
+@font-face {
+  font-family: Roboto;
+  src: url("/src/assets/font/Roboto-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/src/assets/font/Roboto-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/src/assets/font/Roboto-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/src/assets/font/Roboto-Bold.ttf");
+  font-weight: 700;
+}
+
+* {
+  font-size: 14px;
+  font-family: Roboto;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.plr-8 {
+  padding: 0 8px;
+}
+
+.plr-12 {
+  padding: 0 12px;
+}
+
+.mlr-12 {
+  margin: 0 12px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.size-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.success {
+  color: #50b83c;
+}
+
+.warning {
+  color: #f49342;
+}
+
+.info {
+  filter: invert(51%) sepia(33%) saturate(5691%) hue-rotate(162deg) brightness(96%) contrast(101%);
+}
+
+.fail {
+  filter: invert(29%) sepia(34%) saturate(6560%) hue-rotate(354deg) brightness(90%) contrast(93%);
+}
+
+.wrapper-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.focus-green:focus-within {
+  border: 1px solid #50b83c;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.width-100 {
+  min-width: 100px;
+}
+
+.width-150 {
+  min-width: 150px;
+}
+
+.width-200 {
+  min-width: 200px;
+}
+
+.width-250 {
+  min-width: 250px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-1dot5 {
+  flex: 1.5;
+}
+
+.width-25per {
+  width: 25%;
+}
+
+.border-red--important {
+  border: 1px solid #b80000 !important;
+}
+
+.text-center {
+  text-align: center;
+  padding: 0;
+}
+
+.text-align-center {
+  text-align: center;
+  padding: 0;
+}
