@@ -1,3 +1,4 @@
+// mở dialog phần chứa năng
 const listOptions = document.getElementsByClassName("table-list-option");
 const overlay = document.getElementsByClassName("container__right-overlay")[0];
 const listOptionDelete = document.getElementsByClassName(

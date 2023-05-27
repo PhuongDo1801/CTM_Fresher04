@@ -1,6 +1,6 @@
 import './components/dialog.js';
 // import './components/dropdown-icon.js';
-import './components/list-options.js';
+// import './components/list-options.js';
 import './components/pageing.js';
 // import './components/popup-employ.js';
 // import './components/tooltip.js';

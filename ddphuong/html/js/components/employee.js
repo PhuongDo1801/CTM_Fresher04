@@ -20,17 +20,21 @@ class Employee {
             document.querySelector("#btn-add-employee").onclick = this.btnAddEmployee;
             document.querySelector("#close-icon-add-employee").onclick = this.btnCloseDialogAddEmployee;
             //Đóng mở dropdown
-            // document.getElementsByClassName("dropdown-blue-icon-wraper").onclick = this.drodownIconOptions;
-            var dropdownWrappers = document.getElementsByClassName("dropdown-blue-icon-wraper");
-
-            // Lặp qua từng phần tử trong HTMLCollection
-            for (var i = 0; i < dropdownWrappers.length; i++) {
-                var dropdownWrapper = dropdownWrappers[i];
-
-                // Thêm event listener cho phần tử hiện tại
-                dropdownWrapper.addEventListener("click", toggleDropdown);
-            }
+            document
+                .querySelectorAll(".dropdown-blue-icon-wraper")
+                .forEach((item, index) => {
+                    item.addEventListener("click", () => this.showOptionsListEmployee(index));
+                })
+            // Đóng mở dialog xoá nhân viên
+            document
+                .querySelectorAll(".table-list-option-delete")
+                .forEach((item, index) => {
+                    item.addEventListener("click", () => this.ShowDialogDelete(index));
+                })
             //Đóng mở paging
+            // document.querySelector(".container__dropdown-wraper").onclick = this.showFormPaging;
+                // .addEventListener("click", this.showFormPaging);
+            
 
         }
         catch (error) {
@@ -131,9 +135,49 @@ class Employee {
         overlay.style.display = "none";
     }
     /*
-    Đóng mở optoin chức năng trong table
+    Đóng mở option chức năng trong table
     Author: DDPHUONG (22/05/2023)
     ModifiedBy: 
     */
+    showOptionsListEmployee(index) {
+        try {
+            document.querySelectorAll(".table-list-option").forEach((item, idx) => {
+                if (index === idx) {
+                    item.classList.toggle("active");
+                } else {
+                    item.classList.remove("active");
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    /*
+    Đóng mở Dialog xoá nhân viên
+    Author: DDPHUONG (22/05/2023)
+    ModifiedBy: 
+    */
+    ShowDialogDelete(index) {
+        try {
+            const overlay = document.getElementsByClassName("container__right-overlay")[0];
+            document.querySelector(".container__right-dialog").classList.toggle("active");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    /*
+    Đóng mở paging
+    Author: DDPHUONG (23/05/2023)
+    ModifiedBy: 
+    */
+    showFormPaging() {
+        try {
+            document
+                .querySelector(".container__dropdown-wraper-list")
+                .classList.toggle("active");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 }

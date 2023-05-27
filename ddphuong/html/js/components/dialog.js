@@ -1,3 +1,4 @@
+// Đóng dialog qua btn
 const overlay = document.getElementsByClassName("container__right-overlay")[0];
 const dialogBtn = document.getElementsByClassName(
     "container__right-dialog-btn"
