@@ -251,7 +251,7 @@ body {
   bottom: 0;
   right: 0;
   z-index: 99;
-  display: none;
+  /* display: none; */
 }
 
 .container__dropdown-wraper{
@@ -274,12 +274,12 @@ body {
   bottom: 37px;
   background-color: #FFFFFF;
   border: 1px solid rgba(128, 128, 128, 0.338);
-  display: none;
+  /* display: none; */
 }
 
-.container__dropdown-wraper-list.active{
+/* .container__dropdown-wraper-list.active{
   display: block;
-}
+} */
 
 .container__dropdown-wraper-list li{
   width: 200px;

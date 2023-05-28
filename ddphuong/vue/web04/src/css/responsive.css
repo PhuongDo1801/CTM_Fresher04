@@ -31,28 +31,28 @@
 
     /* Các kiểu CSS áp dụng khi kích thước màn hình nhỏ hơn hoặc bằng 1366px */
     .container__right-popup {
-        width: 1050px;
-        height: 670px;
+        width: 90%;
+        height: 85%;
         padding: 32px 32px 0 32px;
     }
 
     .container__right-popup-body {
-        margin-top: 32px;
+        margin-top: 16px;
     }
     .container__right-popup-body-top-left div{
-        margin-bottom: 16px;
+        margin-bottom: 12px;
     }
     .container__right-popup-body-bottom{
-        margin-top: 32px;
+        margin-top: 20px;
     }
     .container__popup-footer{
-        margin-top: 48px;
+        margin-top: 32px;
     }
     .container__right-popup-body-bottom div:nth-child(2) div{
-        margin-top: 20px;
+        margin-top: 16px;
     }
     .container__right-popup-body-bottom div:nth-child(3) div{
-        margin-top: 20px;
+        margin-top: 16px;
     }
 }
 

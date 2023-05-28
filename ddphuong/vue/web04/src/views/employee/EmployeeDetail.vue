@@ -2,7 +2,7 @@
     <div id="container-popup-employee" class="container__right-popup">
         <div class="container__right-icon-wraper">
             <i class="info-icon"></i>
-            <i class="close-icon" id="close-icon-add-employee"></i>
+            <i class="close-icon" id="close-icon-add-employee" @click="closeEmployeeDetail"></i>
         </div>
         <div class="container__right-popup-top">
             <span>Thông tin nhân viên</span>
@@ -21,11 +21,19 @@
                 <div class="container__right-popup-body-top-left">
                     <div>
                         <label for="">Mã <span style="color: red">*</span></label>
-                        <input title="Mã nhân viên" placeholder="Mã nhân viên" type="text" />
+                        <input title="Mã nhân viên" 
+                        placeholder="Mã nhân viên" 
+                        type="text" 
+                        v-model="employee.EmployeeCode" 
+                        />
                     </div>
                     <div>
                         <label for="">Tên <span style="color: red">*</span></label>
-                        <input title="Tên nhân viên" placeholder="Tên nhân viên" type="text" />
+                        <input title="Tên nhân viên" 
+                        placeholder="Tên nhân viên" 
+                        type="text" 
+                        v-model="employee.FullName"
+                        />
                     </div>
 
                     <div>
@@ -115,7 +123,7 @@
                         <button>HỦY</button>
                     </div>
                     <div>
-                        <button>CẤT</button>
+                        <button id="btn-save" @click="btnSaveOnClick">CẤT</button>
                         <button>CẤT VÀ THÊM</button>
                     </div>
                 </div>
@@ -127,10 +135,38 @@
 <script>
 export default {
     name: "EmployeeDetail",
+    data(){
+        return {
+            employee: {},
+            isEmployeeCodeInValid: false,
+        }
+    },
+    props: ["showDetailFunction", "employeeInput"],
+    created(){
+        let jsonObjectString = JSON.stringify(this.employeeInput);
+        this.employee = JSON.parse(jsonObjectString)
+    },
+    // data(){
+    //     return {
+    //         isShowDetail: true,
+    //     }
+    // },
+    methods: {
+        closeEmployeeDetail(){
+            this.$emit("onCloseDialog");
+        },
+        // Lưu khi chỉnh sử dữ liệu
+        btnSaveOnClick(){
+            // alert('1');
+            // this.isEmployeeCodeInValid = true;
+        }  
+    }
 }
 
 </script>
 
 <style>
-
+.red-border{
+    border-color: red;
+}
 </style>
