@@ -24,6 +24,10 @@ tbody {
   background-color: #fff;
 }
 
+tbody tr {
+  cursor: pointer;
+}
+
 th,
 td {
   padding-left: 16px;

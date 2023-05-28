@@ -1,9 +1,5 @@
 <template>
   <div ref="tableContainer" class="table-container">
-    <m-context-menu
-      :style="{ display: isShowContextMenu ? 'block' : 'none' }"
-      :topPosition="contextMenuY"
-    ></m-context-menu>
     <table class="main__table">
       <thead>
         <tr>
@@ -52,11 +48,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in data" :key="item.id">
+        <tr v-for="(item, index) in data" :key="index">
           <td class="col-checkbox">
             <input type="checkbox" />
           </td>
-          <td v-for="td in header" :key="td.id" :class="td.className">
+          <td v-for="td in header" :key="td.id" :class="td.className" @dblclick="onDbClickRow($event, item)">
             <p>{{ formatData(td.type, item[td.fieldName]) }}</p>
           </td>
 
@@ -64,8 +60,8 @@
             <span class="table__function-name">Sửa</span>
             <div
               ref="btnDropDowns"
-              @click="toggleContextMenu($event, item)"
-              :style="{ border: currentIndexContextMenu === item && isShowContextMenu ? '1px solid #007aff' : null }"
+              @click="toggleContextMenu($event, index, item)"
+              :style="{ border: currentIndexContextMenu === index && isShowContextMenu ? '1px solid #007aff' : null }"
               class="wrapper-icon"
             >
               <span class="dropdown-blue-icon"></span>
@@ -74,6 +70,14 @@
         </tr>
       </tbody>
     </table>
+    <m-context-menu
+      v-if="isShowContextMenu"
+      :onClose="onCloseContextMenu"
+      :topPosition="contextMenuY"
+      :id="currentEmployeeCode"
+      :employeeList="data"
+      :index="currentIndexContextMenu"
+    ></m-context-menu>
   </div>
 </template>
 
@@ -84,8 +88,11 @@ export default {
     return {
       isShowContextMenu: false,
       currentIndexContextMenu: -1,
+      currentEmployeeCode: 0,
       list: [0, 1, 2, 3],
       contextMenuY: "",
+      employeeSelected: {},
+      employeeList: [],
       // headers: this.header,
     };
   },
@@ -93,31 +100,42 @@ export default {
     header: Array,
     data: Array,
   },
+
   methods: {
-    toggleContextMenu($event, index) {
+    toggleContextMenu($event, index, item) {
       const tableY = this.$refs.tableContainer.getBoundingClientRect().y;
       const btnY = this.$refs.btnDropDowns[index].getBoundingClientRect().y;
       this.contextMenuY = btnY - tableY + 70 + "px";
       if (!this.isShowContextMenu) {
         this.currentIndexContextMenu = index;
+        this.employeeSelected = item;
+        this.currentEmployeeCode = item.id;
         this.isShowContextMenu = !this.isShowContextMenu;
       } else {
         if (this.currentIndexContextMenu === index) {
           this.isShowContextMenu = !this.isShowContextMenu;
         } else {
           this.currentIndexContextMenu = index;
+          this.currentEmployeeCode = item.id;
+          this.employeeSelected = item;
         }
       }
     },
+    onCloseContextMenu() {
+      this.isShowContextMenu = false;
+    },
     formatData(type, content) {
       switch (type) {
-        case "gender":
-          return content == 0 ? "Nam" : "Nữ";
+        // case "gender":
+        //   return content == 0 ? "Nam" : "Nữ";
         case "date":
           return content ? content.substring(0, 10).split("-").reverse().join("/") : null;
         default:
           return content;
       }
+    },
+    onDbClickRow($event, item) {
+      this.$emit("onDbClickRow", item);
     },
   },
 };

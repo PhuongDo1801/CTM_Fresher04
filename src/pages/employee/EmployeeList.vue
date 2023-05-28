@@ -1,5 +1,13 @@
 <template>
-  <m-data-table :header="header" :data="data"></m-data-table>
+  <m-data-table
+    :header="header"
+    :data="data"
+    @onDbClickRow="
+      (em) => {
+        showEmployeeDetail(em);
+      }
+    "
+  ></m-data-table>
   <div class="table__bottom">
     <p class="table__bottom-left">Tổng số: <b> 122</b> bản ghi</p>
     <span class="table__bottom-right">
@@ -40,6 +48,11 @@
 import axios from "axios";
 export default {
   name: "EmployeeList",
+  props: {
+    isShowEmployeeDetail: Boolean,
+    employeeSelected: Object,
+    showEmployeeDetail: Function,
+  },
   data() {
     return {
       isShowBoardValue: false,
@@ -64,7 +77,7 @@ export default {
           headerName: "GIỚI TÍNH",
           className: ["width-100"],
           fieldName: "Gender",
-          type: "gender",
+          type: "Gender",
         },
         {
           id: 3,
@@ -78,7 +91,7 @@ export default {
           id: 4,
           headerName: "SỐ CMND",
           className: ["width-200"],
-          fieldName: "PersonId",
+          fieldName: "IdentityNumber",
           title: "Số chứng minh thư nhân dân",
         },
         {
@@ -124,11 +137,11 @@ export default {
   },
   mounted() {
     axios
-      .get("https://cukcuk.manhnv.net/api/v1/Employees")
+      .get("http://localhost:3000/employees")
       .then((res) => {
         this.data = res.data;
       })
-      .catch((e) => console(e));
+      .catch((e) => console.log(e));
   },
 };
 </script>

@@ -47,7 +47,7 @@
 
 /* staff dialog */
 .container .dialog {
-  position: absolute;
+  position: fixed;
   margin: auto;
   height: fit-content;
   top: 0;
@@ -55,7 +55,7 @@
   bottom: 0;
   right: 0;
   z-index: 20;
-  display: none;
+  /* display: none; */
 }
 
 .container .dialog__container {

@@ -1,6 +1,10 @@
 <template>
-  <div v-if="isShowEmployeeDetail" class="overlay"></div>
-  <EmployeeDetail :isShow="isShowEmployeeDetail" @onHandleClose="onCloseEmployeeDetail"></EmployeeDetail>
+  <EmployeeDetail
+    :isShow="isShowEmployeeDetail"
+    :onCloseEmployeeDetail="onCloseEmployeeDetail"
+    :employee="employeeSelected"
+    v-if="isShowEmployeeDetail"
+  ></EmployeeDetail>
   <div class="main">
     <div class="main__header">
       <span class="main__table-title">Nhân viên</span>
@@ -27,7 +31,11 @@
       </div>
 
       <!-- ---------table------------ -->
-      <EmployeeList></EmployeeList>
+      <EmployeeList
+        :isShowEmployeeDetail="isShowEmployeeDetail"
+        :employeeSelected="employeeSelected"
+        :showEmployeeDetail="showEmployeeDetail"
+      ></EmployeeList>
     </div>
   </div>
 </template>
@@ -42,14 +50,24 @@ export default {
   data() {
     return {
       isShowEmployeeDetail: false,
+      employeeSelected: {},
+      employeeList: [],
     };
   },
+
+  created() {},
+
   methods: {
     onToggleEmployeeDetail() {
       this.isShowEmployeeDetail = true;
+      this.employeeSelected = {};
     },
     onCloseEmployeeDetail() {
       this.isShowEmployeeDetail = false;
+    },
+    showEmployeeDetail(em) {
+      this.employeeSelected = em;
+      this.isShowEmployeeDetail = true;
     },
   },
 };
