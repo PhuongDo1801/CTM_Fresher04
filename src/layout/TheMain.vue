@@ -1,20 +1,14 @@
 <template>
-   <div class="container__right-main">
-          <EmployeeList/>
-        </div>
+  <div class="container__right-main">
+    <router-view />
+  </div>
 </template>
-  
-  <script>
-  import EmployeeList from '@/views/employee/EmployeeList.vue';
-  export default {
-    name: 'TheMain',
-    components: {
-      EmployeeList
-    }
-  }
-  </script>
-  
-  <style>
-  
-  </style>
-  
+
+<script>
+
+export default {
+  name: "TheMain"
+};
+</script>
+
+<style></style>

@@ -18,11 +18,12 @@
   top: 50px;
   z-index: 9999999999;
   transform: translateX(200%);
+
 }
 
 .toast-message.active{
   animation-name: success;
-  animation-duration: 5s;
+  animation-duration: 3s;
 }
 
 .toast-message__left {

@@ -1,11 +1,12 @@
 <template>
-  <div class="container">
+  <div  class="container">
     <div class="container__left">
       <TheSidebar />
     </div>
     <div class="container__right">
       <TheNavbar />
       <TheMain />
+  
     </div>
 
   </div>
@@ -21,7 +22,7 @@ export default {
   components: {
     TheSidebar,
     TheNavbar,
-    TheMain,
+    TheMain
   },
 
   data(){

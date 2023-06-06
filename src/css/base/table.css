@@ -235,7 +235,6 @@
   position: absolute;
   right: 0;
   top:25px; 
-  display: none;
   background-color: #FFFFFF;
   z-index: 999;
 }
@@ -259,12 +258,5 @@
 .table-list-option li:hover{
   background-color: #EEEEEE;
   color: green;
-}
-
-
-
-
-#container-popup-employee{
-  display: none;
 }
 

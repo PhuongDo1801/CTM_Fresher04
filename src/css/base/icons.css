@@ -170,7 +170,7 @@
 
 .sprite-warning-icon{
   background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -598px -463px;
-	width: 39px;
+	width: 55px;
 	height: 37px;
   display: block;
 }
@@ -179,4 +179,36 @@
   background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -754px -462px;
 	width: 36px;
 	height: 36px;
+}
+
+.sprite-exc-point-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -752px -462px;
+	width: 36px;
+	height: 36px;
+}
+
+.sprite-dropdown-black-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -371px -364px;
+	width: 10px;
+	height: 8px;
+}
+
+
+.sprite-dropdown-gray-d-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1129px -365px;
+	width: 14px;
+	height: 8px;
+}
+
+
+.sprite-arrow-right-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1085px -361px;
+	width: 8px;
+	height: 14px;
+}
+
+.sprite-arrow-left-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -36px -361px;
+	width: 8px;
+	height: 14px;
 }

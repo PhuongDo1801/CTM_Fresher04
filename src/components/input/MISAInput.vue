@@ -1,10 +1,12 @@
 <template>
   <input
+    :title="title"
     :type="type"
     :placeholder="placeholder"
-    :title="title"
-    :value="modelValue" 
-    @input="$emit('update:modelValue', $event.target.value)" />
+    :value="modelValue"
+    @input="handleInputChangeText"
+
+  />
 </template>
 
 <script>
@@ -15,8 +17,22 @@ export default {
     placeholder: String,
     type: String,
     modelValue: String,
+    isTextChange: Boolean,
+  },
+  data() {
+    return {
+      textChange: false,
+    };
+  },
+  methods: {
+    handleInputChangeText(event) {
+      this.$emit("update:modelValue", event.target.value);
+      this.$emit("handleTextChange",event.target.value);
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

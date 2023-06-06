@@ -1,8 +1,8 @@
-/* combobox */
+/* combobox
 
 .combobox-container {
   width: 327px;
-  height: 342px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,4 +93,4 @@
   display: flex;
   justify-content: space-between;
   margin-top: 8px;
-}
+} */

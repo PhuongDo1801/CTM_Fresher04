@@ -214,6 +214,12 @@ body {
   padding: 0 12px;
 }
 
+.container__right-main-footer > div{
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+}
+
 .container__right-main-footer div:first-child {
   height: 100%;
   width: 100%;
@@ -291,11 +297,7 @@ body {
   color: gray;
 }
 
-.container__right-pages ul li:first-child {
-  border: 1px solid gray;
-  border-radius: 4px;
-  padding: 5px 10px;
-}
+
 
 .container__right-overlay {
   background-color: rgba(128, 128, 128, 0.314);
@@ -328,7 +330,6 @@ body {
   bottom: 40px;
   background-color: #ffffff;
   border: 1px solid rgba(128, 128, 128, 0.338);
-  display: none;
   border-radius: 3px;
 }
 
@@ -377,7 +378,6 @@ body {
   cursor: pointer;
 }
 
-
-.table-list-option.active.optionshidden{
+.table-list-option.hidden {
   display: none;
 }
