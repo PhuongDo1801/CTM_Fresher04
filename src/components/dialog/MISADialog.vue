@@ -68,16 +68,19 @@ export default {
 };
 </script>
 
-<style  scoped>
-  .dialog-content-list{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+<style scoped>
+.dialog-content-list {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  flex: 1;
+  width: 270px;
+}
 
-  .dialog-content-list li{
-     margin: 5px;
-  }
+.dialog-content-list li {
+  margin: 5px;
+  list-style: none;
+}
 </style>

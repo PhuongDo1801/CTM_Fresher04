@@ -1,7 +1,7 @@
 import BaseApi from "./baseApi";
 
 class EmployeeService extends BaseApi {
-  controller = "/employees";
+  controller = "/Employees";
 }
 
 export default new EmployeeService();

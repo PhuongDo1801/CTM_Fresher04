@@ -10,12 +10,19 @@
     :workIsDone="workIsDone"
     :isPopupOverlayShow="isPopupOverlayShow"
     :employeeDataProps="employeeDataProps"
+    :employeeCodeInit="employeeCodeInit"
     @reset-employee-state="handleResetEmployeeProps"
     @update-table-employee="handleUpdateEmployeeOnTable"
     @handle-focus-employee-code="handleSetEmployeeCodeRef"
     @handle-focus-employee-name="handleSetEmployeeNameRef"
     @handle-focus-unit-name="handleSetEmployeeUnitNameRef"
+    @show-loading-icon="handleShowLoadingIcon"
+    @hidden-loading-icon="handleHiddenLoadingIcon"
   />
+
+  <div v-if="isLoadingData">
+    <img class="loader" src="../../assets/img/loading.svg" alt="" />
+  </div>
 
   <div
     :style="{
@@ -94,7 +101,11 @@
                   this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeDob
                 }}
               </th>
-              <th model-name="identityNumber" title="Số chứng minh nhân dân">
+              <th
+                style="text-align: right !important"
+                model-name="identityNumber"
+                title="Số chứng minh nhân dân"
+              >
                 {{
                   this.$_MISAResource[this.$_LANGCODE].employeeTable
                     .employeeIdentityNum
@@ -112,7 +123,7 @@
                     .employeeUnitName
                 }}
               </th>
-              <th model-name="bankAccount">
+              <th style="text-align: right !important" model-name="bankAccount">
                 {{
                   this.$_MISAResource[this.$_LANGCODE].employeeTable
                     .employeeBankAccount
@@ -142,23 +153,37 @@
             <tr
               @dblclick="getSingleValueEmployee(employee)"
               v-for="(employee, key) in employees"
-              :key="employee.id"
+              :key="employee.EmployeeId"
             >
               <td>
                 <input name="input-table-checkbox" type="checkbox" />
               </td>
-              <td>{{ employee.code }}</td>
-              <td>{{ employee.name }}</td>
-              <td>{{ employee.gender }}</td>
+              <td>{{ employee.EmployeeCode }}</td>
+              <td>{{ employee.FullName }}</td>
               <td>
-                {{ employee.dateOfBirth && customDate(employee.dateOfBirth) }}
+                <span v-if="employee.Gender == this.$_MISAEnum.Gender.Male">
+                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.male }}
+                </span>
+                <span v-if="employee.Gender == this.$_MISAEnum.Gender.female">
+                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.female }}
+                </span>
+                <span v-if="employee.Gender == this.$_MISAEnum.Gender.other">
+                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.other }}
+                </span>
               </td>
-              <td>{{ employee.identityNumber }}</td>
-              <td>{{ employee.positionName }}</td>
-              <td>{{ employee.unitName }}</td>
-              <td>{{ employee.bankAccount }}</td>
-              <td>{{ employee.bankName }}</td>
-              <td>{{ employee.branch }}</td>
+              <td>
+                {{ employee.DateOfBirth && customDate(employee.DateOfBirth) }}
+              </td>
+              <td style="text-align: right !important">
+                {{ employee.IdentityNumber }}
+              </td>
+              <td>{{ employee.JobTitle }}</td>
+              <td>{{ employee.DepartmentName }}</td>
+              <td style="text-align: right !important">
+                {{ employee.BankAccount }}
+              </td>
+              <td>{{ employee.BankName }}</td>
+              <td>{{ employee.BankBranch }}</td>
               <td>
                 <span>
                   {{
@@ -184,7 +209,7 @@
                       }}
                     </li>
                     <li
-                      @click="handleShowQADelete(employee.id)"
+                      @click="handleShowQADelete(employee.EmployeeId)"
                       class="table-list-option-delete"
                     >
                       {{
@@ -260,6 +285,7 @@ export default {
   },
   data() {
     return {
+      isLoadingData: false,
       employeeCodeRef: null,
       employeeNameRef: null,
       employeeUnitNameRef: null,
@@ -269,7 +295,6 @@ export default {
       inputTypeEmplUnitNameErr: false,
       textSearch: "",
       offset: 0,
-      limit: 10,
       page: 1,
       start: 0,
       pagings,
@@ -296,6 +321,7 @@ export default {
       isPagingShow: false,
       currentPageSize: 15,
       totalSizePage: 0,
+      employeeCodeInit: null,
     };
   },
   methods: {
@@ -306,11 +332,16 @@ export default {
      */
     async handleBackPage() {
       try {
+        this.handleShowLoadingIcon();
         if (this.page > 1) {
           this.page = this.page - 1;
-          const data = await EmployeeService.getPaging(this.page, this.limit);
+          const data = await EmployeeService.getPaging(
+            this.page,
+            this.currentPageSize
+          );
           this.employees = data;
         }
+        this.handleHiddenLoadingIcon();
       } catch (error) {
         switch (error.code) {
           case 500:
@@ -339,11 +370,16 @@ export default {
      */
     async handleNextPage() {
       try {
+        this.handleShowLoadingIcon();
         if (this.page < this.totalSizePage) {
           this.page = this.page + 1;
-          const data = await EmployeeService.getPaging(this.page, this.limit);
+          const data = await EmployeeService.getPaging(
+            this.page,
+            this.currentPageSize
+          );
           this.employees = data;
         }
+        this.handleHiddenLoadingIcon();
       } catch (error) {
         switch (error.code) {
           case 500:
@@ -364,6 +400,26 @@ export default {
         }
       }
     },
+
+    /**
+     * Mô tả: Xử lý hiện icon loading khi lấy dữ liệu
+     * created by : NDTHINH
+     * created date: 17-06-2023
+     */
+
+    handleShowLoadingIcon() {
+      this.isLoadingData = true;
+    },
+
+    /**
+     * Mô tả: Xử lý ẩn icon loading khi lấy dữ liệu
+     * created by : NDTHINH
+     * created date: 17-06-2023
+     */
+    handleHiddenLoadingIcon() {
+      this.isLoadingData = false;
+    },
+
     /**
      * Mô tả: Thay đổi số lượng dòng hiển thị
      * created by : NDTHINH
@@ -371,6 +427,7 @@ export default {
      */
     handleChangeRowPage(value) {
       this.currentPageSize = value;
+      this.getListEmployee();
     },
 
     /**
@@ -476,11 +533,12 @@ export default {
      * created by : NDTHINH
      * created date: 29-05-2023
      */
-    handleDuplicateEplCode(emplCode) {
+    handleDuplicateEplCode(emplCode, employeeCodeRef) {
       this.isDuplicateCode = true;
       this.emplCode = emplCode;
       this.isShowDialog = true;
       this.isDialogCreateClick = true;
+      this.employeeCodeRef = employeeCodeRef;
       this.textDialog.push(
         this.$_MISAResource[this.$_LANGCODE].employeeMsg.duplicateCode(
           this.emplCode
@@ -524,6 +582,8 @@ export default {
       this.isShowDialog = false;
       this.isDialogCreateClick = false;
       this.isPopupOverlayShow = false;
+      this.employeeCodeRef.focus();
+      this.employeeCodeRef.classList.add("isErrInput");
       this.textDialog = [];
     },
 
@@ -578,13 +638,10 @@ export default {
     handleShowEmployeeForm() {
       this.isShowEmployeeDetails = true;
       this.handleShowOverlay();
+      this.employeeCodeInit = `NV-00${Math.ceil(
+        Math.random() * (10000 - 1) + 1
+      )}`;
     },
-
-    /**
-     * Mô tả: Đóng form update nhân viên
-     * created by : NDTHINH
-     * created date: 29-05-2023
-     */
 
     /**
      * Mô tả: Đóng form tạo nhân viên
@@ -645,13 +702,13 @@ export default {
 
     handleUpdateEmployeeOnTable(employee, type) {
       //thêm
-      if (type === "created") {
+      if (type === this.$_MISAEnum.ApiType.created) {
         this.employees.push(employee);
         return;
       }
 
       //cập nhật
-      if (type === "updated") {
+      if (type === this.$_MISAEnum.ApiType.updated) {
         this.employees = this.employees.map((item) => {
           if (item.id === employee.id) {
             return employee;
@@ -684,6 +741,7 @@ export default {
      */
     async handleDeleteEmployee() {
       try {
+        // this.handleShowLoadingIcon();
         const status = await EmployeeService.deleteById(this.employeeId);
         if (status === 200) {
           this.isShowDialog = false;
@@ -692,6 +750,7 @@ export default {
           this.handleUpdateEmployeeOnTable();
           this.textDialog = [];
         }
+        // this.handleHiddenLoadingIcon();
       } catch (error) {
         console.log(error);
       }
@@ -704,10 +763,17 @@ export default {
      */
     async getListEmployee() {
       try {
-        const { data, length } = await EmployeeService.findAll();
+        this.handleShowLoadingIcon();
+        this.isLoadingData = true;
+        const { data, length } = await EmployeeService.findAll(
+          this.currentPageSize
+        );
         this.employees = data;
-        this.totalSizePage = Math.ceil(length / 10);
+        this.totalSizePage = Math.ceil(length / this.currentPageSize);
+        this.isLoadingData = false;
+        this.handleHiddenLoadingIcon();
       } catch (error) {
+        this.isLoadingData = false;
         switch (error.code) {
           case 500:
             this.workIsDone(
@@ -759,5 +825,34 @@ export default {
 <style scoped>
 .pagingShow {
   border: 1px solid green;
+}
+
+.loader {
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  transform: translateY(-50%);
+  z-index: 9999999999;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

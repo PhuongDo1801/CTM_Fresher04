@@ -130,12 +130,9 @@
    font-weight: 600;
    font-size: 14px;
    border: none;
-   color: white;
-   color: #212121;
+   color: #1f1f1f;
    border: 1px solid #e0e0e0;
    background-color: #ffffff;
-   background-color: #E60000;
-   color: white;
    margin-right: 8px;
  }
  
@@ -164,7 +161,8 @@
  }
  
  .container__right-dialog-bottom button:first-child:hover{
-   background-color: #F06666;
+   background-color: #E81E1E;
+   color: #FFFFFF;
  }
  
  .container__right-dialog-bottom button:last-child:hover{

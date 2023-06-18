@@ -1,5 +1,9 @@
 <template>
-  <div id="container-popup-employee" class="container__right-popup">
+  <div
+    id="container-popup-employee"
+    class="container__right-popup"
+    @keydown="handleKeyDown"
+  >
     <div v-if="isPopupOverlayShow" class="popup-overlay"></div>
 
     <div class="container__right-popup-top">
@@ -54,7 +58,7 @@
             >
             <m-input
               ref="employeeCode"
-              v-model="employeeData.code"
+              v-model="employeeData.EmployeeCode"
               type="text"
               @handle-text-change="handleInputEmployeeCodeChange"
               :class="{
@@ -73,7 +77,7 @@
 
             <m-input
               ref="employeeNameRef"
-              v-model="employeeData.name"
+              v-model="employeeData.FullName"
               type="text"
               id="input-employee-name"
               @handle-text-change="handleInputEmployeeNameChange"
@@ -96,7 +100,7 @@
               @get-unit-name-input="handleSetUnitNameInputRef"
               textKey="DepartmentName"
               url="http://localhost:3000/department"
-              :unitName="employeeData.unitName"
+              :unitName="employeeData.DepartmentName"
             ></m-combobox>
           </div>
 
@@ -107,7 +111,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.positionName"
+              v-model="employeeData.JobTitle"
               type="text"
               id="input-employee-position"
             ></m-input>
@@ -119,7 +123,7 @@
               this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeDob
             }}</label>
             <input
-              v-model="employeeData.dateOfBirth"
+              v-model="employeeData.DateOfBirth"
               type="date"
               id="input-employee-dob"
             />
@@ -130,7 +134,7 @@
             }}</label>
             <div>
               <input
-                v-model="employeeData.gender"
+                v-model="employeeData.Gender"
                 value="Nam"
                 name="gender"
                 type="radio"
@@ -142,7 +146,7 @@
               }}</label>
 
               <input
-                v-model="employeeData.gender"
+                v-model="employeeData.Gender"
                 value="Nữ"
                 name="gender"
                 type="radio"
@@ -153,7 +157,7 @@
               }}</label>
 
               <input
-                v-model="employeeData.gender"
+                v-model="employeeData.Gender"
                 value="Khác"
                 name="gender"
                 type="radio"
@@ -171,7 +175,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.identityNumber"
+              v-model="employeeData.IdentityNumber"
               type="text"
               id="input-employee-identity-number"
               title="Số chứng minh thư"
@@ -184,7 +188,7 @@
                 .employeeIdentityDateRelease
             }}</label>
             <input
-              v-model="employeeData.identityDateRelease"
+              v-model="employeeData.DateRange"
               placeholder="Ngày cấp"
               type="date"
               id="input-employee-date-release-identity"
@@ -197,7 +201,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.identityPlaceRelease"
+              v-model="employeeData.IssuedBy"
               type="text"
               id="input-employee-place-release-identity"
             ></m-input>
@@ -211,7 +215,7 @@
           }}</label>
 
           <m-input
-            v-model="employeeData.address"
+            v-model="employeeData.Address"
             type="text"
             id="input-employee-address"
           ></m-input>
@@ -224,7 +228,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.phone"
+              v-model="employeeData.PhoneNumber"
               type="text"
               id="input-employee-phone"
             ></m-input>
@@ -236,7 +240,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.phonePermanent"
+              v-model="employeeData.PhoneLandline"
               type="text"
               id="input-employee-phone-n"
             ></m-input>
@@ -247,7 +251,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.email"
+              v-model="employeeData.Email"
               type="text"
               id="input-employee-email"
             ></m-input>
@@ -262,7 +266,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.bankAccount"
+              v-model="employeeData.BankAccount"
               type="text"
               id="input-employee-bank-account"
             ></m-input>
@@ -273,7 +277,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.bankName"
+              v-model="employeeData.BankName"
               type="text"
               id="input-employee-bank-name"
             ></m-input>
@@ -285,7 +289,7 @@
             }}</label>
 
             <m-input
-              v-model="employeeData.branch"
+              v-model="employeeData.BankBranch"
               type="text"
               id="input-employee-bank-branch"
             ></m-input>
@@ -300,11 +304,11 @@
             </button>
           </div>
           <div>
-            <button>
+            <button @click="handleSubmitForm">
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep }}
             </button>
             <button
-              @keydown.tab.prevent="processTabIndex()"
+              @keydown.tab.prevent="handleTabIndex()"
               @click="handleSubmitForm"
               class="btn-add-employee"
             >
@@ -332,6 +336,7 @@ export default {
     workIsDone: Function,
     isPopupOverlayShow: Boolean,
     employeeDataProps: Object,
+    employeeCodeInit: String,
   },
 
   data() {
@@ -345,45 +350,78 @@ export default {
       employeeData: {
         isCustomer: false,
         isProvider: false,
-        gender: null,
-        code: "",
-        name: "",
-        identityNumber: "",
-        positionName: "",
-        bankAccount: "",
-        bankName: "",
-        branch: "",
-        email: "",
-        phone: "",
-        phonePermanent: "",
-        address: "",
-        identityPlaceRelease: "",
-        unitName: "",
-        identityDateRelease: null,
-        dateOfBirth: null,
+        Gender: null,
+        EmployeeCode: "",
+        FullName: "",
+        IdentityNumber: "",
+        JobTitle: "",
+        BankAccount: "",
+        BankName: "",
+        Bankbranch: "",
+        Email: "",
+        PhoneNumber: "",
+        PhoneLandline: "",
+        Address: "",
+        IssuedBy: "",
+        DepartmentName: "",
+        DateRange: null,
+        DateOfBirth: null,
       },
     };
   },
   methods: {
-    handleChooseUnitName(unitName) {
-      this.employeeData.unitName = unitName;
+    /**
+     * Mô tả: Xử lý đóng form chi tiết nhân viên bằng esc
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
+    handleKeyDown(e) {
+      if (e.keyCode === 27) {
+        this.handleCloseFormAndReset();
+      }
     },
 
-    handleShowChooseUnitName() {
-      this.isChooseUnitNameValue = !this.isChooseUnitNameValue;
-      this.$refs.unitNameRef.$el.focus();
-      this.isRotate = !this.isRotate;
+    /**
+     * Mô tả: Xử lý chọn giá trị combobox
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
+    handleChooseUnitName(departmentName) {
+      this.employeeData.DepartmentName = departmentName;
     },
 
-    processTabIndex() {
+    /**
+     * Mô tả:
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
+    // handleShowChooseUnitName() {
+    //   this.isChooseUnitNameValue = !this.isChooseUnitNameValue;
+    //   this.$refs.unitNameRef.$el.focus();
+    //   this.isRotate = !this.isRotate;
+    // },
+
+    /**
+     * Mô tả: Xử lý tabindex
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
+    handleTabIndex() {
       this.$refs.isCustomerRef.focus();
-      //this.$refs.employeeCode.$el.focus();
     },
-
+    /**
+     * Mô tả: Xử lý thay đổi thay đổi trạng thái khi text unit name thay đổi
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
     handleInputUnitNameChange(value) {
       this.isErrInputUnitName = value;
     },
-
+    /**
+     * Mô tả: Lấy unit name input
+     * created by : NDTHINH
+     * created date: 08-06-2023
+     */
     handleSetUnitNameInputRef(unitNameRef) {
       this.unitNameRef = unitNameRef;
     },
@@ -393,7 +431,7 @@ export default {
      * created date: 29-06-2023
      */
     handleInputEmployeeCodeChange() {
-      if (this.employeeData.code.length === 0) {
+      if (this.employeeData.EmployeeCode.length === 0) {
         this.isErrInputEmplcode = true;
         this.$refs.employeeCode.$el.classList.add("isErrInput");
       } else {
@@ -408,7 +446,7 @@ export default {
      * created date: 02-06-2023
      */
     handleInputEmployeeNameChange() {
-      if (this.employeeData.name.length === 0) {
+      if (this.employeeData.FullName.length === 0) {
         this.isErrInputEmplName = true;
       } else {
         this.isErrInputEmplName = false;
@@ -424,7 +462,7 @@ export default {
       this.handleCloseEmployeeForm();
       this.$refs.employeeCode.$el.classList.remove("employee-create-input");
       this.$refs.employeeCode.$el.focus();
-      this.employeeData.code = "";
+      this.employeeData.EmployeeCode = "";
       this.$emit("resetEmployeeState");
     },
 
@@ -436,7 +474,7 @@ export default {
     async handleSubmitForm() {
       try {
         // xử lý mã nhân viên để trống
-        if (this.employeeData?.code.trim().length === 0) {
+        if (this.employeeData?.EmployeeCode.trim().length === 0) {
           this.isErrInputEmplCode = true;
           this.$refs.employeeCode.$el.title =
             this.$_MISAResource[
@@ -452,7 +490,7 @@ export default {
           this.$emit("handleFocusEmployeeCode", this.$refs.employeeCode.$el);
         }
         // xử lý tên nhân viên để trống
-        if (this.employeeData.name.trim().length === 0) {
+        if (this.employeeData.FullName.trim().length === 0) {
           this.isErrInputEmplName = true;
           this.$refs.employeeNameRef.$el.title =
             this.$_MISAResource[
@@ -469,7 +507,7 @@ export default {
         }
 
         // xử lý tên đơn vị để trống
-        if (this.employeeData.unitName.trim().length === 0) {
+        if (this.employeeData.DepartmentName.trim().length === 0) {
           this.isErrInputUnitName = true;
           this.unitNameRef.$el.classList.add("isErrInput");
           this.unitNameRef.$el.title =
@@ -485,9 +523,9 @@ export default {
           this.$emit("handleFocusUnitName", this.unitNameRef.$el);
         }
         if (
-          this.employeeData?.code.trim().length === 0 ||
-          this.employeeData?.name.trim().length === 0 ||
-          this.employeeData?.unitName.trim().length === 0
+          this.employeeData?.EmployeeCode.trim().length === 0 ||
+          this.employeeData?.FullName.trim().length === 0 ||
+          this.employeeData?.DepartmentName.trim().length === 0
         ) {
           return;
         }
@@ -496,41 +534,78 @@ export default {
         if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
           // xử lý mã nhân viên đã tồn tại
           const employeeExist = this.employees.find((item) =>
-            item.code.includes(this.employeeData.code)
+            item.EmployeeCode.includes(this.employeeData.EmployeeCode)
           );
           if (employeeExist) {
-            this.handleDuplicateEplCode(employeeExist.code);
+            this.handleDuplicateEplCode(
+              employeeExist.EmployeeCode,
+              this.$refs.employeeCode.$el
+            );
             this.handleShowOverlay();
             return;
           }
 
           // call API thêm nhân viên
+
+          this.$emit("showLoadingIcon");
+          this.employeeData.Gender = 1;
           const { status, data } = await EmployeeService.save(
             this.employeeData
           );
           if (status === this.$_MISAEnum.ResponseCode.created) {
-            this.$emit("updateTableEmployee", data, "created");
+            this.$emit(
+              "updateTableEmployee",
+              data,
+              this.$_MISAEnum.ApiType.created
+            );
             this.workIsDone(
               this.$_MISAResource[this.$_LANGCODE].employeeMsg.addSuccess,
               true
             );
           }
+
+          this.$emit("hiddenLoadingIcon");
         } else {
+          // xử lý mã nhân viên đã tồn tại
+          const employeeExist = this.employees.find((item) =>
+            item.EmployeeCode.includes(this.employeeData.EmployeeCode)
+          );
+          if (
+            employeeExist &&
+            this.employeeData.EmployeeCode !==
+              this.employeeDataProps.EmployeeCode
+          ) {
+            this.handleDuplicateEplCode(
+              employeeExist.EmployeeCode,
+              this.$refs.employeeCode.$el
+            );
+            this.handleShowOverlay();
+            return;
+          }
+
           // call API cập nhật thông tin nhân viên
+
+          this.$emit("showLoadingIcon");
           const { status, data } = await EmployeeService.updateById(
-            this.employeeData.id,
+            this.employeeData.EmployeeId,
             this.employeeData
           );
           if (status === this.$_MISAEnum.ResponseCode.success) {
-            this.$emit("updateTableEmployee", data, "updated");
+            this.$emit(
+              "updateTableEmployee",
+              data,
+              this.$_MISAEnum.ApiType.updated
+            );
             this.workIsDone(
               this.$_MISAResource[this.$_LANGCODE].employeeMsg.updateSuccess,
               true
             );
           }
+          this.$emit("hiddenLoadingIcon");
         }
         this.handleCloseEmployeeForm();
       } catch (error) {
+        this.$emit("hiddenLoadingIcon");
         switch (error.code) {
           case 500:
             this.workIsDone(
@@ -556,6 +631,10 @@ export default {
     if (this.employeeDataProps !== null) {
       const jsonObject = JSON.stringify(this.employeeDataProps);
       this.employeeData = JSON.parse(jsonObject);
+    }
+
+    if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
+      this.employeeData.EmployeeCode = this.employeeCodeInit;
     }
   },
 

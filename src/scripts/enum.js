@@ -5,13 +5,20 @@ const MISAEnum = {
   },
 
   Gender: {
-    male: 1,
-    famale: 2,
+    male: 0,
+    female: 1,
+    other: 2,
   },
   ResponseCode: {
     success: 200,
     created: 201,
     error: 500,
+  },
+
+  ApiType: {
+    created: "created",
+    updated: "updated",
+    deleted: "deleted",
   },
 };
 

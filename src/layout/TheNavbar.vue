@@ -10,7 +10,7 @@
     <div class="container__right-navbar-right">
       <i class="sprite-bell-icon"></i>
       <i class="sprite-user-icon"></i>
-      <span>Nguyễn Văn Mạnh</span>
+      <span>Nguyễn Đức Thịnh</span>
       <!-- <img src="./assets/icon/dropdown.png" alt="" /> -->
     </div>
   </div>
