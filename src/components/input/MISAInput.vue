@@ -5,7 +5,7 @@
     :placeholder="placeholder"
     :value="modelValue"
     @input="handleInputChangeText"
-
+    ref="inputRef"
   />
 </template>
 
@@ -25,14 +25,15 @@ export default {
     };
   },
   methods: {
+    focus() {
+      this.$refs.inputRef.focus();
+    },
     handleInputChangeText(event) {
       this.$emit("update:modelValue", event.target.value);
-      this.$emit("handleTextChange",event.target.value);
+      this.$emit("handleTextChange", event.target.value);
     },
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

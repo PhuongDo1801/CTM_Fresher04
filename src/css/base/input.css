@@ -34,21 +34,21 @@
 
 .container__right-search-input input {
   width: 240px;
-  height: 32px;
+  height: 36px;
   border: 1px solid rgba(128, 128, 128, 0.633);
   outline: none;
   padding-left: 12px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .container__right-search-input input:focus {
-  border: 1px solid #118044; 
+  border: 1px solid #118044;
 }
 
 .container__right-search-input input::placeholder {
   font-style: italic;
 }
 
-.employee-create-input{
+.employee-create-input {
   border: 1px solid red !important;
   border-radius: 3px;
 }

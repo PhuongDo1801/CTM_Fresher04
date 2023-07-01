@@ -2,50 +2,89 @@
   <div class="container__right-dialog" :class="{ active: isShowDialog }">
     <div class="container__right-dialog-top">
       <i
-        v-if="isDialogCreateClick || isDialogUpdateClick || isDialogDeleteClick"
+        v-if="
+          dialogType === this.$_MISAEnum.DialogType.delete ||
+          dialogType === this.$_MISAEnum.DialogType.duplicate
+        "
         class="sprite-warning-icon"
       ></i>
-      <i v-if="isDialogEmptyClick" class="sprite-exc-point-icon"></i>
+      <i
+        v-if="dialogType === this.$_MISAEnum.DialogType.question"
+        class="sprite-question-icon"
+      ></i>
+
+      <i
+        v-if="dialogType === this.$_MISAEnum.DialogType.badRequest"
+        class="sprite-exc-point-icon"
+      ></i>
       <ul class="dialog-content-list">
         <li v-for="text in textDialog" :key="text">{{ text }}</li>
+        <span></span>
       </ul>
     </div>
     <hr />
     <div class="container__right-dialog-bottom">
-      <button
-        v-if="isDialogDeleteClick"
-        @click="handleCancelDelete"
-        id="btn-not-allow-delete"
-        class="container__right-dialog-btn"
-      >
-        {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
-      </button>
-      <button
-        v-if="isDialogDeleteClick"
-        @click="handleDeleteEmployee"
-        id="btn-allow-delete"
-        class="container__right-dialog-btn"
-      >
-        {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-      </button>
+      <div class="container__right-dialog-bottom-left">
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+          @click="handleCloseDialog"
+          class="container__right-dialog-btn danger"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
+        </button>
 
-      <button
-        v-if="isDialogCreateClick"
-        @click="handleCloseDuplicateForm"
-        id="btn-allow-delete"
-        class="container__right-dialog-btn"
-      >
-        {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-      </button>
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.delete"
+          @click="handleCloseDialog"
+          class="container__right-dialog-btn danger"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
+        </button>
+      </div>
 
-      <button
-        v-if="isDialogEmptyClick"
-        @click="handleCloseEmptyInputForm"
-        id="btn-allow-delete"
-        class="container__right-dialog-btn"
-      >
-        {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-      </button>
+      <div class="container__right-dialog-bottom-center">
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.badRequest"
+          @click="handleCloseDialog"
+          class="container__right-dialog-btn success"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText }}
+        </button>
+      </div>
+
+      <div class="container__right-dialog-bottom-right">
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+          @click="handleCloseEmployeeForm"
+          class="container__right-dialog-btn danger"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText }}
+        </button>
+
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.delete"
+          @click="handleDeleteEmployee"
+          class="container__right-dialog-btn success"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
+        </button>
+
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.duplicate"
+          @click="handleCloseDialog"
+          class="container__right-dialog-btn success"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText }}
+        </button>
+
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+          @click="handleSubmitForm"
+          class="container__right-dialog-btn success"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -55,15 +94,13 @@ export default {
   name: "MISADialog",
   props: {
     handleDeleteEmployee: Function,
-    handleCancelDelete: Function,
-    handleCloseDuplicateForm: Function,
-    handleCloseEmptyInputForm: Function,
+    handleCloseEmployeeForm: Function,
+    handleSubmitForm:Function,
+    handleCloseDialog: Function,
     textDialog: Array,
     isShowDialog: Boolean,
-    isDialogCreateClick: Boolean,
-    isDialogDeleteClick: Boolean,
-    isDialogUpdateClick: Boolean,
-    isDialogEmptyClick: Boolean,
+    dialogType: String,
+
   },
 };
 </script>

@@ -8,14 +8,17 @@ const MISAResource = {
         return `Mã nhân viên < ${code} > đã tồn tại trong hệ thống vui lòng
                 kiểm tra lại.`;
       },
-      deleteQuestion: "Bạn có thực sự muốn xóa người dùng này không ?",
+      deleteQuestion: (code) => {
+        return `Bạn có muốn xóa Nhân viên <${code}> không ?`;
+      },
       updateQuestion: "Bạn có chắc chắn muốn sửa nhân viên này không ?",
+      closeFormQuestion: "Dữ liệu đã bị thay đổi. Bạn có muốn cất không ?",
       employeeCodeTitleErr: "Mã nhân viên bắt buộc",
       employeeNameTitleErr: "Tên nhân viên bắt buộc",
-      employeeUnitNameTitleErr: "Tên đơn vị bắt buộc",
-      employeeCodeEmptyErr: "<Mã> không được để trống.",
-      employeeNameEmptyErr: "<Tên> không được để trống.",
-      employeeUnitNameErr: "<Đơn vị> không được để trống.",
+      employeeDepartmentNameTitleErr: "Tên đơn vị bắt buộc",
+      employeeCodeEmptyErr: "Mã không được để trống.",
+      employeeNameEmptyErr: "Tên không được để trống.",
+      employeeUnitNameErr: "Đơn vị không được để trống.",
     },
     pagesName: {
       employee: "Nhân viên",
@@ -29,6 +32,7 @@ const MISAResource = {
       employeeGender: "GIỚI TÍNH",
       employeeDob: "NGÀY SINH",
       employeeIdentityNum: "SỐ CMND",
+      employeeIdentityNumTitle:"Số chứng minh nhân dân",
       employeePositionName: "CHỨC DANH",
       employeeUnitName: "TÊN ĐƠN VỊ",
       employeeBankAccount: "SỐ TÀI KHOẢN",
@@ -36,6 +40,7 @@ const MISAResource = {
       employeeBankBranch: "CHI NHÁNH TK NGÂN HÀNG",
       employeeOperation: "CHỨC NĂNG",
     },
+
     employeeOptions: {
       title: "Sửa",
       replication: "Nhân bản",
@@ -73,7 +78,10 @@ const MISAResource = {
       keep: "CẤT",
       keepAndAdd: "CẤT VÀ THÊM",
       cancel: "HỦY",
-      confirmText: "Đồng ý",
+      confirmText: "Có",
+      notAllowText: "Không",
+      agreeText:"Đồng ý",
+      closeText: "Đóng",
       cancelText: "Hủy",
       addEmployee: "Thêm mới nhân viên",
     },
@@ -83,14 +91,14 @@ const MISAResource = {
       "Phòng hành chính",
       "Phòng kinh doanh",
     ],
-    serverTextErr:{
-      serverErr:"Lỗi server !", 
-      clientBadRequest:"Yêu cầu không hợp lệ !", 
-      clientNotFound:"Không tìm thấy tài nguyên !",
-      clientUnAuthenticate:"Xác thực người dùng lỗi !", 
-      clientUnAuthorization:"Không có quyền !",
-      defaultErr:"Có lỗi xảy ra !"
-    }
+    serverTextErr: {
+      serverErr: "Lỗi server !",
+      clientBadRequest: "Yêu cầu không hợp lệ !",
+      clientNotFound: "Không tìm thấy tài nguyên !",
+      clientUnAuthenticate: "Xác thực người dùng lỗi !",
+      clientUnAuthorization: "Không có quyền truy cập !",
+      defaultErr: "Có lỗi xảy ra !",
+    },
   },
 };
 

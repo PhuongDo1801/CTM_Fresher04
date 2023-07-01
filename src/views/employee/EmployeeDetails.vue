@@ -17,10 +17,10 @@
         }}</span>
         <div>
           <input
-            ref="isCustomerRef"
-            v-model="employeeData.isCustomer"
+            v-model="employeeData.IsCustomer"
             type="checkbox"
             id="input-is-customer"
+            ref="isCustomerRef"
           />
           <label for="input-is-customer">{{
             this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIsCustomer
@@ -28,7 +28,7 @@
         </div>
         <div>
           <input
-            v-model="employeeData.isProvider"
+            v-model="employeeData.IsProvider"
             type="checkbox"
             id="input-is-provider"
           />
@@ -57,13 +57,19 @@
               }}<span style="color: red"> *</span></label
             >
             <m-input
-              ref="employeeCode"
+              ref="employeeCodeRef"
               v-model="employeeData.EmployeeCode"
               type="text"
               @handle-text-change="handleInputEmployeeCodeChange"
               :class="{
                 isErrInput: isErrInputEmplCode,
               }"
+              :title="
+                isErrInputEmplCode === true
+                  ? this.$_MISAResource[this.$_LANGCODE].employeeMsg
+                      .employeeCodeTitleErr
+                  : null
+              "
               id="input-employee-code"
             ></m-input>
           </div>
@@ -84,6 +90,12 @@
               :class="{
                 isErrInput: isErrInputEmplName,
               }"
+              :title="
+                isErrInputEmplName === true
+                  ? this.$_MISAResource[this.$_LANGCODE].employeeMsg
+                      .employeeNameTitleErr
+                  : null
+              "
             ></m-input>
           </div>
 
@@ -95,12 +107,13 @@
               }}<span style="color: red"> *</span></label
             >
             <m-combobox
-              @handle-choose-unit-name="handleChooseUnitName"
-              @input-unit-name-change="handleInputUnitNameChange"
-              @get-unit-name-input="handleSetUnitNameInputRef"
-              textKey="DepartmentName"
-              url="http://localhost:3000/department"
-              :unitName="employeeData.DepartmentName"
+              @handle-choose-department-name="handleChooseDepartmentName"
+              @input-department-name-change="handleInputDepartmentNameChange"
+              @get-department-name-input="getDepartmentNameInputRef"
+              :departmentName="employeeData.DepartmentName"
+              :departmentId="employeeData.DepartmentId"
+              :isErrDepartmentName="isErrDepartmentName"
+              :departments="departments"
             ></m-combobox>
           </div>
 
@@ -135,7 +148,7 @@
             <div>
               <input
                 v-model="employeeData.Gender"
-                value="Nam"
+                value="0"
                 name="gender"
                 type="radio"
                 id="input-employee-gender-male"
@@ -147,7 +160,7 @@
 
               <input
                 v-model="employeeData.Gender"
-                value="Nữ"
+                value="1"
                 name="gender"
                 type="radio"
                 id="input-employee-gender-female"
@@ -158,7 +171,7 @@
 
               <input
                 v-model="employeeData.Gender"
-                value="Khác"
+                value="2"
                 name="gender"
                 type="radio"
                 id="input-employee-gender-other"
@@ -251,6 +264,7 @@
             }}</label>
 
             <m-input
+              ref="emailRef"
               v-model="employeeData.Email"
               type="text"
               id="input-employee-email"
@@ -304,12 +318,25 @@
             </button>
           </div>
           <div>
-            <button @click="handleSubmitForm">
+            <button
+              class="btn-keep-employee"
+              @click="
+                () =>
+                  handleSubmitForm(
+                    this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep
+                  )
+              "
+            >
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep }}
             </button>
             <button
               @keydown.tab.prevent="handleTabIndex()"
-              @click="handleSubmitForm"
+              @click="
+                () =>
+                  handleSubmitForm(
+                    this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
+                  )
+              "
               class="btn-add-employee"
             >
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd }}
@@ -322,14 +349,15 @@
 </template>
 
 <script>
-import EmployeeService from "../../services/EmployeeService";
+import { equalObject } from "@/utils/compareObject";
+import employeeService from "../../services/EmployeeService";
+//import validateEmail from "../../utils/validateEmail";
 export default {
   name: "EmployeeDetails",
   components: {},
   props: {
     handleCloseEmployeeForm: Function,
     getListEmployee: Function,
-    employees: Array,
     handleShowOverlay: Function,
     handleDuplicateEplCode: Function,
     handleInputTextEmpty: Function,
@@ -337,6 +365,9 @@ export default {
     isPopupOverlayShow: Boolean,
     employeeDataProps: Object,
     employeeCodeInit: String,
+    handleFocusInputError: Function,
+    getFormSubmit: Function,
+    departments: Array,
   },
 
   data() {
@@ -344,13 +375,17 @@ export default {
       emplCode: null,
       isErrInputEmplCode: false,
       isErrInputEmplName: false,
-      isErrInputUnitName: false,
+      isErrDepartmentName: false,
       isDuplicateCode: false,
+      departmentNameRef: null,
+      initialObject: null,
+      inputErrorListRef: [],
       unitNameRef: null,
+      errorList: [],
       employeeData: {
-        isCustomer: false,
-        isProvider: false,
-        Gender: null,
+        IsCustomer: false,
+        IsProvider: false,
+        Gender: 0,
         EmployeeCode: "",
         FullName: "",
         IdentityNumber: "",
@@ -358,12 +393,13 @@ export default {
         BankAccount: "",
         BankName: "",
         Bankbranch: "",
-        Email: "",
+        Email: null,
         PhoneNumber: "",
         PhoneLandline: "",
         Address: "",
         IssuedBy: "",
         DepartmentName: "",
+        DepartmentId: "",
         DateRange: null,
         DateOfBirth: null,
       },
@@ -372,7 +408,7 @@ export default {
   methods: {
     /**
      * Mô tả: Xử lý đóng form chi tiết nhân viên bằng esc
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 08-06-2023
      */
     handleKeyDown(e) {
@@ -383,27 +419,18 @@ export default {
 
     /**
      * Mô tả: Xử lý chọn giá trị combobox
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 08-06-2023
      */
-    handleChooseUnitName(departmentName) {
-      this.employeeData.DepartmentName = departmentName;
+    handleChooseDepartmentName(item) {
+      this.employeeData.DepartmentName = item.DepartmentName;
+      this.employeeData.DepartmentId = item.DepartmentId;
+      this.isErrDepartmentName = false;
     },
 
     /**
-     * Mô tả:
-     * created by : NDTHINH
-     * created date: 08-06-2023
-     */
-    // handleShowChooseUnitName() {
-    //   this.isChooseUnitNameValue = !this.isChooseUnitNameValue;
-    //   this.$refs.unitNameRef.$el.focus();
-    //   this.isRotate = !this.isRotate;
-    // },
-
-    /**
      * Mô tả: Xử lý tabindex
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 08-06-2023
      */
     handleTabIndex() {
@@ -411,38 +438,36 @@ export default {
     },
     /**
      * Mô tả: Xử lý thay đổi thay đổi trạng thái khi text unit name thay đổi
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 08-06-2023
      */
-    handleInputUnitNameChange(value) {
-      this.isErrInputUnitName = value;
+    handleInputDepartmentNameChange(isError, value, department) {
+      this.isErrDepartmentName = isError;
+      if (department !== null) {
+        this.employeeData.DepartmentName = value;
+        this.employeeData.DepartmentId = department?.DepartmentId;
+      } else {
+        this.employeeData.DepartmentName = value;
+        this.employeeData.DepartmentId = null;
+      }
     },
-    /**
-     * Mô tả: Lấy unit name input
-     * created by : NDTHINH
-     * created date: 08-06-2023
-     */
-    handleSetUnitNameInputRef(unitNameRef) {
-      this.unitNameRef = unitNameRef;
-    },
+
     /**
      * Mô tả: Xử lý input mã nhân viên thay đổi text
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-06-2023
      */
     handleInputEmployeeCodeChange() {
       if (this.employeeData.EmployeeCode.length === 0) {
-        this.isErrInputEmplcode = true;
-        this.$refs.employeeCode.$el.classList.add("isErrInput");
+        this.isErrInputEmplCode = true;
       } else {
         this.isErrInputEmplCode = false;
-        this.$refs.employeeCode.$el.classList.remove("isErrInput");
       }
     },
 
     /**
      * Mô tả:Xử lý input tên nhân viên thay đổi text
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 02-06-2023
      */
     handleInputEmployeeNameChange() {
@@ -455,189 +480,228 @@ export default {
 
     /**
      * Mô tả: Xử lý đóng form chi tiết nhân viên và reset input
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     handleCloseFormAndReset() {
+      if (this.FormMode === this.$_MISAEnum.FormMode.Update) {
+        if (!equalObject(this.employeeDataProps, this.employeeData)) {
+          this.$emit(
+            "showCloseFormQuestion",
+            this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion
+          );
+          this.getFormSubmit(this.handleSubmitForm);
+          return;
+        }
+      }
+
+      if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
+        this.$emit(
+          "showCloseFormQuestion",
+          this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion
+        );
+        this.getFormSubmit(this.handleSubmitForm);
+        return;
+      }
       this.handleCloseEmployeeForm();
-      this.$refs.employeeCode.$el.classList.remove("employee-create-input");
-      this.$refs.employeeCode.$el.focus();
       this.employeeData.EmployeeCode = "";
       this.$emit("resetEmployeeState");
     },
 
     /**
-     * Mô tả: xử lý tạo mới nhân viên và cập nhật thông tin nhân viên
+     * Mô tả:
      * created by : NDTHINH
-     * created date: 30-05-2023
+     * created date: 30-06-2023
      */
-    async handleSubmitForm() {
+    handleValidateInput() {
       try {
         // xử lý mã nhân viên để trống
         if (this.employeeData?.EmployeeCode.trim().length === 0) {
           this.isErrInputEmplCode = true;
-          this.$refs.employeeCode.$el.title =
-            this.$_MISAResource[
-              this.$_LANGCODE
-            ].employeeMsg.employeeCodeTitleErr;
 
-          //
-          this.handleInputTextEmpty(
+          this.errorList.push(
             this.$_MISAResource[this.$_LANGCODE].employeeMsg
-              .employeeCodeEmptyErr,
-            "emplCodeErr"
+              .employeeCodeEmptyErr
           );
-          this.$emit("handleFocusEmployeeCode", this.$refs.employeeCode.$el);
+          this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
         // xử lý tên nhân viên để trống
         if (this.employeeData.FullName.trim().length === 0) {
           this.isErrInputEmplName = true;
-          this.$refs.employeeNameRef.$el.title =
-            this.$_MISAResource[
-              this.$_LANGCODE
-            ].employeeMsg.employeeNameTitleErr;
 
-          //
-          this.handleInputTextEmpty(
+          this.errorList.push(
             this.$_MISAResource[this.$_LANGCODE].employeeMsg
-              .employeeNameEmptyErr,
-            "emplNameErr"
+              .employeeNameEmptyErr
           );
-          this.$emit("handleFocusEmployeeName", this.$refs.employeeNameRef.$el);
+          this.inputErrorListRef.push(this.$refs.employeeNameRef);
+          this.ref;
         }
+
+        //Xử lý email không hợp lệ
+        // if (!validateEmail(this.employeeData.Email.trim())) {
+        //   this.isErrInputUnitName = true;
+        //   this.emailRef.$el.classList.add("isErrInput");
+        //   this.unitNameRef.$el.title =
+        //     this.$_MISAResource[
+        //       this.$_LANGCODE
+        //     ].employeeMsg.employeeUnitNameTitleErr;
+        //   //
+        //   this.handleInputTextEmpty(
+        //     this.$_MISAResource[this.$_LANGCODE].employeeMsg
+        //       .employeeUnitNameErr,
+        //     "emplUnitNameErr"
+        //   );
+        //   this.$emit("handleFocusUnitName", this.unitNameRef.$el);
+        // }
 
         // xử lý tên đơn vị để trống
-        if (this.employeeData.DepartmentName.trim().length === 0) {
-          this.isErrInputUnitName = true;
-          this.unitNameRef.$el.classList.add("isErrInput");
-          this.unitNameRef.$el.title =
-            this.$_MISAResource[
-              this.$_LANGCODE
-            ].employeeMsg.employeeUnitNameTitleErr;
-          //
-          this.handleInputTextEmpty(
-            this.$_MISAResource[this.$_LANGCODE].employeeMsg
-              .employeeUnitNameErr,
-            "emplUnitNameErr"
+        if (this.employeeData?.DepartmentName.trim().length === 0) {
+          this.isErrDepartmentName = true;
+          this.errorList.push(
+            this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeUnitNameErr
           );
-          this.$emit("handleFocusUnitName", this.unitNameRef.$el);
+          this.inputErrorListRef.push(this.departmentNameRef);
         }
-        if (
-          this.employeeData?.EmployeeCode.trim().length === 0 ||
-          this.employeeData?.FullName.trim().length === 0 ||
-          this.employeeData?.DepartmentName.trim().length === 0
-        ) {
+
+        if (this.errorList.length > 0) {
+          this.$emit(
+            "getInputErrorText",
+            this.errorList,
+            this.inputErrorListRef,
+            this.$_MISAEnum.DialogType.badRequest
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * Mô tả:Lấy thẻ input phòng ban
+     * created by: ndthinh
+     * created date: 30-06-2023
+     */
+    getDepartmentNameInputRef(departmentNameRef) {
+      this.departmentNameRef = departmentNameRef;
+    },
+
+    handleResetFormAndInitEmployeeData() {
+      this.employeeData = Object.assign({}, this.initialObject);
+      this.$refs.employeeCodeRef.focus();
+    },
+
+    /**
+     * Mô tả: xử lý tạo mới nhân viên và cập nhật thông tin nhân viên
+     * created by: ndthinh
+     * created date: 30-05-2023
+     */
+    async handleSubmitForm(typeBtn) {
+      try {
+        this.handleValidateInput();
+        if (this.errorList.length > 0) {
+          this.errorList = [];
+          this.inputErrorListRef = [];
           return;
         }
+        this.employeeData.Gender = parseInt(this.employeeData.Gender);
 
         // thêm nhân viên
         if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
-          // xử lý mã nhân viên đã tồn tại
-          const employeeExist = this.employees.find((item) =>
-            item.EmployeeCode.includes(this.employeeData.EmployeeCode)
-          );
-          if (employeeExist) {
-            this.handleDuplicateEplCode(
-              employeeExist.EmployeeCode,
-              this.$refs.employeeCode.$el
-            );
-            this.handleShowOverlay();
-            return;
-          }
-
-          // call API thêm nhân viên
-
           this.$emit("showLoadingIcon");
-          this.employeeData.Gender = 1;
-          const { status, data } = await EmployeeService.save(
+          // call API thêm nhân viên
+          const { status, data } = await employeeService.save(
             this.employeeData
           );
           if (status === this.$_MISAEnum.ResponseCode.created) {
-            this.$emit(
-              "updateTableEmployee",
-              data,
-              this.$_MISAEnum.ApiType.created
-            );
+            
+            if (typeBtn ===this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
+              this.handleResetFormAndInitEmployeeData();
+            }
+
+            this.$emit("updateTableEmployee",data,this.$_MISAEnum.ApiType.created,typeBtn);
+
             this.workIsDone(
               this.$_MISAResource[this.$_LANGCODE].employeeMsg.addSuccess,
               true
             );
           }
-
           this.$emit("hiddenLoadingIcon");
+          return;
         } else {
-          // xử lý mã nhân viên đã tồn tại
-          const employeeExist = this.employees.find((item) =>
-            item.EmployeeCode.includes(this.employeeData.EmployeeCode)
+          // call API cập nhật thông tin nhân viên
+
+          const isEqualObject = equalObject(
+            this.employeeDataProps,
+            this.employeeData
           );
-          if (
-            employeeExist &&
-            this.employeeData.EmployeeCode !==
-              this.employeeDataProps.EmployeeCode
-          ) {
-            this.handleDuplicateEplCode(
-              employeeExist.EmployeeCode,
-              this.$refs.employeeCode.$el
-            );
-            this.handleShowOverlay();
+
+          if (isEqualObject && typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd){
+            this.handleResetFormAndInitEmployeeData();
+            this.$emit("updateTableEmployee",null,this.$_MISAEnum.ApiType.updated,typeBtn);
             return;
           }
 
-          // call API cập nhật thông tin nhân viên
+          if (isEqualObject) {
+            this.handleCloseFormAndReset();
+            return;
+          }
 
           this.$emit("showLoadingIcon");
-          const { status, data } = await EmployeeService.updateById(
+          const { status, data } = await employeeService.updateById(
             this.employeeData.EmployeeId,
             this.employeeData
           );
           if (status === this.$_MISAEnum.ResponseCode.success) {
-            this.$emit(
-              "updateTableEmployee",
-              data,
-              this.$_MISAEnum.ApiType.updated
-            );
-            this.workIsDone(
-              this.$_MISAResource[this.$_LANGCODE].employeeMsg.updateSuccess,
-              true
-            );
+            if (typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
+              this.handleResetFormAndInitEmployeeData();
+            }
+            this.$emit("updateTableEmployee",data,this.$_MISAEnum.ApiType.updated,typeBtn);
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].employeeMsg.updateSuccess,true);
           }
           this.$emit("hiddenLoadingIcon");
         }
-        this.handleCloseEmployeeForm();
       } catch (error) {
         this.$emit("hiddenLoadingIcon");
-        switch (error.code) {
+        switch (error?.response?.status) {
           case 500:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,
-                true
-              )
-            );
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,true);
+            break;
+
+          case 400:
+            this.errorList.push(error.response.data.ErrorMsgs[0]);
+            this.inputErrorListRef.push(this.$refs.employeeCodeRef);
+            this.$emit("getInputErrorText",this.errorList,this.inputErrorListRef,this.$_MISAEnum.DialogType.duplicate);
+            this.handleShowOverlay();
+            this.errorList = [];
+            this.inputErrorListRef = [];
+            this.isErrInputEmplCode = true;
+            break;
+
+          case 404:
             break;
           default:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,
-                true
-              )
-            );
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,true)
         }
       }
     },
   },
+
   mounted() {
-    this.$refs.employeeCode.$el.focus();
+    this.$refs.employeeCodeRef.focus();
+    this.$emit("getEmployeeCodeInput", this.$refs.employeeCodeRef);
+    this.initialObject = Object.assign({}, this.employeeData);
     if (this.employeeDataProps !== null) {
       const jsonObject = JSON.stringify(this.employeeDataProps);
       this.employeeData = JSON.parse(jsonObject);
     }
-
     if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
       this.employeeData.EmployeeCode = this.employeeCodeInit;
     }
   },
 
+  updated() {
+    this.employeeData.EmployeeCode = this.employeeCodeInit;
+  },
   computed: {
     FormMode: function () {
       if (this.employeeDataProps === null) {
@@ -662,7 +726,7 @@ export default {
 }
 
 .isErrInput {
-  border: 1px solid red !important;
+  border: 1px solid red !important ;
 }
 .isNotErrInput {
   border: 1px solid #2ca01c;

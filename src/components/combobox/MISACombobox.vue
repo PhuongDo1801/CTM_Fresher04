@@ -2,16 +2,22 @@
   <div class="combobox-container" @keydown="handleKeyDown">
     <m-input
       @keydown="handleKeyDownEnter"
-      ref="unitNameRef"
-      :value="this.unitName"
+      ref="departmentNameRef"
+      :value="this.departmentName"
       type="text"
-      @handle-text-change="handleInputUnitNameChange"
+      @handle-text-change="handleInputDepartmentNameChange"
       :class="{
-        isErrInput: isErrInputUnitName,
+        isErrInput: isErrDepartmentName,
       }"
+      :title="
+        isErrDepartmentName === true
+          ? this.$_MISAResource[this.$_LANGCODE].employeeMsg
+              .employeeDepartmentNameTitleErr
+          : null
+      "
     ></m-input>
 
-    <div @click="handleShowChooseUnitName" class="dropdown-icon-wraper">
+    <div @click="handleShowChooseDepartmentName" class="dropdown-icon-wraper">
       <i
         class="sprite-dropdown-black-icon"
         :class="{
@@ -19,159 +25,169 @@
         }"
       ></i>
     </div>
-    <ul v-if="isChooseUnitNameValue" class="employee-unitname-list">
+    <ul v-if="isChooseDepartmentNameValue" class="employee-unitname-list">
       <li
         :class="{
           isActive: index === indexItem,
         }"
-        @click="handleChangeValueUnitName(unitName[this.textKey])"
-        v-for="(unitName, index) in unitNameList"
-        :key="unitName.id"
+        @click="handleChooseValueDepartmentName(item)"
+        v-for="(item, index) in departmentNameList"
+        :key="item.DepartmentId"
       >
-        {{ unitName[this.textKey] }}
+        {{ item.DepartmentName }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
+import { removeDiacritics } from "../../utils/string";
 export default {
   name: "MISACombobox",
   props: {
-    unitName: String,
-    url: String,
-    textKey: String,
-    isErrInputUnitName: Boolean,
+    departmentId: String,
+    isErrDepartmentName: Boolean,
+    departmentName: String,
+    departments:Array
   },
   data() {
     return {
-      unitNameList: [],
-      unitNameListTemp: [],
-      isChooseUnitNameValue: false,
+      departmentNameList: [],
+      departmentNameListTemp: [],
+      isChooseDepartmentNameValue: false,
       isRotate: false,
-      valueSearch: "",
       indexItem: -1,
       inputValue: "",
+      tempValue: "",
+      offset: 0,
+      limit: 15,
     };
   },
 
   methods: {
-    async getDepartment() {
-      try {
-        const { data } = await axios.get(this.url);
-        this.unitNameList = data;
-        this.unitNameListTemp = data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
     /**
      * Mô tả: Xử lý chọn giá trị combobox
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
-    handleChangeValueUnitName(value) {
-      this.$emit("handleChooseUnitName", value);
-      this.isChooseUnitNameValue = false;
-      this.$refs.unitNameRef.$el.classList.remove("isErrInput");
-      this.$refs.unitNameRef.$el.focus();
+    handleChooseValueDepartmentName(item) {
+      this.$emit("handleChooseDepartmentName", item);
+      this.isChooseDepartmentNameValue = false;
+      this.$refs.departmentNameRef.focus();
       this.isRotate = false;
     },
 
     /**
      * Mô tả: xử lý hiển thị danh sách combobox
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
 
-    handleShowChooseUnitName() {
-      this.isChooseUnitNameValue = !this.isChooseUnitNameValue;
-      this.$refs.unitNameRef.$el.focus();
+    handleShowChooseDepartmentName() {
+      this.isChooseDepartmentNameValue = !this.isChooseDepartmentNameValue;
+      this.$refs.departmentNameRef.focus();
       this.isRotate = !this.isRotate;
     },
 
     /**
      * Mô tả: Xử lý giá trị input thay đổi
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
 
-    handleInputUnitNameChange(value) {
+    handleInputDepartmentNameChange(value) {
       this.inputValue = value;
       if (value.trim().length === 0) {
-        this.$emit("inputUnitNameChange", false);
-        this.$refs.unitNameRef.$el.classList.add("isErrInput");
-        this.isChooseUnitNameValue = true;
-        this.unitNameList = [...this.unitNameListTemp];
+        this.$emit("inputDepartmentNameChange", true, "");
+        this.isChooseDepartmentNameValue = true;
+        this.departmentNameList = [...this.departmentNameListTemp];
       } else {
-        this.unitNameList = this.unitNameListTemp.filter((item) => {
-          return item[this.textKey].toLowerCase().includes(value.toLowerCase());
+        this.departmentNameList = this.departmentNameListTemp.filter((item) => {
+          return removeDiacritics(item?.DepartmentName)
+            .toLowerCase()
+            .includes(removeDiacritics(value).toLowerCase());
         });
-        this.isChooseUnitNameValue = true;
-        this.$emit("inputUnitNameChange", true);
-        this.$refs.unitNameRef.$el.classList.remove("isErrInput");
+
+        let departmentItem = this.departmentNameListTemp.find((item) => {
+          return removeDiacritics(item?.DepartmentName)
+            .toLowerCase()
+            .includes(removeDiacritics(value).toLowerCase());
+        });
+
+        this.isChooseDepartmentNameValue = true;
+        this.$emit("inputDepartmentNameChange", false, value, departmentItem);
       }
     },
     /**
      * Mô tả: Xử lý keydown trên combobox
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
     handleKeyDown(e) {
       if (e.keyCode === 40) {
         if (
-          this.unitNameList.length > 0 &&
-          this.indexItem < this.unitNameList.length - 1
+          this.departmentNameList.length > 0 &&
+          this.indexItem < this.departmentNameList.length - 1
         ) {
-          this.isChooseUnitNameValue = true;
+          this.isChooseDepartmentNameValue = true;
           this.isRotate = true;
           this.indexItem += 1;
           this.$emit(
-            "handleChooseUnitName",
-            this.unitNameList[this.indexItem][this.textKey]
+            "handleChooseDepartmentName",
+            this.departmentNameList[this.indexItem]
           );
+
+          this.isChooseDepartmentNameValue = true;
         } else {
           this.indexItem = -1;
-          this.$emit("handleChooseUnitName", this.inputValue);
+          this.$emit("handleChooseDepartmentName", {
+            DepartmentId: "",
+            DepartmentName: this.inputValue,
+          });
         }
       }
 
       if (e.keyCode === 38) {
-        if (this.unitNameList.length > 0 && this.indexItem === -1) {
-          this.isChooseUnitNameValue = true;
+        if (this.departmentNameList.length > 0 && this.indexItem === -1) {
+          this.isChooseDepartmentNameValue = true;
           this.isRotate = true;
-          this.indexItem = this.unitNameList.length - 1;
+          this.indexItem = this.departmentNameList.length - 1;
           this.$emit(
-            "handleChooseUnitName",
-            this.unitNameList[this.indexItem][this.textKey]
+            "handleChooseDepartmentName",
+            this.departmentNameList[this.indexItem]
           );
+
+          this.isChooseDepartmentNameValue = true;
         } else if (this.indexItem > 0) {
           this.indexItem -= 1;
           this.$emit(
-            "handleChooseUnitName",
-            this.unitNameList[this.indexItem][this.textKey]
+            "handleChooseDepartmentName",
+            this.departmentNameList[this.indexItem]
           );
+          this.isChooseDepartmentNameValue = true;
         } else {
           this.indexItem = -1;
-          this.$emit("handleChooseUnitName", this.inputValue);
+          this.$emit("handleChooseDepartmentName", {
+            DepartmentId: "",
+            DepartmentName: this.inputValue,
+          });
         }
       }
     },
 
     handleKeyDownEnter(e) {
       if (e.keyCode === 13) {
-        this.isChooseUnitNameValue = false;
+        this.isChooseDepartmentNameValue = false;
         this.isRotate = false;
       }
     },
   },
 
+
   mounted() {
-    this.getDepartment();
-    this.$emit("getUnitNameInput", this.$refs.unitNameRef);
+    this.$emit("getDepartmentNameInput", this.$refs.departmentNameRef);
+    this.departmentNameList = this.departments; 
+    this.departmentNameListTemp = this.departments; 
   },
 };
 </script>

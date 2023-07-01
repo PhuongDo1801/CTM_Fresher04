@@ -104,5 +104,23 @@
   background-color: #118044;
 }
 
+.container__right-search-btn{
+  width: 200px;
+  height: 36px;
+  background:transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(128, 128, 128, 0.635);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 2px;
+}
+
+.container__right-search-btn span{
+  font-size: 14px;
+  font-weight: 400 ;
+}
 
 

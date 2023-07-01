@@ -2,22 +2,21 @@
   <EmployeeDetails
     v-if="isShowEmployeeDetails"
     :handleCloseEmployeeForm="handleCloseEmployeeForm"
-    :getListEmployee="getListEmployee"
-    :employees="employees"
+    :getListEmployee="getEmployeeList"
     :handleShowOverlay="handleShowOverlay"
-    :handleDuplicateEplCode="handleDuplicateEplCode"
-    :handleInputTextEmpty="handleInputTextEmpty"
     :workIsDone="workIsDone"
     :isPopupOverlayShow="isPopupOverlayShow"
     :employeeDataProps="employeeDataProps"
     :employeeCodeInit="employeeCodeInit"
+    :departments="departments"
+    :getFormSubmit="getFormSubmit"
     @reset-employee-state="handleResetEmployeeProps"
     @update-table-employee="handleUpdateEmployeeOnTable"
-    @handle-focus-employee-code="handleSetEmployeeCodeRef"
-    @handle-focus-employee-name="handleSetEmployeeNameRef"
-    @handle-focus-unit-name="handleSetEmployeeUnitNameRef"
     @show-loading-icon="handleShowLoadingIcon"
     @hidden-loading-icon="handleHiddenLoadingIcon"
+    @get-Input-Error-Text="handleShowDialogErrorInput"
+    @show-close-form-question="handleShowCloseFormQuestion"
+    @get-Employee-Code-Input="setEmployeeCodeRef"
   />
 
   <div v-if="isLoadingData">
@@ -39,14 +38,11 @@
   <m-dialog
     :textDialog="textDialog"
     :isShowDialog="isShowDialog"
-    :handleCancelDelete="handleCancelDelete"
+    :dialogType="dialogType"
+    :handleCloseDialog="handleCloseDialog"
     :handleDeleteEmployee="handleDeleteEmployee"
-    :handleCloseDuplicateForm="handleCloseDuplicateForm"
-    :handleCloseEmptyInputForm="handleCloseEmptyInputForm"
-    :isDialogCreateClick="isDialogCreateClick"
-    :isDialogDeleteClick="isDialogDeleteClick"
-    :isDialogUpdateClick="isDialogUpdateClick"
-    :isDialogEmptyClick="isDialogEmptyClick"
+    :handleSubmitForm="handleSubmitForm"
+    :handleCloseEmployeeForm="handleCloseEmployeeForm"
   ></m-dialog>
 
   <div class="container__right-main-top">
@@ -57,17 +53,22 @@
   </div>
   <div class="container__right-main-body">
     <div class="container__right-search">
+      <button disabled class="container__right-search-btn">
+        <span>Thực hiện hàng loạt</span>
+        &nbsp;&nbsp;
+        <i class="sprite-dropdown-container-top-icon"></i>
+      </button>
+
       <div class="container__right-search-input">
         <input
           v-model="textSearch"
-          title="Tìm kiếm thông tin nhân viên"
           placeholder="Tìm theo mã, tên nhân viên"
           type="text"
           id="input-search"
         />
         <i class="sprite-search-icon"></i>
+        <i @click="handleReloadTable" class="sprite-refresh-icon"></i>
       </div>
-      <i class="sprite-refresh-icon"></i>
     </div>
 
     <div class="container__right-table">
@@ -101,11 +102,7 @@
                   this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeDob
                 }}
               </th>
-              <th
-                style="text-align: right !important"
-                model-name="identityNumber"
-                title="Số chứng minh nhân dân"
-              >
+              <th model-name="identityNumber">
                 {{
                   this.$_MISAResource[this.$_LANGCODE].employeeTable
                     .employeeIdentityNum
@@ -123,7 +120,7 @@
                     .employeeUnitName
                 }}
               </th>
-              <th style="text-align: right !important" model-name="bankAccount">
+              <th model-name="bankAccount">
                 {{
                   this.$_MISAResource[this.$_LANGCODE].employeeTable
                     .employeeBankAccount
@@ -156,40 +153,48 @@
               :key="employee.EmployeeId"
             >
               <td>
-                <input name="input-table-checkbox" type="checkbox" />
+                <input
+                  name="input-table-checkbox"
+                  type="checkbox"
+                  @dblclick.stop
+                />
               </td>
               <td>{{ employee.EmployeeCode }}</td>
               <td>{{ employee.FullName }}</td>
               <td>
-                <span v-if="employee.Gender == this.$_MISAEnum.Gender.Male">
+                <span v-if="employee.Gender == this.$_MISAEnum.Gender.male">
                   {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.male }}
                 </span>
                 <span v-if="employee.Gender == this.$_MISAEnum.Gender.female">
-                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.female }}
+                  {{
+                    this.$_MISAResource[this.$_LANGCODE].employeeGender.female
+                  }}
                 </span>
                 <span v-if="employee.Gender == this.$_MISAEnum.Gender.other">
-                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.other }}
+                  {{
+                    this.$_MISAResource[this.$_LANGCODE].employeeGender.other
+                  }}
                 </span>
               </td>
               <td>
-                {{ employee.DateOfBirth && customDate(employee.DateOfBirth) }}
+                {{ employee.DateOfBirth && customDateV1(employee.DateOfBirth) }}
               </td>
-              <td style="text-align: right !important">
+              <td>
                 {{ employee.IdentityNumber }}
               </td>
               <td>{{ employee.JobTitle }}</td>
               <td>{{ employee.DepartmentName }}</td>
-              <td style="text-align: right !important">
+              <td>
                 {{ employee.BankAccount }}
               </td>
               <td>{{ employee.BankName }}</td>
               <td>{{ employee.BankBranch }}</td>
-              <td>
+              <td @dblclick.stop>
                 <span>
                   {{
                     this.$_MISAResource[this.$_LANGCODE].employeeOptions.title
-                  }}</span
-                >
+                  }}
+                </span>
                 <div
                   @click="handleShowOptions(key)"
                   class="sprite-dropdown-blue-icon-wraper"
@@ -209,7 +214,7 @@
                       }}
                     </li>
                     <li
-                      @click="handleShowQADelete(employee.EmployeeId)"
+                      @click="handleShowDialogDelete(employee)"
                       class="table-list-option-delete"
                     >
                       {{
@@ -235,15 +240,14 @@
       <div>
         <div class="container__right-main-footer-left">
           <span
-            >Tổng số: <b>{{ employees.length }}</b></span
+            >Tổng số: <b>{{ totalRecord && totalRecord }}</b></span
           >
         </div>
         <div class="container__right-main-footer-right">
           <div class="container__footer-right-item-first">
             <span>Số bản ghi/trang:</span>
             <div @click="handleShowPageList">
-              <span>{{ this.currentPageSize }} </span>
-              <span>&nbsp;</span>
+              <span>&nbsp;{{ originRecord }}</span>
               <i class="sprite-dropdown-gray-d-icon"></i>
               <ul v-show="isPagingShow" class="footer__pagesize-list">
                 <li
@@ -257,9 +261,9 @@
             </div>
           </div>
           <div class="container__footer-right-item-second">
-            <span>1 </span>
+            <span>1</span>
             <span>&nbsp; - &nbsp;</span>
-            <span>{{ employees.length }}</span>
+            <span>{{ employees?.length }}</span>
 
             <span> &nbsp; bản ghi </span>
           </div>
@@ -275,8 +279,9 @@
 
 <script>
 import EmployeeDetails from "./EmployeeDetails.vue";
-import { customDate } from "@/utils/utils";
-import EmployeeService from "../../services/EmployeeService";
+import { customDateV1, customDateV2 } from "@/utils/date";
+import employeeService from "../../services/EmployeeService";
+import departmentService from "../../services/DepartmentService";
 import { pagings } from "../../data/paging";
 export default {
   name: "EmployeeList",
@@ -287,59 +292,64 @@ export default {
     return {
       isLoadingData: false,
       employeeCodeRef: null,
-      employeeNameRef: null,
-      employeeUnitNameRef: null,
+      departments: [],
       idTimeOut: null,
-      inputTypeEmplCodeErr: false,
-      inputTypeEmplNameErr: false,
-      inputTypeEmplUnitNameErr: false,
+      formSubmit: null,
+      inputErrorListRef: null,
       textSearch: "",
       offset: 0,
+      limit: 15,
       page: 1,
-      start: 0,
       pagings,
       isPopupOverlayShow: false,
       textMessage: "",
       textDialog: [],
       isDone: false,
-      emplCode: null,
-      isDuplicateCode: false,
       isShowEmployeeDetails: false,
       optionIndex: null,
       isOptionShow: false,
-      isQAdelete: false,
+      dialogType: null,
       isShowDialog: false,
       isShowOverlay: false,
       employeeId: null,
       employees: [],
       employeeDataProps: null,
-      isShowFormEmployeeUpdate: false,
-      isDialogCreateClick: false,
-      isDialogDeleteClick: false,
-      isDialogUpdateClick: false,
-      isDialogEmptyClick: false,
       isPagingShow: false,
-      currentPageSize: 15,
-      totalSizePage: 0,
+      totalRecord: null,
+      originRecord: 15,
       employeeCodeInit: null,
     };
   },
   methods: {
+    getFormSubmit(formSubmit) {
+      this.formSubmit = formSubmit;
+    },
+
+    setEmployeeCodeRef(employeeCodeRef) {
+      this.employeeCodeRef = employeeCodeRef;
+    },
+    /**
+     * Mô tả: Xử lý thêm hoặc sửa nhân viên
+     * created by : ndthinh
+     * created date: 01-07-2023
+     */
+    handleSubmitForm() {
+      this.textDialog = [];
+      this.formSubmit();
+    },
+
     /**
      * Mô tả: Xử lý lấy dữ liệu trang trước
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
     async handleBackPage() {
       try {
         this.handleShowLoadingIcon();
         if (this.page > 1) {
-          this.page = this.page - 1;
-          const data = await EmployeeService.getPaging(
-            this.page,
-            this.currentPageSize
-          );
-          this.employees = data;
+          this.offset = this.offset - this.limit;
+          this.getEmployeeList();
+          this.page -= 1;
         }
         this.handleHiddenLoadingIcon();
       } catch (error) {
@@ -365,19 +375,16 @@ export default {
 
     /**
      * Mô tả: Xử lý lấy dữ liệu trang tiếp theo
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
     async handleNextPage() {
       try {
         this.handleShowLoadingIcon();
-        if (this.page < this.totalSizePage) {
-          this.page = this.page + 1;
-          const data = await EmployeeService.getPaging(
-            this.page,
-            this.currentPageSize
-          );
-          this.employees = data;
+        if (this.page < Math.ceil(this.totalRecord / this.limit)) {
+          this.offset = this.page * this.limit;
+          this.page += 1;
+          this.getEmployeeList();
         }
         this.handleHiddenLoadingIcon();
       } catch (error) {
@@ -401,9 +408,32 @@ export default {
       }
     },
 
+    handleShowCloseFormQuestion(message) {
+      this.dialogType = this.$_MISAEnum.DialogType.question;
+      this.textDialog.push(message);
+      this.isShowDialog = true;
+      this.handleShowOverlay();
+      this.isPopupOverlayShow = true;
+    },
+
+    /**
+     * Mô tả: Hiển thị lỗi input trên dialog
+     * created by : NDTHINH
+     * created date: 30-06-2023
+     */
+    handleShowDialogErrorInput(errorList, inputErrorListRef, typeError) {
+      this.dialogType = typeError;
+      this.isShowDialog = true;
+      (this.inputErrorListRef = inputErrorListRef),
+        errorList.forEach((item) => {
+          this.textDialog.push(item);
+        });
+      this.isPopupOverlayShow = true;
+    },
+
     /**
      * Mô tả: Xử lý hiện icon loading khi lấy dữ liệu
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 17-06-2023
      */
 
@@ -413,7 +443,7 @@ export default {
 
     /**
      * Mô tả: Xử lý ẩn icon loading khi lấy dữ liệu
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 17-06-2023
      */
     handleHiddenLoadingIcon() {
@@ -422,17 +452,25 @@ export default {
 
     /**
      * Mô tả: Thay đổi số lượng dòng hiển thị
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
     handleChangeRowPage(value) {
-      this.currentPageSize = value;
-      this.getListEmployee();
+      this.originRecord = value;
+      this.limit = value;
+      this.getEmployeeList();
+      if (parseInt(value) > this.totalRecord) {
+        this.page = Math.ceil(this.totalRecord / this.limit);
+        this.offset = (this.page - 1) * this.limit;
+      } else {
+        this.page = Math.ceil(parseInt(value) / this.limit);
+        this.offset = (this.page - 1) * this.limit;
+      }
     },
 
     /**
      * Mô tả: Hiển thị danh sách hiển thị số lượng dòng
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 07-06-2023
      */
     handleShowPageList() {
@@ -440,49 +478,45 @@ export default {
     },
 
     /**
-     * Mô tả: lấy input mã nhân viên ref
-     * created by : NDTHINH
-     * created date: 02-06-2023
-     */
-    handleSetEmployeeCodeRef(emplCodeRef) {
-      this.employeeCodeRef = emplCodeRef;
-    },
-
-    /**
-     * Mô tả: lấy input tên nhân viên ref
-     * created by : NDTHINH
-     * created date: 02-06-2023
-     */
-
-    handleSetEmployeeNameRef(emplNameRef) {
-      this.employeeNameRef = emplNameRef;
-    },
-    /**
-     * Mô tả: lấy input tên đơn vị ref
-     * created by : NDTHINH
-     * created date: 04-06-2023
-     */
-    handleSetEmployeeUnitNameRef(emplUnitNameRef) {
-      this.employeeUnitNameRef = emplUnitNameRef;
-    },
-
-    /**
      * Mô tả: Xử lý reset dữ liệu nhân viên trong props
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 01-06-2023
      */
     handleResetEmployeeProps() {
       this.employeeDataProps = null;
     },
     /**
+     * Mô tả: Xử lý đóng dialog
+     * created by : ndthinh
+     * created date: 30-06-2023
+     */
+    handleCloseDialog() {
+      this.isShowDialog = false;
+      if (this.dialogType === this.$_MISAEnum.DialogType.delete) {
+        this.isShowOverlay = false;
+      }
+      if (this.inputErrorListRef?.length > 0) {
+        this.inputErrorListRef[0].focus();
+      } else {
+        this.employeeCodeRef?.focus();
+      }
+      this.isPopupOverlayShow = false;
+      this.employeeId = null;
+      this.dialogType = null;
+      this.textDialog = [];
+      this.inputErrorListRef = [];
+      this.dialogType = null;
+    },
+
+    /**
      * Mô tả: Xử lý thay đổi số dòng hiển thị trên table
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 31-05-2023
      */
     async handleChangeNumberRow(num) {
       this.rowNumber = num;
       try {
-        const data = await EmployeeService.findByFilter(0, parseInt(num));
+        const data = await employeeService.findByFilter(0, parseInt(num));
         this.employees = data;
       } catch (error) {
         console.log(error);
@@ -491,7 +525,7 @@ export default {
 
     /**
      * Mô tả: Hiển lựa chọn số dòng hiển thị
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 31-05-2023
      */
     handleShowPaging() {
@@ -499,25 +533,14 @@ export default {
     },
     /**
      * Mô tả: Custom ngày tháng năm
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
-    customDate,
-    /**
-     * Mô tả: Xử lý hủy xóa nhân viên
-     * created by : NDTHINH
-     * created date: 29-05-2023
-     */
+    customDateV1,
 
-    handleCancelDelete() {
-      this.isShowDialog = false;
-      this.handleCloseOverlay();
-      this.isDialogDeleteClick = false;
-      this.textDialog = [];
-    },
     /**
      * Mô tả:Hiển thị text message khi thực hiện xong công việc
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     workIsDone(text, isDone) {
@@ -529,93 +552,8 @@ export default {
     },
 
     /**
-     * Mô tả: Xử lý trùng mã nhân viên
-     * created by : NDTHINH
-     * created date: 29-05-2023
-     */
-    handleDuplicateEplCode(emplCode, employeeCodeRef) {
-      this.isDuplicateCode = true;
-      this.emplCode = emplCode;
-      this.isShowDialog = true;
-      this.isDialogCreateClick = true;
-      this.employeeCodeRef = employeeCodeRef;
-      this.textDialog.push(
-        this.$_MISAResource[this.$_LANGCODE].employeeMsg.duplicateCode(
-          this.emplCode
-        )
-      );
-      this.isPopupOverlayShow = true;
-      this.isShowOverlay();
-      this.textDialog = [];
-    },
-    /**
-     * Mô tả: Xử lý input để trống
-     * created by : NDTHINH
-     * created date: 29-05-2023
-     */
-    handleInputTextEmpty(text, type) {
-      this.isShowDialog = true;
-      this.isDialogEmptyClick = true;
-      this.textDialog.push(text);
-      this.isPopupOverlayShow = true;
-
-      if (type === "emplCodeErr") {
-        this.inputTypeEmplCodeErr = true;
-      }
-
-      if (type === "emplNameErr") {
-        this.inputTypeEmplNameErr = true;
-      }
-
-      if (type === "emplUnitNameErr") {
-        this.inputTypeEmplUnitNameErr = true;
-      }
-    },
-
-    /**
-     * Mô tả: Đóng form thông báo trùng mã nhân viên
-     * created by : NDTHINH
-     * created date: 29-05-2023
-     */
-    handleCloseDuplicateForm() {
-      this.isDuplicateCode = false;
-      this.isShowDialog = false;
-      this.isDialogCreateClick = false;
-      this.isPopupOverlayShow = false;
-      this.employeeCodeRef.focus();
-      this.employeeCodeRef.classList.add("isErrInput");
-      this.textDialog = [];
-    },
-
-    /**
-     * Mô tả: Xử lý đóng form nhân viên
-     * created by : NDTHINH
-     * created date: 04-06-2023
-     */
-    handleCloseEmptyInputForm() {
-      this.isShowDialog = false;
-      this.isDialogEmptyClick = false;
-      this.isPopupOverlayShow = false;
-      this.textDialog = [];
-      if (this.inputTypeEmplCodeErr === true) {
-        this.employeeCodeRef.focus();
-        this.inputTypeEmplCodeErr = false;
-        return;
-      }
-      if (this.inputTypeEmplNameErr === true) {
-        this.employeeNameRef.focus();
-        this.inputTypeEmplNameErr = false;
-        return;
-      }
-
-      if (this.inputTypeEmplUnitNameErr === true) {
-        this.employeeUnitNameRef.focus();
-      }
-    },
-
-    /**
      * Mô tả: Hiển thị overlay
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     handleShowOverlay() {
@@ -624,7 +562,7 @@ export default {
 
     /**
      * Mô tả: Tắt overlay
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     handleCloseOverlay() {
@@ -632,31 +570,32 @@ export default {
     },
     /**
      * Mô tả: Hiển hị form tạo nhân viên
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     handleShowEmployeeForm() {
       this.isShowEmployeeDetails = true;
       this.handleShowOverlay();
-      this.employeeCodeInit = `NV-00${Math.ceil(
-        Math.random() * (10000 - 1) + 1
-      )}`;
     },
 
     /**
      * Mô tả: Đóng form tạo nhân viên
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
 
     handleCloseEmployeeForm() {
       this.isShowEmployeeDetails = false;
+      this.handleResetEmployeeProps();
       this.handleCloseOverlay();
+      this.isShowDialog = false;
+      this.isPopupOverlayShow = false;
+      this.textDialog = [];
     },
 
     /**
      * Mô tả: Xử lý hiển thị thao tác
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     handleShowOptions(key) {
@@ -665,92 +604,152 @@ export default {
     },
 
     /**
-     * Mô tả: Xử lý hiển thị câu hỏi xóa
+     * Mô tả: Lấy danh sách phòng ban
      * created by : NDTHINH
+     * created date: 26-06-2023
+     */
+    async getDepartment() {
+      try {
+        const { Data } = await departmentService.findAll(
+          this.offset,
+          this.limit,
+          this.inputValue
+        );
+        this.departments = Data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * Mô tả: Xử lý hiển thị câu hỏi xóa
+     * created by : ndthinh
      * created date: 29-05-2023
      */
-    handleShowQADelete(employeeId) {
+    handleShowDialogDelete(employee) {
       this.isShowDialog = true;
+      this.dialogType = this.$_MISAEnum.DialogType.delete;
       this.handleShowOverlay();
       this.isOptionShow = true;
-      this.employeeId = employeeId;
-      this.isDialogDeleteClick = true;
+      this.employeeId = employee?.EmployeeId;
       this.textDialog.push(
-        this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteQuestion
+        this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteQuestion(
+          employee?.EmployeeCode
+        )
       );
-      this.$refs.optionsRef[this.optionIndex].classList.remove("active");
     },
 
     /**
      * Mô tả: Lấy thông tin một nhân viên
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
 
     getSingleValueEmployee(employee) {
+      employee.DateOfBirth =
+        employee?.DateOfBirth && customDateV2(employee.DateOfBirth);
+      employee.DateRange =
+        employee?.DateRange && customDateV2(employee.DateRange);
       this.employeeDataProps = employee;
-      this.isShowFormEmployeeUpdate = true;
       this.isShowEmployeeDetails = true;
       this.handleShowOverlay();
     },
 
     /**
      * Mô tả: Xử lý thêm, sửa, xóa nhân viên trên table
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
 
-    handleUpdateEmployeeOnTable(employee, type) {
-      //thêm
-      if (type === this.$_MISAEnum.ApiType.created) {
-        this.employees.push(employee);
-        return;
-      }
-
-      //cập nhật
-      if (type === this.$_MISAEnum.ApiType.updated) {
-        this.employees = this.employees.map((item) => {
-          if (item.id === employee.id) {
-            return employee;
+    handleUpdateEmployeeOnTable(employee, type, typeBtn) {
+      try {
+        //thêm
+        if (type === this.$_MISAEnum.ApiType.created) {
+          if (
+            typeBtn ===
+            this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
+          ) {
+            this.getEmployeeCodeInit();
+          } else {
+            this.handleCloseEmployeeForm();
           }
-          return item;
-        });
-        this.employeeDataProps = null;
-        return;
-      }
+          this.employees.unshift(employee);
+          this.totalRecord += 1;
 
-      //xóa
-      this.employees = this.employees.filter((item, index) => {
-        return this.optionIndex !== index;
-      });
-      this.optionIndex = null;
-      this.textMessage =
-        this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteSuccess;
-      this.isDone = true;
-      this.isDialogDeleteClick = false;
-      this.isOptionShow = false;
-      setTimeout(() => {
-        this.isDone = false;
-      }, 3000);
+          this.employeeDataProps = null;
+          return;
+        }
+
+        //cập nhật
+        if (type === this.$_MISAEnum.ApiType.updated) {
+          if (
+            typeBtn ===
+            this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
+          ) {
+            this.getEmployeeCodeInit();
+          } else {
+            this.handleCloseEmployeeForm();
+          }
+
+          if (employee !== null) {
+            this.employees = this.employees.map((item) => {
+              if (item.EmployeeId === employee?.EmployeeId) {
+                return employee;
+              }
+              return item;
+            });
+          }
+
+          this.employeeDataProps = null;
+
+          return;
+        }
+
+        //xóa
+        this.employees = this.employees.filter((item, index) => {
+          return this.optionIndex !== index;
+        });
+        this.optionIndex = null;
+        this.textMessage =
+          this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteSuccess;
+        this.isDone = true;
+        this.isDialogDeleteClick = false;
+        this.isOptionShow = false;
+        setTimeout(() => {
+          this.isDone = false;
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    handleReloadTable() {
+      this.offset = 0;
+      this.limit = 15;
+      this.page = 1;
+      this.originRecord = this.limit;
+      this.getEmployeeList();
     },
 
     /**
      * Mô tả: Call API xóa nhân viên
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
     async handleDeleteEmployee() {
       try {
-        // this.handleShowLoadingIcon();
-        const status = await EmployeeService.deleteById(this.employeeId);
+        this.handleShowLoadingIcon();
+        const status = await employeeService.deleteById(this.employeeId);
         if (status === 200) {
           this.isShowDialog = false;
           this.handleCloseOverlay();
-          this.isOptionShow = !this.isOptionShow;
+          this.isOptionShow = false;
           this.handleUpdateEmployeeOnTable();
           this.textDialog = [];
+          this.totalRecord -= 1;
+          this.dialogType = null;
         }
-        // this.handleHiddenLoadingIcon();
+        this.handleHiddenLoadingIcon();
       } catch (error) {
         console.log(error);
       }
@@ -758,18 +757,20 @@ export default {
 
     /**
      * Mô tả: Lấy danh sách nhân viên
-     * created by : NDTHINH
+     * created by : ndthinh
      * created date: 29-05-2023
      */
-    async getListEmployee() {
+    async getEmployeeList(textFilter) {
       try {
         this.handleShowLoadingIcon();
         this.isLoadingData = true;
-        const { data, length } = await EmployeeService.findAll(
-          this.currentPageSize
+        const { Data, TotalRecord } = await employeeService.findByFilter(
+          this.offset,
+          this.limit,
+          textFilter
         );
-        this.employees = data;
-        this.totalSizePage = Math.ceil(length / this.currentPageSize);
+        this.employees = Data;
+        this.totalRecord = TotalRecord;
         this.isLoadingData = false;
         this.handleHiddenLoadingIcon();
       } catch (error) {
@@ -794,10 +795,15 @@ export default {
       }
     },
 
-    async findByName(emplName) {
+    /**
+     * Mô tả: Hàm khởi tạo mã nhân viên
+     * created by : ndthinh
+     * created date: 23-06-2023
+     */
+    async getEmployeeCodeInit() {
       try {
-        const data = await EmployeeService.findByName(emplName);
-        this.employees = data;
+        const data = await employeeService.getMaxEmployeeCode();
+        this.employeeCodeInit = data;
       } catch (error) {
         console.log(error);
       }
@@ -805,7 +811,9 @@ export default {
   },
 
   created() {
-    this.getListEmployee();
+    this.getEmployeeList();
+    this.getEmployeeCodeInit();
+    this.getDepartment();
   },
 
   watch: {
@@ -814,7 +822,7 @@ export default {
         clearTimeout(this.idTimeOut);
       }
       const id = setTimeout(() => {
-        this.findByName(newValue);
+        this.getEmployeeList(newValue);
       }, 600);
       this.idTimeOut = id;
     },
@@ -835,7 +843,7 @@ export default {
   top: 50%;
   transform: translateX(-50%);
   transform: translateY(-50%);
-  z-index: 9999999999;
+  z-index: 99999;
 }
 
 @-webkit-keyframes spin {

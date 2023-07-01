@@ -20,6 +20,14 @@ const MISAEnum = {
     updated: "updated",
     deleted: "deleted",
   },
+
+  DialogType: {
+    create: "CREATE",
+    delete: "DELETE",
+    duplicate: "DUPLICATE",
+    badRequest:"BADREQUEST",
+    question:"QUESTION"
+  },
 };
 
 export default MISAEnum;

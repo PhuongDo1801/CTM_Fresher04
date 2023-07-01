@@ -2,19 +2,24 @@ import instanceAxios from "@/axios/instance";
 
 class BaseApi {
   controller = "";
-  async findAll(pageSize) {
+
+  /**
+   * Mô tả: Lấy danh sách nhân viên
+   * created by : ndthinh
+   * created date: 22-06-2023
+   */
+
+  async findAll() {
     const response = await instanceAxios.get(`${this.controller}`);
+
     if (response.data) {
-      return {
-        data: response.data.slice(0, pageSize),
-        length: response.data.length,
-      };
+      return response.data;
     }
   }
 
   /**
    * Mô tả: Xóa nhân viên theo id
-   * created by : NDTHINH
+   * created by : ndthinh
    * created date: 30-05-2023
    */
 
@@ -29,7 +34,7 @@ class BaseApi {
 
   /**
    * Mô tả: Tạo nhân viên
-   * created by : NDTHINH
+   * created by : ndthinh
    * created date: 30-05-2023
    */
 
@@ -42,7 +47,7 @@ class BaseApi {
 
   /**
    * Mô tả: Cập nhật thông tin nhân viên
-   * created by : NDTHINH
+   * created by : ndthinh
    * created date: 30-05-2023
    */
   async updateById(objectId, objectData) {
@@ -52,45 +57,6 @@ class BaseApi {
     );
     if (response.data) {
       return { data: response.data, status: response.status };
-    }
-  }
-
-  /**
-   * Mô tả: Tìm nhân viên theo tên
-   * created by : NDTHINH
-   * created date: 30-05-2023
-   */
-  async findByName(objectName) {
-    const textSearch =
-      objectName === ""
-        ? `${this.controller}`
-        : `${this.controller}?name=${objectName}`;
-    const response = await instanceAxios.get(textSearch);
-    if (response.data) {
-      return response.data;
-    }
-  }
-
-  /**
-   * Mô tả: Tìm nhân viên theo số dòng
-   * created by : NDTHINH
-   * created date: 30-05-2023
-   */
-  async findByFilter(start, end) {
-    const response = await instanceAxios.get(
-      `${this.controller}?_start=${start}&_end=${end}`
-    );
-    if (response.data) {
-      return response.data;
-    }
-  }
-
-  async getPaging(page, limit) {
-    const response = await instanceAxios.get(
-      `${this.controller}?_page=${page}&_limit=${limit}`
-    );
-    if (response.data) {
-      return response.data;
     }
   }
 }

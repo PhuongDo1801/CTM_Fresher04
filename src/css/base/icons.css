@@ -127,7 +127,7 @@
   width: 17px;
   height: 16px;
   position: absolute;
-  right: 20px;
+  right: 50px;
 }
 
 .sprite-refresh-icon {
@@ -145,13 +145,12 @@
 }
 
 .sprite-dropdown-gray-icon {
- background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1756px -317px;
-	width: 8px;
-	height: 5px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -1756px -317px;
+  width: 8px;
+  height: 5px;
   display: block;
   transform: rotate(180deg);
 }
-
 
 .sprite-info-icon {
   background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -732px -31px;
@@ -161,55 +160,69 @@
   cursor: pointer;
 }
 
-.sprite-close-icon{
-  background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -147px -147px;
-	width: 18px;
-	height: 18px;
+.sprite-close-icon {
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -147px -147px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 }
 
-.sprite-warning-icon{
-  background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -598px -463px;
-	width: 55px;
-	height: 37px;
+.sprite-warning-icon {
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -598px -463px;
+  width: 37px;
+  height: 37px;
   display: block;
 }
 
-.sprite-danger-icon{
-  background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -754px -462px;
-	width: 36px;
-	height: 36px;
+.sprite-danger-icon {
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -754px -462px;
+  width: 36px;
+  height: 36px;
 }
 
 .sprite-exc-point-icon {
-	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -752px -462px;
-	width: 36px;
-	height: 36px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -752px -462px;
+  width: 36px;
+  height: 36px;
 }
 
 .sprite-dropdown-black-icon {
-	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -371px -364px;
-	width: 10px;
-	height: 8px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -371px -364px;
+  width: 10px;
+  height: 8px;
 }
-
 
 .sprite-dropdown-gray-d-icon {
-	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1129px -365px;
-	width: 14px;
-	height: 8px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -1129px -365px;
+  width: 14px;
+  height: 8px;
 }
 
-
 .sprite-arrow-right-icon {
-	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1085px -361px;
-	width: 8px;
-	height: 14px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -1085px -361px;
+  width: 8px;
+  height: 14px;
 }
 
 .sprite-arrow-left-icon {
-	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -36px -361px;
-	width: 8px;
-	height: 14px;
+  background: url("../../assets/icon/sprite/Sprites.64af8f61.svg") no-repeat -36px -361px;
+  width: 8px;
+  height: 14px;
 }
 
+.sprite-refresh-icon:hover {
+  cursor: pointer;
+}
+
+
+.sprite-dropdown-container-top-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -1756px -317px;
+	width: 8px;
+	height: 5px;
+}
+
+.sprite-question-icon {
+	background: url('../../assets/icon/sprite/Sprites.64af8f61.svg') no-repeat -832px -462px;
+	width: 36px;
+	height: 36px;
+}
