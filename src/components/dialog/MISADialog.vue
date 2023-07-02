@@ -4,7 +4,8 @@
       <i
         v-if="
           dialogType === this.$_MISAEnum.DialogType.delete ||
-          dialogType === this.$_MISAEnum.DialogType.duplicate
+          dialogType === this.$_MISAEnum.DialogType.duplicate || 
+          dialogType === this.$_MISAEnum.DialogType.deleteMultiple
         "
         class="sprite-warning-icon"
       ></i>
@@ -26,7 +27,7 @@
     <div class="container__right-dialog-bottom">
       <div class="container__right-dialog-bottom-left">
         <button
-          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+          v-if="dialogType === this.$_MISAEnum.DialogType.question || dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
           @click="handleCloseDialog"
           class="container__right-dialog-btn danger"
         >
@@ -70,6 +71,14 @@
         </button>
 
         <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
+          @click="handleDeleteMultiple"
+          class="container__right-dialog-btn success"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
+        </button>
+
+        <button
           v-if="dialogType === this.$_MISAEnum.DialogType.duplicate"
           @click="handleCloseDialog"
           class="container__right-dialog-btn success"
@@ -97,6 +106,7 @@ export default {
     handleCloseEmployeeForm: Function,
     handleSubmitForm:Function,
     handleCloseDialog: Function,
+    handleDeleteMultiple:Function,
     textDialog: Array,
     isShowDialog: Boolean,
     dialogType: String,

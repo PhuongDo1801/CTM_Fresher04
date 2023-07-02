@@ -27,7 +27,8 @@ const MISAEnum = {
     delete: "DELETE",
     duplicate: "DUPLICATE",
     badRequest:"BADREQUEST",
-    question:"QUESTION"
+    question:"QUESTION",
+    deleteMultiple:"DELETEMULTIPLE"
   },
 };
 

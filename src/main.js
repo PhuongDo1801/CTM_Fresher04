@@ -5,6 +5,7 @@ import MISAToastMessage from "./components/toat-message/MISAToastMessage.vue";
 import MISACombobox from './components/combobox/MISACombobox.vue'
 import MISADialog from "./components/dialog/MISADialog.vue";
 import MISAResource from "./scripts/resource";
+import MISAButton from './components/button/MISAButton'; 
 import MISAEnum from "./scripts/enum";
 
 import router from "./router";
@@ -13,6 +14,7 @@ app.component("m-input", MISAInput);
 app.component("m-toast-message", MISAToastMessage);
 app.component("m-dialog", MISADialog);
 app.component("m-combobox", MISACombobox);
+app.component("m-button", MISAButton);
 
 app.config.globalProperties.$_MISAResource = MISAResource;
 app.config.globalProperties.$_MISAEnum = MISAEnum;

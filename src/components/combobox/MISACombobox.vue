@@ -175,6 +175,11 @@ export default {
       }
     },
 
+    /**
+    * Mô tả: Xử lý keydown enter
+    * created by: ndthinh
+    * created date: 20-06-2023
+    */
     handleKeyDownEnter(e) {
       if (e.keyCode === 13) {
         this.isChooseDepartmentNameValue = false;

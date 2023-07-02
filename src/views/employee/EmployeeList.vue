@@ -43,6 +43,7 @@
     :handleDeleteEmployee="handleDeleteEmployee"
     :handleSubmitForm="handleSubmitForm"
     :handleCloseEmployeeForm="handleCloseEmployeeForm"
+    :handleDeleteMultiple="handleDeleteMultiple"
   ></m-dialog>
 
   <div class="container__right-main-top">
@@ -53,10 +54,13 @@
   </div>
   <div class="container__right-main-body">
     <div class="container__right-search">
-      <button :disabled="btnDisable" class="container__right-search-btn" :class="{disable:btnDisable}">
-        <span>Thực hiện hàng loạt</span>
+      <button @click="handleMultiAction" :disabled="btnDisable" class="container__right-search-btn" :class="{disable:btnDisable}">
+        <span>{{ this.$_MISAResource[this.$_LANGCODE].employeeOptions.multipleAction}}</span>
         &nbsp;&nbsp;
         <i class="sprite-dropdown-container-top-icon"></i>
+        <ul :class = "{isShowUtils : isMultiAction}">
+          <li @click="handleShowDialogDeleteMultiple">{{ this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete }}</li>
+        </ul>
       </button>
 
       <div class="container__right-search-input">
@@ -189,12 +193,12 @@
       <div>
         <div class="container__right-main-footer-left">
           <span
-            >Tổng số: <b>{{ totalRecord && totalRecord }}</b></span
+            >{{ this.$_MISAResource[this.$_LANGCODE].otherText.total }}: <b>{{ totalRecord && totalRecord }}</b></span
           >
         </div>
         <div class="container__right-main-footer-right">
           <div class="container__footer-right-item-first">
-            <span>Số bản ghi/trang:</span>
+            <span>{{ this.$_MISAResource[this.$_LANGCODE].otherText.totalRecord }}:</span>
             <div @click="handleShowPageList">
               <span>&nbsp;{{ originRecord }}</span>
               <i class="sprite-dropdown-gray-d-icon"></i>
@@ -214,7 +218,7 @@
             <span>&nbsp; - &nbsp;</span>
             <span>{{ employees?.length }}</span>
 
-            <span> &nbsp; bản ghi </span>
+            <span> &nbsp; {{ this.$_MISAResource[this.$_LANGCODE].otherText.record }} </span>
           </div>
           <div class="container__footer-right-item-three">
             <i @click="handleBackPage" class="sprite-arrow-left-icon"></i>
@@ -246,6 +250,7 @@ export default {
       idCheckedObject:{},
       isCheckedAll:false,
       idTimeOut: null,
+      isMultiAction:false,
       formSubmit: null,
       inputErrorListRef: null,
       textSearch: "",
@@ -274,70 +279,80 @@ export default {
     };
   },
   methods: {
+
+    /**
+    * Mô tả: Xử lý chọn tất cả checkbox
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
     handleToggleCheckedAll(){
       if(this.isCheckedAll){
-        this.idCheckedList =  this.idCheckedList.filter(item => item !== null); 
-        this.employees.forEach(item=>{
-          if(!this.idCheckedList.includes(item.EmployeeId)){
-            this.idCheckedList.push(item.EmployeeId); 
-            this.idCheckedObject[item.EmployeeId] = true
-          }
-        })
-        this.btnDisable = false; 
+       this.employees.forEach(item=>{
+        this.idCheckedObject[item.EmployeeId] = true; 
+       })
+       this.btnDisable = false; 
       }else{
-        this.idCheckedList =[...this.idCheckedList.slice(0, (this.page - 1) * this.limit), ...this.idCheckedList.slice((this.page - 1) * this.limit + this.limit ,this.idCheckedList.length)]
-        this.idCheckedObject = {}; 
-        this.idCheckedList.forEach(item=>{
-            this.idCheckedObject[item] = true; 
-        })
-      
-        if(length < 2){
-          this.btnDisable = true;  
-        }
+        this.employees.forEach(item=>{
+        delete this.idCheckedObject[item.EmployeeId]
+       })
+       const keyList = Object.keys(this.idCheckedObject); 
+       if(keyList.length < 2){
+        this.btnDisable = true; 
+        this.isMultiAction = false; 
+       }
       }
     },
 
-
+    /**
+    * Mô tả: Xử lý checkbox thay đổi giá trị
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
     handleCheckboxChange(event,employeeId){
       if(event.target._modelValue){    
-        this.idCheckedObject[employeeId] = true; 
+          this.idCheckedObject[employeeId] = true; 
+          const keyList = Object.keys(this.idCheckedObject); 
+          let keys = keyList.slice((this.page - 1) * this.limit , this.page * this.limit); 
 
-        const isNulls = this.idCheckedList.filter(item=>item === null);
-        if(isNulls.length > 0){
-          let indexNull= this.idCheckedList.indexOf(null); 
-          this.idCheckedList = this.idCheckedList.map((item,index)=>{
-            if(index === indexNull){
-              return employeeId; 
+          if(keyList.length >= 2){
+            this.btnDisable = false; 
+            this.isMultiAction = false;
+          }
+          if(keys.length < this.limit){
+            this.isCheckedAll = false;
+            return; 
+          }
+          for(let key of keys){
+            if(this.idCheckedObject[key] === false){
+              this.isCheckedAll = false;
+              return; 
             }
-            return item; 
-          })
-        }else{
-          this.idCheckedList.push(employeeId);          
-        }
-        const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit)
-        const filter = data?.filter(item=>item !== null); 
-        if(filter?.length === this.limit){
-          this.isCheckedAll = true; 
-        }
+          }
+          this.isCheckedAll = true;         
       }else{
-        this.idCheckedObject[employeeId] = false;
-        this.idCheckedList = this.idCheckedList.map(item=>{
-          return item !== employeeId ? item: null 
-        }); 
-        this.idCheckedObject = {}; 
-        this.idCheckedList.forEach(item=>{
-          this.idCheckedObject[item] = true; 
-        })
-        this.isCheckedAll = false; 
+          this.idCheckedObject[employeeId] = false;
+          const keyList = Object.keys(this.idCheckedObject); 
+          const keys = keyList.slice((this.page - 1) * this.limit , this.page * this.limit); 
+          let count = 0; 
+          for(let key of keys){
+            if(this.idCheckedObject[key] === false){
+              ++ count; 
+              if(keyList.length - count < 2){
+                this.btnDisable = true;
+                this.isMultiAction = false;
+              }
+              this.isCheckedAll = false;
+              return; 
+            }
+          }      
       }
+  },
 
-      if(this.idCheckedList?.length >= 2){
-          this.btnDisable = false; 
-      }else{
-          this.btnDisable = true;
-      }
-
-    },
+  /**
+    * Mô tả: Xử lý nhân bản
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
     handleReplication(employee){
       this.employeeDataProps = employee; 
       this.isShowEmployeeDetails = true; 
@@ -345,10 +360,48 @@ export default {
       this.isShowOverlay = true;
     },
 
+
+    /**
+    * Mô tả: Hiển thị hộp thoại xóa nhiều
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
+
+    handleShowDialogDeleteMultiple(){
+      this.isMultiAction = false; 
+      this.isShowDialog = true;
+      this.dialogType = this.$_MISAEnum.DialogType.deleteMultiple;
+      this.handleShowOverlay();
+      this.isOptionShow = true;
+      this.textDialog.push(
+        this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteMuitipleQuestion
+      );
+    },
+
+    /**
+    * Mô tả: Lấy form submit
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
+
     getFormSubmit(formSubmit) {
       this.formSubmit = formSubmit;
     },
 
+    /**
+    * Mô tả: Hiển thị xóa nhiều
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
+    handleMultiAction(){
+      this.isMultiAction = true; 
+    },
+
+    /**
+    * Mô tả: Lấy input employee code
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
     setEmployeeCodeRef(employeeCodeRef) {
       this.employeeCodeRef = employeeCodeRef;
     },
@@ -372,15 +425,22 @@ export default {
         this.handleShowLoadingIcon();
         if (this.page > 1) {
           this.offset = this.offset - this.limit;
-          this.getEmployeeList();
-          this.page -= 1;
-          const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit)        
-          const filter = data?.filter(item=>item != null); 
-          if(filter.length < this.limit){
-            this.isCheckedAll = false; 
-          }else{
-            this.isCheckedAll = true;
+          await this.getEmployeeList();
+          this.page -= 1; 
+          const keyList = Object.keys(this.idCheckedObject); 
+          const keys = keyList.slice((this.page - 1) * this.limit , this.page * this.limit);       
+
+          if(keys.length < this.limit){
+            this.isCheckedAll = false;
+            return; 
           }
+          for(let key of keys){
+            if(this.idCheckedObject[key] === false){
+              this.isCheckedAll = false;
+              return; 
+            }
+          }
+          this.isCheckedAll = true;
         }       
         this.handleHiddenLoadingIcon();
       } catch (error) {
@@ -407,14 +467,23 @@ export default {
         if (this.page < Math.ceil(this.totalRecord / this.limit)) {
           this.offset = this.page * this.limit;
           this.page += 1;
-          this.getEmployeeList();
-          const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit )
-          const filter = data?.filter(item=>item != null); 
-          if(filter.length < this.limit){
-            this.isCheckedAll = false; 
-          }else{
-            this.isCheckedAll = true;
+          await this.getEmployeeList();
+          const keyList = Object.keys(this.idCheckedObject); 
+          const keys = keyList.slice((this.page - 1) * this.limit , this.page * this.limit); 
+
+          if(keys.length < this.limit){
+            this.isCheckedAll = false;
+            return; 
+          }  
+
+          for(let key of keys){
+            if(this.idCheckedObject[key] === false){
+              this.isCheckedAll = false;
+              return; 
+            }
           }
+
+          this.isCheckedAll = true;
         }
         this.handleHiddenLoadingIcon();
       } catch (error) {
@@ -428,6 +497,11 @@ export default {
       }
     },
 
+    /**
+    * Mô tả: Xử lý hỏi trước khi đóng form
+    * created by: ndthinh
+    * created date: 03-07-2023
+    */
     handleShowCloseFormQuestion(message) {
       this.dialogType = this.$_MISAEnum.DialogType.question;
       this.textDialog.push(message);
@@ -512,11 +586,11 @@ export default {
      */
     handleCloseDialog() {
       this.isShowDialog = false;
-      if (this.dialogType === this.$_MISAEnum.DialogType.delete) {
+      if (this.dialogType === this.$_MISAEnum.DialogType.delete || this.dialogType === this.$_MISAEnum.DialogType.deleteMultiple  ) {
         this.isShowOverlay = false;
       }
       if (this.inputErrorListRef?.length > 0) {
-        this.inputErrorListRef[0].focus();
+        this.inputErrorListRef[0]?.focus();
       } else {
         this.employeeCodeRef?.focus();
       }
@@ -526,6 +600,37 @@ export default {
       this.textDialog = [];
       this.inputErrorListRef = [];
       this.dialogType = null;
+      this.btnDisable = true; 
+      this.isMultiAction = false;
+      this.isCheckedAll = false; 
+      this.idCheckedObject = {}; 
+    },
+
+    /**
+     * Mô tả: Hàm xóa nhiều nhân viên
+     * created by : ndthinh
+     * created date: 22-06-2023
+     */
+    async handleDeleteMultiple(){
+      try {
+        const keys = Object.keys(this.idCheckedObject);       
+        let idList = []; 
+        for(let key of keys){
+          if(this.idCheckedObject[key] !== false){
+            idList.push(key);
+          }
+        }    
+        this.handleShowLoadingIcon();
+        const status = await employeeService.deleteMultiple(idList); 
+        if(status === this.$_MISAEnum.ResponseCode.success){
+           this.handleCloseDialog();
+           this.getEmployeeList(); 
+           this.handleUpdateEmployeeOnTable(); 
+        }
+        this.handleHiddenLoadingIcon(); 
+      } catch (error) {
+        console.log(error); 
+      }
     },
 
     /**
@@ -746,7 +851,7 @@ export default {
       try {
         this.handleShowLoadingIcon();
         const status = await employeeService.deleteById(this.employeeId);
-        if (status === 200) {
+        if (status === this.$_MISAEnum.ResponseCode.success) {
           this.isShowDialog = false;
           this.handleCloseOverlay();
           this.isOptionShow = false;
@@ -802,11 +907,22 @@ export default {
     },
   },
 
+   /**
+    * Mô tả: call api
+    * created by: ndthinh
+    * created date: 20-06-2023
+    */
+
   created() {
     this.getEmployeeList();
     this.getDepartment();
   },
 
+  /**
+    * Mô tả: Theo dõi biến tìm kiếm
+    * created by: ndthinh
+    * created date: 20-06-2023
+    */
   watch: {
     textSearch(newValue) {
       if (this.idTimeOut !== null) {
@@ -828,6 +944,10 @@ export default {
 .disable{
   border-color: rgba(128, 128, 128, 0.262);
   cursor: default;
+}
+
+.isShowUtils{
+  display: flex;
 }
 .loader {
   -webkit-animation: spin 2s linear infinite;

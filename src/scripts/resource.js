@@ -11,6 +11,9 @@ const MISAResource = {
       deleteQuestion: (code) => {
         return `Bạn có muốn xóa Nhân viên <${code}> không ?`;
       },
+      dateOfBirthInValid:"Ngày sinh không được phép lớn hơn ngày hiện tại.",
+      dateRangeInValid:"Ngày cấp không được phép lớn hơn ngày hiện tại.",
+      deleteMuitipleQuestion:"Bạn có thực sự muốn xóa những nhân viên đã chọn không ?",
       updateQuestion: "Bạn có chắc chắn muốn sửa nhân viên này không ?",
       closeFormQuestion: "Dữ liệu đã bị thay đổi. Bạn có muốn cất không ?",
       employeeCodeTitleErr: "Mã nhân viên bắt buộc",
@@ -46,6 +49,7 @@ const MISAResource = {
       replication: "Nhân bản",
       delete: "Xóa",
       stopUsing: "Ngưng sử dụng",
+      multipleAction:"Thực hiện hàng loạt"
     },
     employeeForm: {
       employeeCode: "Mã",
@@ -68,11 +72,17 @@ const MISAResource = {
       employeeIsProvider: "Là nhà cung cấp",
       employeeTitleFormCreate: "Thông tin nhân viên",
       employeeTitleFormUpdate: "Sửa thông tin nhân viên",
+      identityNumberTitle:"Số chứng minh thư"
     },
     employeeGender: {
       male: "Nam",
       female: "Nữ",
       other: "Khác",
+    },
+    otherText:{
+      total:"Tổng số", 
+      totalRecord:"Số bản ghi / trang",
+      record:"Bản ghi"
     },
     textBtnForm: {
       keep: "CẤT",
@@ -99,6 +109,7 @@ const MISAResource = {
       clientUnAuthorization: "Không có quyền truy cập !",
       defaultErr: "Có lỗi xảy ra !",
     },
+
   },
 };
 

@@ -31,6 +31,20 @@ class EmployeeService extends BaseApi {
       return data;
     }
   }
+
+    /**
+   * Mô tả: Hàm xóa nhiều nhân viên
+   * created by : ndthinh
+   * created date: 22-06-2023
+   */
+    async deleteMultiple(idList) {
+      const { status } = await instanceAxios.delete(`${this.controller}/Multiple`,{
+        data:[...idList]
+      });
+      if (status) {
+        return status;
+      }
+    }
 }
 
 export default new EmployeeService();

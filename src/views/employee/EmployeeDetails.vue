@@ -97,9 +97,11 @@
           <div>
             <label for="input-employee-dob">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeDob }}</label>
             <input
+              ref="dateOfBirthRef"
               v-model="employeeData.DateOfBirth"
               type="date"
               id="input-employee-dob"
+              :class="{isErrInput: isErrInputDbo}"
             />
           </div>
           <div>
@@ -141,7 +143,7 @@
               v-model="employeeData.IdentityNumber"
               type="text"
               id="input-employee-identity-number"
-              title="Số chứng minh thư"
+              :title= "identityNumberTitle"
             ></m-input>
           </div>
 
@@ -149,9 +151,11 @@
             <label for="input-employee-date-release-identity">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIdentityDateRelease}}</label>
             <input
               v-model="employeeData.DateRange"
+              ref="dateRangeRef"
               placeholder="Ngày cấp"
               type="date"
               id="input-employee-date-release-identity"
+              :class="{isErrInput: isErrInputDateRange}"
             />
           </div>
           <div>
@@ -286,12 +290,15 @@ export default {
       isErrInputEmplCode: false,
       isErrInputEmplName: false,
       isErrDepartmentName: false,
+      isErrInputDbo:false,
+      isErrInputDateRange:false,
       isDuplicateCode: false,
       formType:null,
       departmentNameRef: null,
       initialObject: null,
       inputErrorListRef: [],
       unitNameRef: null,
+      identityNumberTitle:this.$_MISAResource[this.$_LANGCODE].employeeForm.identityNumberTitle,
       errorList: [],
       employeeData: {
         IsCustomer: false,
@@ -435,23 +442,21 @@ export default {
           this.inputErrorListRef.push(this.$refs.employeeNameRef);
         
         }
+        // xử lý ngày tháng không hợp lệ
+        const dateOfBirth = new Date(this.employeeData?.DateOfBirth);
+        const dateRange = new Date(this.employeeData?.DateRange);
 
-        //Xử lý email không hợp lệ
-        // if (!validateEmail(this.employeeData.Email.trim())) {
-        //   this.isErrInputUnitName = true;
-        //   this.emailRef.$el.classList.add("isErrInput");
-        //   this.unitNameRef.$el.title =
-        //     this.$_MISAResource[
-        //       this.$_LANGCODE
-        //     ].employeeMsg.employeeUnitNameTitleErr;
-        //   //
-        //   this.handleInputTextEmpty(
-        //     this.$_MISAResource[this.$_LANGCODE].employeeMsg
-        //       .employeeUnitNameErr,
-        //     "emplUnitNameErr"
-        //   );
-        //   this.$emit("handleFocusUnitName", this.unitNameRef.$el);
-        // }
+        if(dateOfBirth > new Date()){
+          this.isErrInputDbo = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateOfBirthInValid);
+          this.inputErrorListRef.push(this.$refs.dateOfBirthRef);     
+        }
+
+        if(dateRange > new Date()){
+          this.isErrInputDateRange = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateRangeInValid);
+          this.inputErrorListRef.push(this.$refs.dateRangeRef);     
+        }
 
         // xử lý tên đơn vị để trống
         if (this.employeeData?.DepartmentName.trim().length === 0) {
@@ -477,6 +482,11 @@ export default {
       this.departmentNameRef = departmentNameRef;
     },
 
+     /**
+    * Mô tả: Reset form và khởi tạo giá trị cho form
+    * created by: ndthinh
+    * created date:30-06-2023
+    */
     handleResetFormAndInitEmployeeData() {
       this.formType = this.$_MISAEnum.FormMode.Add
       this.employeeData = Object.assign({}, this.initialObject);
@@ -513,7 +523,7 @@ export default {
           this.inputErrorListRef = [];
           return;
         }
-        // thêm nhân viên
+          // thêm nhân viên
         if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate ) {
 
           this.$emit("showLoadingIcon");
@@ -596,6 +606,11 @@ export default {
     },
   },
 
+   /**
+    * Mô tả: Call Api
+    * created by: ndthinh
+    * created date: 20-06-2023
+    */
   mounted() {
     this.$refs.employeeCodeRef.focus();
     this.$emit("getEmployeeCodeInput", this.$refs.employeeCodeRef);
@@ -610,6 +625,11 @@ export default {
     }
   },
 
+   /**
+    * Mô tả: Set Form Mode
+    * created by: ndthinh
+    * created date: 20-06-2023
+    */
   computed: {
     FormMode: function () {
       if (this.employeeDataProps === null && this.formType === this.$_MISAEnum.FormMode.Add) {

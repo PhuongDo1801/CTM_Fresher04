@@ -8,7 +8,7 @@
         id="btn-allow-delete"
         class="container__right-dialog-btn"
       >
-        {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
+        {{ buttonName }}
       </button>
 </template>
   
