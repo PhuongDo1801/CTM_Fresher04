@@ -30,6 +30,7 @@
   margin-left: 16px;
 }
 
+
 .table__body tr {
   height: 48px;
   border-top: 1px solid #e0e0e0;
@@ -117,6 +118,10 @@
   max-height: calc(100vh - 179px);
   overflow: auto;
   height: auto;
+}
+
+#container__table input[type=checkbox]:hover{
+  cursor: pointer;
 }
 
 #container__table th,

@@ -2,6 +2,7 @@ const MISAEnum = {
   FormMode: {
     Add: 1,
     Update: 2,
+    Replicate:3
   },
 
   Gender: {

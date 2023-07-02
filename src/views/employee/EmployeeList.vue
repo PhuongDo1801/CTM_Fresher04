@@ -7,9 +7,9 @@
     :workIsDone="workIsDone"
     :isPopupOverlayShow="isPopupOverlayShow"
     :employeeDataProps="employeeDataProps"
-    :employeeCodeInit="employeeCodeInit"
     :departments="departments"
     :getFormSubmit="getFormSubmit"
+    :formDetailsType="formDetailsType"
     @reset-employee-state="handleResetEmployeeProps"
     @update-table-employee="handleUpdateEmployeeOnTable"
     @show-loading-icon="handleShowLoadingIcon"
@@ -53,7 +53,7 @@
   </div>
   <div class="container__right-main-body">
     <div class="container__right-search">
-      <button disabled class="container__right-search-btn">
+      <button :disabled="btnDisable" class="container__right-search-btn" :class="{disable:btnDisable}">
         <span>Thực hiện hàng loạt</span>
         &nbsp;&nbsp;
         <i class="sprite-dropdown-container-top-icon"></i>
@@ -76,73 +76,41 @@
         <table id="container__table">
           <thead>
             <tr>
-              <th type="checkbox">
-                <input name="input-table-checkbox" type="checkbox" />
+              <th>
+                <input @change="handleToggleCheckedAll()" v-model="isCheckedAll" name="input-table-checkbox" type="checkbox"/>
               </th>
               <th model-name="code">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeCode
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeCode}}
               </th>
               <th model-name="name">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeName
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeName}}
               </th>
               <th model-name="gender">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeGender
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeGender}}
               </th>
               <th model-name="dateOfBirth" type="date">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeDob
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeDob}}
               </th>
               <th model-name="identityNumber">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeIdentityNum
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeIdentityNum}}
               </th>
               <th model-name="positionName">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeePositionName
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeePositionName}}
               </th>
               <th model-name="unitName">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeUnitName
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeUnitName}}
               </th>
               <th model-name="bankAccount">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeBankAccount
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeBankAccount}}
               </th>
               <th model-name="bankName">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeBankName
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeBankName}}
               </th>
               <th title="Chi nhánh tài khoản ngân hàng" model-name="branch">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeBankBranch
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeBankBranch}}
               </th>
               <th type="operation">
-                {{
-                  this.$_MISAResource[this.$_LANGCODE].employeeTable
-                    .employeeOperation
-                }}
+                {{this.$_MISAResource[this.$_LANGCODE].employeeTable.employeeOperation}}
               </th>
             </tr>
           </thead>
@@ -156,6 +124,8 @@
                 <input
                   name="input-table-checkbox"
                   type="checkbox"
+                  v-model="idCheckedObject[employee.EmployeeId]"    
+                  @change="handleCheckboxChange($event, employee?.EmployeeId)"
                   @dblclick.stop
                 />
               </td>
@@ -166,14 +136,10 @@
                   {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.male }}
                 </span>
                 <span v-if="employee.Gender == this.$_MISAEnum.Gender.female">
-                  {{
-                    this.$_MISAResource[this.$_LANGCODE].employeeGender.female
-                  }}
+                  {{ this.$_MISAResource[this.$_LANGCODE].employeeGender.female}}
                 </span>
                 <span v-if="employee.Gender == this.$_MISAEnum.Gender.other">
-                  {{
-                    this.$_MISAResource[this.$_LANGCODE].employeeGender.other
-                  }}
+                  {{this.$_MISAResource[this.$_LANGCODE].employeeGender.other}}
                 </span>
               </td>
               <td>
@@ -190,11 +156,7 @@
               <td>{{ employee.BankName }}</td>
               <td>{{ employee.BankBranch }}</td>
               <td @dblclick.stop>
-                <span>
-                  {{
-                    this.$_MISAResource[this.$_LANGCODE].employeeOptions.title
-                  }}
-                </span>
+                <span>{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.title}}</span>
                 <div
                   @click="handleShowOptions(key)"
                   class="sprite-dropdown-blue-icon-wraper"
@@ -203,30 +165,17 @@
                   <ul
                     ref="optionsRef"
                     class="table-list-option"
-                    v-show="
-                      parseInt(optionIndex) === parseInt(key) && isOptionShow
-                    "
+                    v-show="parseInt(optionIndex) === parseInt(key) && isOptionShow"
                   >
-                    <li>
-                      {{
-                        this.$_MISAResource[this.$_LANGCODE].employeeOptions
-                          .replication
-                      }}
-                    </li>
+                    <li @click="handleReplication(employee)">{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.replication}}</li>
                     <li
                       @click="handleShowDialogDelete(employee)"
                       class="table-list-option-delete"
                     >
-                      {{
-                        this.$_MISAResource[this.$_LANGCODE].employeeOptions
-                          .delete
-                      }}
+                      {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete}}
                     </li>
                     <li>
-                      {{
-                        this.$_MISAResource[this.$_LANGCODE].employeeOptions
-                          .stopUsing
-                      }}
+                      {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.stopUsing}}
                     </li>
                   </ul>
                 </div>
@@ -293,6 +242,9 @@ export default {
       isLoadingData: false,
       employeeCodeRef: null,
       departments: [],
+      idCheckedList:[],
+      idCheckedObject:{},
+      isCheckedAll:false,
       idTimeOut: null,
       formSubmit: null,
       inputErrorListRef: null,
@@ -314,13 +266,85 @@ export default {
       employeeId: null,
       employees: [],
       employeeDataProps: null,
+      formDetailsType:null, 
       isPagingShow: false,
       totalRecord: null,
       originRecord: 15,
-      employeeCodeInit: null,
+      btnDisable:true
     };
   },
   methods: {
+    handleToggleCheckedAll(){
+      if(this.isCheckedAll){
+        this.idCheckedList =  this.idCheckedList.filter(item => item !== null); 
+        this.employees.forEach(item=>{
+          if(!this.idCheckedList.includes(item.EmployeeId)){
+            this.idCheckedList.push(item.EmployeeId); 
+            this.idCheckedObject[item.EmployeeId] = true
+          }
+        })
+        this.btnDisable = false; 
+      }else{
+        this.idCheckedList =[...this.idCheckedList.slice(0, (this.page - 1) * this.limit), ...this.idCheckedList.slice((this.page - 1) * this.limit + this.limit ,this.idCheckedList.length)]
+        this.idCheckedObject = {}; 
+        this.idCheckedList.forEach(item=>{
+            this.idCheckedObject[item] = true; 
+        })
+      
+        if(length < 2){
+          this.btnDisable = true;  
+        }
+      }
+    },
+
+
+    handleCheckboxChange(event,employeeId){
+      if(event.target._modelValue){    
+        this.idCheckedObject[employeeId] = true; 
+
+        const isNulls = this.idCheckedList.filter(item=>item === null);
+        if(isNulls.length > 0){
+          let indexNull= this.idCheckedList.indexOf(null); 
+          this.idCheckedList = this.idCheckedList.map((item,index)=>{
+            if(index === indexNull){
+              return employeeId; 
+            }
+            return item; 
+          })
+        }else{
+          this.idCheckedList.push(employeeId);          
+        }
+        const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit)
+        const filter = data?.filter(item=>item !== null); 
+        if(filter?.length === this.limit){
+          this.isCheckedAll = true; 
+        }
+      }else{
+        this.idCheckedObject[employeeId] = false;
+        this.idCheckedList = this.idCheckedList.map(item=>{
+          return item !== employeeId ? item: null 
+        }); 
+        this.idCheckedObject = {}; 
+        this.idCheckedList.forEach(item=>{
+          this.idCheckedObject[item] = true; 
+        })
+        this.isCheckedAll = false; 
+      }
+
+      if(this.idCheckedList?.length >= 2){
+          this.btnDisable = false; 
+      }else{
+          this.btnDisable = true;
+      }
+
+    },
+    handleReplication(employee){
+      this.employeeDataProps = employee; 
+      this.isShowEmployeeDetails = true; 
+      this.formDetailsType = this.$_MISAEnum.FormMode.Replicate
+      this.isShowOverlay = true;
+    },
+
     getFormSubmit(formSubmit) {
       this.formSubmit = formSubmit;
     },
@@ -350,25 +374,24 @@ export default {
           this.offset = this.offset - this.limit;
           this.getEmployeeList();
           this.page -= 1;
-        }
+          const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit)        
+          const filter = data?.filter(item=>item != null); 
+          if(filter.length < this.limit){
+            this.isCheckedAll = false; 
+          }else{
+            this.isCheckedAll = true;
+          }
+        }       
         this.handleHiddenLoadingIcon();
       } catch (error) {
+        console.log(error);
         switch (error.code) {
-          case 500:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,
-                true
-              )
-            );
+          case 500:  
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,true)
+          
             break;
-          default:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,
-                true
-              )
-            );
+          default:    
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,true)        
         }
       }
     },
@@ -385,25 +408,22 @@ export default {
           this.offset = this.page * this.limit;
           this.page += 1;
           this.getEmployeeList();
+          const data = this.idCheckedList.slice((this.page - 1) * this.limit, this.page * this.limit )
+          const filter = data?.filter(item=>item != null); 
+          if(filter.length < this.limit){
+            this.isCheckedAll = false; 
+          }else{
+            this.isCheckedAll = true;
+          }
         }
         this.handleHiddenLoadingIcon();
       } catch (error) {
         switch (error.code) {
-          case 500:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,
-                true
-              )
-            );
+          case 500:         
+              this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,true);
             break;
           default:
-            this.workIsDone(
-              this.workIsDone(
-                this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,
-                true
-              )
-            );
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,true);
         }
       }
     },
@@ -424,7 +444,7 @@ export default {
     handleShowDialogErrorInput(errorList, inputErrorListRef, typeError) {
       this.dialogType = typeError;
       this.isShowDialog = true;
-      (this.inputErrorListRef = inputErrorListRef),
+      this.inputErrorListRef = inputErrorListRef,
         errorList.forEach((item) => {
           this.textDialog.push(item);
         });
@@ -575,6 +595,7 @@ export default {
      */
     handleShowEmployeeForm() {
       this.isShowEmployeeDetails = true;
+      this.formDetailsType = this.$_MISAEnum.FormMode.Add;
       this.handleShowOverlay();
     },
 
@@ -652,6 +673,7 @@ export default {
         employee?.DateRange && customDateV2(employee.DateRange);
       this.employeeDataProps = employee;
       this.isShowEmployeeDetails = true;
+      this.formDetailsType = this.$_MISAEnum.FormMode.Update
       this.handleShowOverlay();
     },
 
@@ -663,34 +685,20 @@ export default {
 
     handleUpdateEmployeeOnTable(employee, type, typeBtn) {
       try {
-        //thêm
-        if (type === this.$_MISAEnum.ApiType.created) {
-          if (
-            typeBtn ===
-            this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
-          ) {
-            this.getEmployeeCodeInit();
-          } else {
+        if (typeBtn !== this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
             this.handleCloseEmployeeForm();
           }
+    
+        //thêm
+        if (type === this.$_MISAEnum.ApiType.created) {
           this.employees.unshift(employee);
           this.totalRecord += 1;
-
           this.employeeDataProps = null;
           return;
         }
 
         //cập nhật
         if (type === this.$_MISAEnum.ApiType.updated) {
-          if (
-            typeBtn ===
-            this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
-          ) {
-            this.getEmployeeCodeInit();
-          } else {
-            this.handleCloseEmployeeForm();
-          }
-
           if (employee !== null) {
             this.employees = this.employees.map((item) => {
               if (item.EmployeeId === employee?.EmployeeId) {
@@ -699,9 +707,7 @@ export default {
               return item;
             });
           }
-
           this.employeeDataProps = null;
-
           return;
         }
 
@@ -794,25 +800,10 @@ export default {
         }
       }
     },
-
-    /**
-     * Mô tả: Hàm khởi tạo mã nhân viên
-     * created by : ndthinh
-     * created date: 23-06-2023
-     */
-    async getEmployeeCodeInit() {
-      try {
-        const data = await employeeService.getMaxEmployeeCode();
-        this.employeeCodeInit = data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
   },
 
   created() {
     this.getEmployeeList();
-    this.getEmployeeCodeInit();
     this.getDepartment();
   },
 
@@ -834,7 +825,10 @@ export default {
 .pagingShow {
   border: 1px solid green;
 }
-
+.disable{
+  border-color: rgba(128, 128, 128, 0.262);
+  cursor: default;
+}
 .loader {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;

@@ -14,6 +14,4 @@ const customDateV2 = (date) => {
   return newDate;
 };
 
-
-
 export { customDateV1, customDateV2};

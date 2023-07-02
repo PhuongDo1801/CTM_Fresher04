@@ -8,13 +8,10 @@
 
     <div class="container__right-popup-top">
       <div>
-        <span>{{
-          FormMode === this.$_MISAEnum.FormMode.Add
-            ? this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeTitleFormCreate
-            : this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeTitleFormUpdate
-        }}</span>
+        <span>
+          {{ FormMode === this.$_MISAEnum.FormMode.Add || FormMode === this.$_MISAEnum.FormMode.Replicate ? this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeTitleFormCreate
+          : this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeTitleFormUpdate }}
+        </span>
         <div>
           <input
             v-model="employeeData.IsCustomer"
@@ -22,9 +19,7 @@
             id="input-is-customer"
             ref="isCustomerRef"
           />
-          <label for="input-is-customer">{{
-            this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIsCustomer
-          }}</label>
+          <label for="input-is-customer">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIsCustomer}}</label>
         </div>
         <div>
           <input
@@ -32,9 +27,7 @@
             type="checkbox"
             id="input-is-provider"
           />
-          <label for="input-is-provider">{{
-            this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIsProvider
-          }}</label>
+          <label for="input-is-provider">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIsProvider}}</label>
         </div>
       </div>
       <div class="container__right-icon-wraper">
@@ -52,59 +45,33 @@
         <div class="container__right-popup-body-top-left">
           <div>
             <label for="input-employee-code"
-              >{{
-                this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeCode
-              }}<span style="color: red"> *</span></label
+              >{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeCode}}<span style="color: red"> *</span></label
             >
             <m-input
               ref="employeeCodeRef"
               v-model="employeeData.EmployeeCode"
               type="text"
               @handle-text-change="handleInputEmployeeCodeChange"
-              :class="{
-                isErrInput: isErrInputEmplCode,
-              }"
-              :title="
-                isErrInputEmplCode === true
-                  ? this.$_MISAResource[this.$_LANGCODE].employeeMsg
-                      .employeeCodeTitleErr
-                  : null
-              "
+              :class="{isErrInput: isErrInputEmplCode}"
+              :title="isErrInputEmplCode === true? this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeCodeTitleErr: null"
               id="input-employee-code"
             ></m-input>
           </div>
           <div>
-            <label for="input-employee-name"
-              >{{
-                this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeName
-              }}
-              <span style="color: red"> *</span></label
-            >
-
+            <label for="input-employee-name">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeName}}<span style="color: red"> *</span></label>
             <m-input
               ref="employeeNameRef"
               v-model="employeeData.FullName"
               type="text"
               id="input-employee-name"
               @handle-text-change="handleInputEmployeeNameChange"
-              :class="{
-                isErrInput: isErrInputEmplName,
-              }"
-              :title="
-                isErrInputEmplName === true
-                  ? this.$_MISAResource[this.$_LANGCODE].employeeMsg
-                      .employeeNameTitleErr
-                  : null
-              "
+              :class="{isErrInput: isErrInputEmplName}"
+              :title="isErrInputEmplName === true? this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeNameTitleErr: null"
             ></m-input>
           </div>
 
           <div>
-            <label for="input-employee-unitName"
-              >{{
-                this.$_MISAResource[this.$_LANGCODE].employeeForm
-                  .employeeUnitName
-              }}<span style="color: red"> *</span></label
+            <label for="input-employee-unitName">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeUnitName}}<span style="color: red"> *</span></label
             >
             <m-combobox
               @handle-choose-department-name="handleChooseDepartmentName"
@@ -118,11 +85,7 @@
           </div>
 
           <div>
-            <label for="input-employee-position">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeePositionName
-            }}</label>
-
+            <label for="input-employee-position">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeePositionName}}</label>
             <m-input
               v-model="employeeData.JobTitle"
               type="text"
@@ -132,9 +95,7 @@
         </div>
         <div class="container__right-popup-body-top-right">
           <div>
-            <label for="input-employee-dob">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeDob
-            }}</label>
+            <label for="input-employee-dob">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeDob }}</label>
             <input
               v-model="employeeData.DateOfBirth"
               type="date"
@@ -142,9 +103,7 @@
             />
           </div>
           <div>
-            <label for="input-employee-gender-male">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeGender
-            }}</label>
+            <label for="input-employee-gender-male">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeGender}}</label>
             <div>
               <input
                 v-model="employeeData.Gender"
@@ -154,9 +113,7 @@
                 id="input-employee-gender-male"
               />
 
-              <label for="input-employee-gender-male">{{
-                this.$_MISAResource[this.$_LANGCODE].employeeGender.male
-              }}</label>
+              <label for="input-employee-gender-male">{{this.$_MISAResource[this.$_LANGCODE].employeeGender.male}}</label>
 
               <input
                 v-model="employeeData.Gender"
@@ -165,9 +122,7 @@
                 type="radio"
                 id="input-employee-gender-female"
               />
-              <label for="input-employee-gender-female">{{
-                this.$_MISAResource[this.$_LANGCODE].employeeGender.female
-              }}</label>
+              <label for="input-employee-gender-female">{{this.$_MISAResource[this.$_LANGCODE].employeeGender.female}}</label>
 
               <input
                 v-model="employeeData.Gender"
@@ -176,16 +131,11 @@
                 type="radio"
                 id="input-employee-gender-other"
               />
-              <label for="input-employee-gender-other">{{
-                this.$_MISAResource[this.$_LANGCODE].employeeGender.other
-              }}</label>
+              <label for="input-employee-gender-other">{{this.$_MISAResource[this.$_LANGCODE].employeeGender.other}}</label>
             </div>
           </div>
           <div>
-            <label for="input-employee-identity-number">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeIdentityNum
-            }}</label>
+            <label for="input-employee-identity-number">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIdentityNum}}</label>
 
             <m-input
               v-model="employeeData.IdentityNumber"
@@ -196,10 +146,7 @@
           </div>
 
           <div>
-            <label for="input-employee-date-release-identity">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeIdentityDateRelease
-            }}</label>
+            <label for="input-employee-date-release-identity">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIdentityDateRelease}}</label>
             <input
               v-model="employeeData.DateRange"
               placeholder="Ngày cấp"
@@ -208,10 +155,7 @@
             />
           </div>
           <div>
-            <label for="input-employee-place-release-identity">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeIdentityPlaceRelease
-            }}</label>
+            <label for="input-employee-place-release-identity">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIdentityPlaceRelease}}</label>
 
             <m-input
               v-model="employeeData.IssuedBy"
@@ -223,10 +167,7 @@
       </div>
       <div class="container__right-popup-body-bottom">
         <div>
-          <label for="input-employee-address">{{
-            this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeAddress
-          }}</label>
-
+          <label for="input-employee-address">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeAddress}}</label>
           <m-input
             v-model="employeeData.Address"
             type="text"
@@ -236,10 +177,7 @@
 
         <div>
           <div>
-            <label for="input-employee-phone">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm.employeePhone
-            }}</label>
-
+            <label for="input-employee-phone">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeePhone}}</label>
             <m-input
               v-model="employeeData.PhoneNumber"
               type="text"
@@ -247,11 +185,7 @@
             ></m-input>
           </div>
           <div>
-            <label for="input-employee-phone-n">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeePhonePermanent
-            }}</label>
-
+            <label for="input-employee-phone-n">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeePhonePermanent}}</label>
             <m-input
               v-model="employeeData.PhoneLandline"
               type="text"
@@ -259,10 +193,7 @@
             ></m-input>
           </div>
           <div>
-            <label for="input-employee-email">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeEmail
-            }}</label>
-
+            <label for="input-employee-email">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeEmail}}</label>
             <m-input
               ref="emailRef"
               v-model="employeeData.Email"
@@ -274,11 +205,7 @@
 
         <div>
           <div>
-            <label for="input-employee-bank-account">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeBankAccount
-            }}</label>
-
+            <label for="input-employee-bank-account">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeBankAccount}}</label>
             <m-input
               v-model="employeeData.BankAccount"
               type="text"
@@ -286,10 +213,7 @@
             ></m-input>
           </div>
           <div>
-            <label for="input-employee-bank-name">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeBankName
-            }}</label>
-
+            <label for="input-employee-bank-name">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeBankName}}</label>
             <m-input
               v-model="employeeData.BankName"
               type="text"
@@ -297,11 +221,7 @@
             ></m-input>
           </div>
           <div>
-            <label for="input-employee-bank-branch">{{
-              this.$_MISAResource[this.$_LANGCODE].employeeForm
-                .employeeBankBranch
-            }}</label>
-
+            <label for="input-employee-bank-branch">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeBankBranch}}</label>
             <m-input
               v-model="employeeData.BankBranch"
               type="text"
@@ -320,23 +240,13 @@
           <div>
             <button
               class="btn-keep-employee"
-              @click="
-                () =>
-                  handleSubmitForm(
-                    this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep
-                  )
-              "
+              @click="() =>handleSubmitForm(this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep)"
             >
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep }}
             </button>
             <button
               @keydown.tab.prevent="handleTabIndex()"
-              @click="
-                () =>
-                  handleSubmitForm(
-                    this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd
-                  )
-              "
+              @click="() =>handleSubmitForm(this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd)"
               class="btn-add-employee"
             >
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd }}
@@ -364,10 +274,10 @@ export default {
     workIsDone: Function,
     isPopupOverlayShow: Boolean,
     employeeDataProps: Object,
-    employeeCodeInit: String,
     handleFocusInputError: Function,
     getFormSubmit: Function,
     departments: Array,
+    formDetailsType:Number
   },
 
   data() {
@@ -377,6 +287,7 @@ export default {
       isErrInputEmplName: false,
       isErrDepartmentName: false,
       isDuplicateCode: false,
+      formType:null,
       departmentNameRef: null,
       initialObject: null,
       inputErrorListRef: [],
@@ -486,20 +397,14 @@ export default {
     handleCloseFormAndReset() {
       if (this.FormMode === this.$_MISAEnum.FormMode.Update) {
         if (!equalObject(this.employeeDataProps, this.employeeData)) {
-          this.$emit(
-            "showCloseFormQuestion",
-            this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion
-          );
+          this.$emit("showCloseFormQuestion",this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion);
           this.getFormSubmit(this.handleSubmitForm);
           return;
         }
       }
 
-      if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
-        this.$emit(
-          "showCloseFormQuestion",
-          this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion
-        );
+      if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
+        this.$emit("showCloseFormQuestion",this.$_MISAResource[this.$_LANGCODE].employeeMsg.closeFormQuestion);
         this.getFormSubmit(this.handleSubmitForm);
         return;
       }
@@ -519,22 +424,16 @@ export default {
         if (this.employeeData?.EmployeeCode.trim().length === 0) {
           this.isErrInputEmplCode = true;
 
-          this.errorList.push(
-            this.$_MISAResource[this.$_LANGCODE].employeeMsg
-              .employeeCodeEmptyErr
-          );
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeCodeEmptyErr);
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
         // xử lý tên nhân viên để trống
         if (this.employeeData.FullName.trim().length === 0) {
-          this.isErrInputEmplName = true;
 
-          this.errorList.push(
-            this.$_MISAResource[this.$_LANGCODE].employeeMsg
-              .employeeNameEmptyErr
-          );
+          this.isErrInputEmplName = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeNameEmptyErr);
           this.inputErrorListRef.push(this.$refs.employeeNameRef);
-          this.ref;
+        
         }
 
         //Xử lý email không hợp lệ
@@ -557,19 +456,12 @@ export default {
         // xử lý tên đơn vị để trống
         if (this.employeeData?.DepartmentName.trim().length === 0) {
           this.isErrDepartmentName = true;
-          this.errorList.push(
-            this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeUnitNameErr
-          );
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeUnitNameErr);
           this.inputErrorListRef.push(this.departmentNameRef);
         }
 
         if (this.errorList.length > 0) {
-          this.$emit(
-            "getInputErrorText",
-            this.errorList,
-            this.inputErrorListRef,
-            this.$_MISAEnum.DialogType.badRequest
-          );
+          this.$emit("getInputErrorText",this.errorList,this.inputErrorListRef,this.$_MISAEnum.DialogType.badRequest);
         }
       } catch (error) {
         console.log(error);
@@ -586,8 +478,24 @@ export default {
     },
 
     handleResetFormAndInitEmployeeData() {
+      this.formType = this.$_MISAEnum.FormMode.Add
       this.employeeData = Object.assign({}, this.initialObject);
       this.$refs.employeeCodeRef.focus();
+      this.getEmployeeCodeInit(); 
+    },
+
+    /**
+     * Mô tả: Hàm khởi tạo mã nhân viên
+     * created by : ndthinh
+     * created date: 23-06-2023
+     */
+    async getEmployeeCodeInit() {
+      try {
+        const data = await employeeService.getMaxEmployeeCode();
+        this.employeeData.EmployeeCode = data;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     /**
@@ -598,44 +506,37 @@ export default {
     async handleSubmitForm(typeBtn) {
       try {
         this.handleValidateInput();
+        this.employeeData.Gender = parseInt(this.employeeData.Gender);
+
         if (this.errorList.length > 0) {
           this.errorList = [];
           this.inputErrorListRef = [];
           return;
         }
-        this.employeeData.Gender = parseInt(this.employeeData.Gender);
-
         // thêm nhân viên
-        if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
+        if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate ) {
+
           this.$emit("showLoadingIcon");
+
           // call API thêm nhân viên
-          const { status, data } = await employeeService.save(
-            this.employeeData
-          );
+          const { status, data } = await employeeService.save(this.employeeData);
+
           if (status === this.$_MISAEnum.ResponseCode.created) {
-            
-            if (typeBtn ===this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
+
+            if (typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
               this.handleResetFormAndInitEmployeeData();
             }
-
             this.$emit("updateTableEmployee",data,this.$_MISAEnum.ApiType.created,typeBtn);
-
-            this.workIsDone(
-              this.$_MISAResource[this.$_LANGCODE].employeeMsg.addSuccess,
-              true
-            );
+            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].employeeMsg.addSuccess,true);
           }
           this.$emit("hiddenLoadingIcon");
           return;
         } else {
           // call API cập nhật thông tin nhân viên
 
-          const isEqualObject = equalObject(
-            this.employeeDataProps,
-            this.employeeData
-          );
+          const isEqualObject = equalObject(this.employeeDataProps,this.employeeData);
 
-          if (isEqualObject && typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd){
+          if (isEqualObject && typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
             this.handleResetFormAndInitEmployeeData();
             this.$emit("updateTableEmployee",null,this.$_MISAEnum.ApiType.updated,typeBtn);
             return;
@@ -647,10 +548,8 @@ export default {
           }
 
           this.$emit("showLoadingIcon");
-          const { status, data } = await employeeService.updateById(
-            this.employeeData.EmployeeId,
-            this.employeeData
-          );
+
+          const { status, data } = await employeeService.updateById(this.employeeData.EmployeeId,this.employeeData);
           if (status === this.$_MISAEnum.ResponseCode.success) {
             if (typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
               this.handleResetFormAndInitEmployeeData();
@@ -664,13 +563,21 @@ export default {
         this.$emit("hiddenLoadingIcon");
         switch (error?.response?.status) {
           case 500:
-            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,true);
+            this.workIsDone(
+              this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,
+              true
+            );
             break;
 
           case 400:
             this.errorList.push(error.response.data.ErrorMsgs[0]);
             this.inputErrorListRef.push(this.$refs.employeeCodeRef);
-            this.$emit("getInputErrorText",this.errorList,this.inputErrorListRef,this.$_MISAEnum.DialogType.duplicate);
+            this.$emit(
+              "getInputErrorText",
+              this.errorList,
+              this.inputErrorListRef,
+              this.$_MISAEnum.DialogType.duplicate
+            );
             this.handleShowOverlay();
             this.errorList = [];
             this.inputErrorListRef = [];
@@ -680,7 +587,10 @@ export default {
           case 404:
             break;
           default:
-            this.workIsDone(this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,true)
+            this.workIsDone(
+              this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,
+              true
+            );
         }
       }
     },
@@ -690,25 +600,28 @@ export default {
     this.$refs.employeeCodeRef.focus();
     this.$emit("getEmployeeCodeInput", this.$refs.employeeCodeRef);
     this.initialObject = Object.assign({}, this.employeeData);
+    this.formType = this.formDetailsType;
     if (this.employeeDataProps !== null) {
       const jsonObject = JSON.stringify(this.employeeDataProps);
       this.employeeData = JSON.parse(jsonObject);
     }
-    if (this.FormMode === this.$_MISAEnum.FormMode.Add) {
-      this.employeeData.EmployeeCode = this.employeeCodeInit;
+    if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
+      this.getEmployeeCodeInit();
     }
   },
 
-  updated() {
-    this.employeeData.EmployeeCode = this.employeeCodeInit;
-  },
   computed: {
     FormMode: function () {
-      if (this.employeeDataProps === null) {
+      if (this.employeeDataProps === null && this.formType === this.$_MISAEnum.FormMode.Add) {
         return this.$_MISAEnum.FormMode.Add;
-      } else {
+      } 
+      if(this.employeeDataProps !== null && this.formType === this.$_MISAEnum.FormMode.Update){
         return this.$_MISAEnum.FormMode.Update;
       }
+      if(this.employeeDataProps !== null && this.formType === this.$_MISAEnum.FormMode.Replicate){
+        return this.$_MISAEnum.FormMode.Replicate;
+      }
+      return null; 
     },
   },
 };

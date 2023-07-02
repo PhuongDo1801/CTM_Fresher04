@@ -68,7 +68,8 @@
   flex: 1;
   height: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
 .container__right-dialog-bottom-right{
