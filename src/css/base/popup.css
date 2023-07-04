@@ -259,7 +259,6 @@
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  margin-top: 20px;
   justify-content: space-between;
 }
 
@@ -268,7 +267,6 @@
   outline: none;
   height: 36px;
   padding-left: 10px;
-  margin-top: 4px;
 }
 
 .container__right-popup-body-top-right div input[type="text"] {
@@ -276,7 +274,6 @@
   outline: none;
   height: 36px;
   padding-left: 10px;
-  margin-top: 4px;
 }
 
 .container__right-popup-body-top-right div input[type="date"] {
@@ -284,7 +281,6 @@
   outline: none;
   height: 36px;
   padding-left: 10px;
-  margin-top: 4.5px;
 }
 
 .container__right-popup-body-top-right div input[type="date"]:focus {
@@ -308,15 +304,14 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 20px;
 }
 
 .container__right-popup-body-top-left div label {
-  margin-top: 4px;
+  margin: 20px 0 5px 0;
 }
 
 .container__right-popup-body-top-right div label {
-  margin-top: 4px;
+  margin: 20px 0 5px 0;
 }
 
 .container__right-popup-body-top-right div:first-child {
@@ -329,27 +324,23 @@
   display: flex;
   flex-direction: column;
   width: 65%;
-}
-
-.container__right-popup-body-bottom input {
-  margin-top: 5px;
+  justify-content: space-between;
 }
 
 .container__right-popup-body-top-right div:nth-child(2) div {
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 36px;
 }
 
 .container__right-popup-body-top-right div:nth-child(2) div input {
-  position: relative;
-  bottom: 10px;
+  
 }
 
 .container__right-popup-body-top-right div:nth-child(2) div label {
-  margin-top: 4px;
   position: relative;
-  bottom: 10px;
+  bottom: 5px;
 }
 
 .container__right-popup-body-top-right div:nth-child(3) {
@@ -372,7 +363,7 @@
   height: 32px;
   padding-left: 10px;
   outline: none;
-  margin-top: 4px;
+
 }
 
 .container__right-popup-body-bottom {
@@ -516,6 +507,7 @@
 .container__right-popup-body-bottom div input[type="text"] {
   border: 1px solid rgba(128, 128, 128, 0.479);
   height: 36px;
+  margin-top: 5px;
 }
 
 .container__right-popup-body-top-left div input[type="text"]:focus {

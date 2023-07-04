@@ -27,8 +27,16 @@
     <div class="container__right-dialog-bottom">
       <div class="container__right-dialog-bottom-left">
         <button
-          v-if="dialogType === this.$_MISAEnum.DialogType.question || dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
+          v-if="dialogType === this.$_MISAEnum.DialogType.question"
           @click="handleCloseDialog"
+          class="container__right-dialog-btn danger"
+        >
+          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
+        </button>
+
+        <button
+          v-if="dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
+          @click="handleCloseDeleteMultipleDialog"
           class="container__right-dialog-btn danger"
         >
           {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
@@ -106,6 +114,7 @@ export default {
     handleCloseEmployeeForm: Function,
     handleSubmitForm:Function,
     handleCloseDialog: Function,
+    handleCloseDeleteMultipleDialog:Function,
     handleDeleteMultiple:Function,
     textDialog: Array,
     isShowDialog: Boolean,

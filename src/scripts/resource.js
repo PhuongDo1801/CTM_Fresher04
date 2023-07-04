@@ -12,6 +12,7 @@ const MISAResource = {
         return `Bạn có muốn xóa Nhân viên <${code}> không ?`;
       },
       dateOfBirthInValid:"Ngày sinh không được phép lớn hơn ngày hiện tại.",
+      lengthInValid:"Độ dài không hợp lệ",
       dateRangeInValid:"Ngày cấp không được phép lớn hơn ngày hiện tại.",
       deleteMuitipleQuestion:"Bạn có thực sự muốn xóa những nhân viên đã chọn không ?",
       updateQuestion: "Bạn có chắc chắn muốn sửa nhân viên này không ?",
@@ -25,6 +26,7 @@ const MISAResource = {
     },
     pagesName: {
       employee: "Nhân viên",
+      findText:"Tìm theo mã, tên nhân viên"
     },
     navbar: {
       companyName: "CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC",

@@ -210,6 +210,10 @@ td {
   justify-content: space-around;
 }
 
+.table-td-last{
+  z-index: 9999999999999999
+}
+
 .table-list-option {
   width: 140px;
   height: 90px;

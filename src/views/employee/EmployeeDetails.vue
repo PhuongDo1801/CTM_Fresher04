@@ -143,7 +143,7 @@
               v-model="employeeData.IdentityNumber"
               type="text"
               id="input-employee-identity-number"
-              :title= "identityNumberTitle"
+              :title= "this.$_MISAResource[this.$_LANGCODE].employeeForm.identityNumberTitle"
             ></m-input>
           </div>
 
@@ -298,7 +298,6 @@ export default {
       initialObject: null,
       inputErrorListRef: [],
       unitNameRef: null,
-      identityNumberTitle:this.$_MISAResource[this.$_LANGCODE].employeeForm.identityNumberTitle,
       errorList: [],
       employeeData: {
         IsCustomer: false,
@@ -434,6 +433,13 @@ export default {
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeCodeEmptyErr);
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
+        // Xử lý độ dài không hợp lệ
+        if (this.employeeData?.EmployeeCode.trim().length > 255) {
+          this.isErrInputEmplCode = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthInValid);
+          this.inputErrorListRef.push(this.$refs.employeeCodeRef);
+        }
+
         // xử lý tên nhân viên để trống
         if (this.employeeData.FullName.trim().length === 0) {
 
@@ -442,6 +448,15 @@ export default {
           this.inputErrorListRef.push(this.$refs.employeeNameRef);
         
         }
+
+      // Xử lý độ dài không hợp lệ
+        if (this.employeeData.FullName.trim().length > 255) {
+        this.isErrInputEmplName = true;
+        this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthInValid);
+        this.inputErrorListRef.push(this.$refs.employeeNameRef);
+        }
+
+
         // xử lý ngày tháng không hợp lệ
         const dateOfBirth = new Date(this.employeeData?.DateOfBirth);
         const dateRange = new Date(this.employeeData?.DateRange);

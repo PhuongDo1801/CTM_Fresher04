@@ -308,6 +308,18 @@ body {
   display: none;
 }
 
+
+.container__right-overlay-transparent{
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+
+
 .container__dropdown-wraper {
   width: 200px;
   height: 36px;
@@ -392,6 +404,7 @@ body {
   background-color: white;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
+  z-index: 999999;
 }
 
 .footer__pagesize-list li {
