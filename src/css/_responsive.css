@@ -46,6 +46,14 @@
     z-index: 9;
   }
 
+  .container__right-overlay-transparent{
+    z-index: 1 !important;
+  }
+
+  .table-list-option{
+    z-index: 999999999;
+  }
+
   .container__right-popup {
     z-index: 999
   }

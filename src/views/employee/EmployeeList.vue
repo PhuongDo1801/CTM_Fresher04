@@ -225,7 +225,7 @@
             <span>{{ this.page === 1 ? 1 : (this.page - 1) * this.limit }}</span>
             <span>&nbsp; - &nbsp;</span>
             <span>{{ employees?.length * this.page }}</span>
-            <span>&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span> &nbsp; {{ this.$_MISAResource[this.$_LANGCODE].otherText.record }} </span>
           </div>
           <div class="container__footer-right-item-three">
@@ -446,7 +446,7 @@ export default {
             }
             this.isCheckedAll = true;
           }
-        }     
+        } 
         this.handleHiddenLoadingIcon();
       } catch (error) {
         console.log(error);
@@ -583,7 +583,6 @@ export default {
       this.isShowOverlayTransparent = false; 
       this.isOptionShow = false;
       this.isPagingShow = false; 
-      this.handleCloseDialog(); 
     },
 
     /**
@@ -607,6 +606,7 @@ export default {
         this.dialogType = null; 
         this.btnDisable = true; 
         this.isMultiAction = false; 
+        this.isShowOverlayTransparent = false; 
         this.handleCloseOverlay(); 
         return; 
       }
@@ -856,10 +856,10 @@ export default {
           return this.optionIndex !== index;
         });
         this.optionIndex = null;
-        this.textMessage =
-          this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteSuccess;
+        this.textMessage = this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteSuccess;
         this.isDone = true;
         this.isDialogDeleteClick = false;
+        this.isShowOverlayTransparent = false; 
         this.isOptionShow = false;
         setTimeout(() => {
           this.isDone = false;
