@@ -429,7 +429,6 @@ export default {
         // xử lý mã nhân viên để trống
         if (this.employeeData?.EmployeeCode.trim().length === 0) {
           this.isErrInputEmplCode = true;
-
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeCodeEmptyErr);
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
@@ -595,7 +594,7 @@ export default {
             break;
 
           case 400:
-            this.errorList.push(error.response.data.ErrorMsgs[0]);
+            this.errorList.push(...error.response.data.ErrorMsgs);
             this.inputErrorListRef.push(this.$refs.employeeCodeRef);
             this.$emit(
               "getInputErrorText",
@@ -610,6 +609,18 @@ export default {
             break;
 
           case 404:
+          this.errorList.push(...error.response.data.ErrorMsgs);
+            this.inputErrorListRef.push(this.$refs.employeeCodeRef);
+            this.$emit(
+              "getInputErrorText",
+              this.errorList,
+              this.inputErrorListRef,
+              this.$_MISAEnum.DialogType.duplicate
+            );
+            this.handleShowOverlay();
+            this.errorList = [];
+            this.inputErrorListRef = [];
+            this.isErrInputEmplCode = true;
             break;
           default:
             this.workIsDone(

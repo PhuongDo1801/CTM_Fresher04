@@ -45,6 +45,21 @@ class EmployeeService extends BaseApi {
         return status;
       }
     }
+
+     /**
+   * Mô tả: Xuất dữ liệu thành file excel
+   * created by : ndthinh
+   * created date: 05-07-2023
+   */
+
+  async exportToExcel() {
+    const response = await instanceAxios.get(
+      `${this.controller}/ExcelFile`
+    );
+    if (response.status) {
+      return response.status;
+    }
+  }
 }
 
 export default new EmployeeService();

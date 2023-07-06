@@ -26,81 +26,86 @@
     <hr />
     <div class="container__right-dialog-bottom">
       <div class="container__right-dialog-bottom-left">
-        <button
-          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+
+        <m-button   
+          v-if="dialogType ===  this.$_MISAEnum.DialogType.question"
           @click="handleCloseDialog"
-          class="container__right-dialog-btn danger"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
-        </button>
+          class="container__right-dialog-btn normal"
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+          >
+        </m-button>
 
-        <button
-          v-if="dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
+    
+        
+        <m-button   
+          v-if="dialogType ===  this.$_MISAEnum.DialogType.deleteMultiple"
           @click="handleCloseDeleteMultipleDialog"
-          class="container__right-dialog-btn danger"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
-        </button>
+          class="container__right-dialog-btn normal"
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+          >
+        </m-button>
 
-        <button
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.delete"
           @click="handleCloseDialog"
-          class="container__right-dialog-btn danger"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText }}
-        </button>
+          class="container__right-dialog-btn normal"
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+          >
+        </m-button>
+
       </div>
 
       <div class="container__right-dialog-bottom-center">
-        <button
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.badRequest"
           @click="handleCloseDialog"
-          class="container__right-dialog-btn success"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText }}
-        </button>
+          class="container__right-dialog-btn normal"
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText"
+          >
+        </m-button>
       </div>
 
-      <div class="container__right-dialog-bottom-right">
-        <button
+
+      <div class="container__right-dialog-bottom-right">      
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.question"
           @click="handleCloseEmployeeForm"
-          class="container__right-dialog-btn danger"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText }}
-        </button>
-
-        <button
+          class="container__right-dialog-btn normal"
+          :btnName=" this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText"
+          >
+        </m-button>
+      
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.delete"
           @click="handleDeleteEmployee"
           class="container__right-dialog-btn success"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-        </button>
-
-        <button
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>
+      
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
           @click="handleDeleteMultiple"
           class="container__right-dialog-btn success"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-        </button>
-
-        <button
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>
+      
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.duplicate"
           @click="handleCloseDialog"
           class="container__right-dialog-btn success"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText }}
-        </button>
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText"
+          >
+        </m-button>
 
-        <button
+        <m-button   
           v-if="dialogType === this.$_MISAEnum.DialogType.question"
           @click="handleSubmitForm"
           class="container__right-dialog-btn success"
-        >
-          {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText }}
-        </button>
+          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>
       </div>
     </div>
   </div>
@@ -121,6 +126,11 @@ export default {
     dialogType: String,
 
   },
+  data(){
+    return{
+      btnName:"9999"
+    }
+  }
 };
 </script>
 

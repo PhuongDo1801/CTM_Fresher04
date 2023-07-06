@@ -173,7 +173,12 @@ body {
   justify-content: space-between;
   padding: 0 12px;
 }
-
+.container__right-search-wrap{
+  width: auto;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
 .container__right-search-input {
   display: flex;
   align-items: center;
@@ -418,4 +423,12 @@ body {
 .footer__pagesize-list li:hover {
   background-color: #50b83c;
   color: white;
+}
+
+.footer-icon{
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

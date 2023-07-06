@@ -4,6 +4,7 @@ const MISAResource = {
       addSuccess: "Thêm nhân viên thành công !",
       updateSuccess: "Cập nhật nhân viên thành công !",
       deleteSuccess: "Xóa nhân viên thành công !",
+      exportExcelSuccess:"Xuất file excel thành công !",
       duplicateCode: (code) => {
         return `Mã nhân viên < ${code} > đã tồn tại trong hệ thống vui lòng
                 kiểm tra lại.`;

@@ -70,16 +70,18 @@
           <li @click="handleShowDialogDeleteMultiple">{{ this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete }}</li>
         </ul>
       </button>
-
-      <div class="container__right-search-input">
-        <input
-          v-model="textSearch"
-          :placeholder="this.$_MISAResource[this.$_LANGCODE].pagesName.findText"
-          type="text"
-          id="input-search"
-        />
-        <i class="sprite-search-icon"></i>
+      <div class="container__right-search-wrap">
+        <div class="container__right-search-input">
+          <input
+            v-model="textSearch"
+            :placeholder="this.$_MISAResource[this.$_LANGCODE].pagesName.findText"
+            type="text"
+            id="input-search"
+          />
+          <i class="sprite-search-icon"></i>
+        </div>
         <i @click="handleReloadTable" class="sprite-refresh-icon"></i>
+        <i @click="handleExportToExcelFile" class="sprite-excel-icon"></i>
       </div>
     </div>
 
@@ -222,15 +224,24 @@
             </div>
           </div>
           <div class="container__footer-right-item-second">
-            <span>{{ this.page === 1 ? 1 : (this.page - 1) * this.limit }}</span>
-            <span>&nbsp; - &nbsp;</span>
-            <span>{{ employees?.length * this.page }}</span>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span> &nbsp; {{ this.$_MISAResource[this.$_LANGCODE].otherText.record }} </span>
+            <div>
+              <span>{{ this.page === 1 ? 1 : (this.page - 1) * this.limit }}</span>
+              <span>&nbsp; - &nbsp;</span>
+              <span>{{ employees?.length * this.page }}</span>
+              <span> &nbsp; {{ this.$_MISAResource[this.$_LANGCODE].otherText.record }} </span>
+            </div>
           </div>
           <div class="container__footer-right-item-three">
-            <i @click="handleBackPage" class="sprite-arrow-left-icon"></i>
-            <i @click="handleNextPage" class="sprite-arrow-right-icon"></i>
+            <div class="footer-icon">
+              <i  v-if="this.page === 1" @click="handleBackPage" class="sprite-arrow-left-icon"></i>
+              <i  v-if="this.page > 1" @click="handleBackPage" class="sprite-arrow-right-icon" :class="{iconReverse:this.page > 1}"></i>
+            </div>
+           
+          
+            <div class="footer-icon">
+              <i v-if="this.page < Math.ceil(this.totalRecord / this.limit)" @click="handleNextPage" class="sprite-arrow-right-icon"></i>
+              <i v-if="this.page >= Math.ceil(this.totalRecord / this.limit)" @click="handleNextPage" class="sprite-arrow-left-icon" :class="{iconReverse:this.page > 1}"></i>
+            </div>          
           </div>
         </div>
       </div>
@@ -341,6 +352,7 @@ export default {
            const keyList = Object.keys(this.idCheckedObject); 
            if(keyList.length < 2){
             this.btnDisable = true; 
+            this.isMultiAction = false; 
            }
 
            for( let employee of this.employees){
@@ -374,7 +386,7 @@ export default {
     */
 
     handleShowDialogDeleteMultiple(){
-      this.isMultiAction = false; 
+      this.isMultiAction = !this.isMultiAction;
       this.isShowDialog = true;
       this.dialogType = this.$_MISAEnum.DialogType.deleteMultiple;
       this.handleShowOverlay();
@@ -520,10 +532,17 @@ export default {
     handleShowDialogErrorInput(errorList, inputErrorListRef, typeError) {
       this.dialogType = typeError;
       this.isShowDialog = true;
-      this.inputErrorListRef = inputErrorListRef,
-        errorList.forEach((item) => {
-          this.textDialog.push(item);
-        });
+      this.inputErrorListRef = inputErrorListRef;
+      errorList.forEach(item => {
+        if (typeof item !== 'object') {
+          this.textDialog.push(item); 
+        }else{
+          const keys = Object.keys(item);
+          for(let key of keys){
+            this.textDialog.push(item[key]);
+          }
+        }
+      });
       this.isPopupOverlayShow = true;
     },
 
@@ -611,20 +630,20 @@ export default {
         return; 
       }
 
-      if (this.inputErrorListRef?.length > 0) {
-        this.inputErrorListRef[0]?.focus();
-      } 
+     this.employeeCodeRef.focus(); 
       this.isShowDialog = false;
       this.isPopupOverlayShow = false;
       this.employeeId = null;
       this.textDialog = [];
-      this.inputErrorListRef = [];
       this.btnDisable = true; 
       this.isMultiAction = false;
       this.isCheckedAll = false; 
       this.idCheckedObject = {};
-      this.employeeCodeRef.focus(); 
       this.dialogType = null;
+      if (this.inputErrorListRef?.length > 0) {
+        this.inputErrorListRef[0]?.focus();
+      } 
+      this.inputErrorListRef = [];
     },
 
 
@@ -901,6 +920,23 @@ export default {
       }
     },
 
+
+    async handleExportToExcelFile(){
+      try {
+        this.handleShowLoadingIcon(); 
+        this.isShowOverlay = true; 
+        const status = await employeeService.exportToExcel(); 
+        if(status === this.$_MISAEnum.ResponseCode.success){
+          this.workIsDone(this.$_MISAResource[this.$_LANGCODE].employeeMsg.exportExcelSuccess,true);
+          this.isLoadingData = false; 
+          this.isShowOverlay = false; 
+        }
+      } catch (error) {
+        this.isShowOverlay = false; 
+        this.handleHiddenLoadingIcon(); 
+      }
+    },
+
     /**
      * Mô tả: Lấy danh sách nhân viên
      * created by : ndthinh
@@ -974,6 +1010,14 @@ export default {
 </script>
 
 <style scoped>
+
+.hidden{
+  display: none;
+}
+
+.iconReverse{
+  transform: rotate(180deg);
+}
 .pagingShow {
   border: 1px solid green;
 }

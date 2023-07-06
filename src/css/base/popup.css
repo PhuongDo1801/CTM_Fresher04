@@ -620,6 +620,8 @@ input[type="checkbox"] {
 .container__footer-right-item-second {
   display: flex;
   width: 120px;
+  flex: 2;
+  margin-right: 10px;
 }
 
 .container__footer-right-item-second span:last-child {
@@ -641,4 +643,5 @@ input[type="checkbox"] {
   width: 50px;
   justify-content: space-between;
   cursor: pointer;
+  align-items: center;
 }
