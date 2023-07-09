@@ -5,7 +5,8 @@
         v-if="
           dialogType === this.$_MISAEnum.DialogType.delete ||
           dialogType === this.$_MISAEnum.DialogType.duplicate || 
-          dialogType === this.$_MISAEnum.DialogType.deleteMultiple
+          dialogType === this.$_MISAEnum.DialogType.deleteMultiple||
+          dialogType === this.$_MISAEnum.DialogType.conflict
         "
         class="sprite-warning-icon"
       ></i>
@@ -15,11 +16,11 @@
       ></i>
 
       <i
-        v-if="dialogType === this.$_MISAEnum.DialogType.badRequest"
+        v-if="dialogType === this.$_MISAEnum.DialogType.badRequest || dialogType === this.$_MISAEnum.DialogType.notFound ||  dialogType === this.$_MISAEnum.DialogType.serverError"
         class="sprite-exc-point-icon"
       ></i>
       <ul class="dialog-content-list">
-        <li v-for="text in textDialog" :key="text">{{ text }}</li>
+        <li :class="{noneStyle:textDialog.length < 2}" v-for="text in textDialog" :key="text">{{ text }}</li>
         <span></span>
       </ul>
     </div>
@@ -92,7 +93,7 @@
         </m-button>
       
         <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.duplicate"
+          v-if="dialogType === this.$_MISAEnum.DialogType.conflict"
           @click="handleCloseDialog"
           class="container__right-dialog-btn success"
           :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText"
@@ -128,7 +129,7 @@ export default {
   },
   data(){
     return{
-      btnName:"9999"
+      
     }
   }
 };
@@ -143,10 +144,13 @@ export default {
   transform: translateX(-50%);
   flex: 1;
   width: 270px;
+  padding-left: 20px;
 }
 
 .dialog-content-list li {
   margin: 5px;
-  list-style: none;
+}
+.noneStyle{
+  list-style:none;
 }
 </style>

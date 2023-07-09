@@ -265,10 +265,14 @@
 <script>
 import { equalObject } from "@/utils/compareObject";
 import employeeService from "../../services/EmployeeService";
-//import validateEmail from "../../utils/validateEmail";
+import {setVueInstance} from '../../axios/instance'
+import validateEmail from "../../utils/validateEmail";
 export default {
   name: "EmployeeDetails",
   components: {},
+  created(){
+    setVueInstance(this);
+  },
   props: {
     handleCloseEmployeeForm: Function,
     getListEmployee: Function,
@@ -292,6 +296,7 @@ export default {
       isErrDepartmentName: false,
       isErrInputDbo:false,
       isErrInputDateRange:false,
+      isErrInputEmail:false,
       isDuplicateCode: false,
       formType:null,
       departmentNameRef: null,
@@ -420,7 +425,7 @@ export default {
     },
 
     /**
-     * Mô tả:
+     * Mô tả: Kiểm tra tính hợp lệ dữ
      * created by : NDTHINH
      * created date: 30-06-2023
      */
@@ -433,14 +438,14 @@ export default {
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
         // Xử lý độ dài không hợp lệ
-        if (this.employeeData?.EmployeeCode.trim().length > 255) {
+        if (this.employeeData?.EmployeeCode.trim().length > 20) {
           this.isErrInputEmplCode = true;
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthInValid);
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
 
         // xử lý tên nhân viên để trống
-        if (this.employeeData.FullName.trim().length === 0) {
+         if (this.employeeData.FullName.trim().length === 0) {
 
           this.isErrInputEmplName = true;
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeNameEmptyErr);
@@ -477,6 +482,12 @@ export default {
           this.isErrDepartmentName = true;
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.employeeUnitNameErr);
           this.inputErrorListRef.push(this.departmentNameRef);
+        }
+
+        if(!validateEmail(this.employeeData?.Email) && this.employeeData?.Email !== null){
+          this.isErrInputEmail = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.emailErr);
+          this.inputErrorListRef.push(this.emailRef);
         }
 
         if (this.errorList.length > 0) {
@@ -521,7 +532,6 @@ export default {
         console.log(error);
       }
     },
-
     /**
      * Mô tả: xử lý tạo mới nhân viên và cập nhật thông tin nhân viên
      * created by: ndthinh
@@ -557,7 +567,6 @@ export default {
           return;
         } else {
           // call API cập nhật thông tin nhân viên
-
           const isEqualObject = equalObject(this.employeeDataProps,this.employeeData);
 
           if (isEqualObject && typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
@@ -584,50 +593,7 @@ export default {
           this.$emit("hiddenLoadingIcon");
         }
       } catch (error) {
-        this.$emit("hiddenLoadingIcon");
-        switch (error?.response?.status) {
-          case 500:
-            this.workIsDone(
-              this.$_MISAResource[this.$_LANGCODE].serverTextErr.serverErr,
-              true
-            );
-            break;
-
-          case 400:
-            this.errorList.push(...error.response.data.ErrorMsgs);
-            this.inputErrorListRef.push(this.$refs.employeeCodeRef);
-            this.$emit(
-              "getInputErrorText",
-              this.errorList,
-              this.inputErrorListRef,
-              this.$_MISAEnum.DialogType.duplicate
-            );
-            this.handleShowOverlay();
-            this.errorList = [];
-            this.inputErrorListRef = [];
-            this.isErrInputEmplCode = true;
-            break;
-
-          case 404:
-          this.errorList.push(...error.response.data.ErrorMsgs);
-            this.inputErrorListRef.push(this.$refs.employeeCodeRef);
-            this.$emit(
-              "getInputErrorText",
-              this.errorList,
-              this.inputErrorListRef,
-              this.$_MISAEnum.DialogType.duplicate
-            );
-            this.handleShowOverlay();
-            this.errorList = [];
-            this.inputErrorListRef = [];
-            this.isErrInputEmplCode = true;
-            break;
-          default:
-            this.workIsDone(
-              this.$_MISAResource[this.$_LANGCODE].serverTextErr.defaultErr,
-              true
-            );
-        }
+         console.log(error)
       }
     },
   },

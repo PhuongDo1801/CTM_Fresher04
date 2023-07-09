@@ -625,28 +625,32 @@ export default {
         this.dialogType = null; 
         this.btnDisable = true; 
         this.isMultiAction = false; 
+        this.isCheckedAll = false;
         this.isShowOverlayTransparent = false; 
         this.handleCloseOverlay(); 
-        return; 
+      }else{
+         this.employeeCodeRef.focus(); 
+         this.isShowDialog = false;
+         this.isPopupOverlayShow = false;
+         this.employeeId = null;
+         this.textDialog = [];
+         this.btnDisable = true; 
+         this.isMultiAction = false;
+         this.isCheckedAll = false; 
+         this.idCheckedObject = {};
+         this.dialogType = null;
+         if (this.inputErrorListRef?.length > 0) {
+           this.inputErrorListRef[0]?.focus();
+         } 
+         this.inputErrorListRef = [];
       }
-
-     this.employeeCodeRef.focus(); 
-      this.isShowDialog = false;
-      this.isPopupOverlayShow = false;
-      this.employeeId = null;
-      this.textDialog = [];
-      this.btnDisable = true; 
-      this.isMultiAction = false;
-      this.isCheckedAll = false; 
-      this.idCheckedObject = {};
-      this.dialogType = null;
-      if (this.inputErrorListRef?.length > 0) {
-        this.inputErrorListRef[0]?.focus();
-      } 
-      this.inputErrorListRef = [];
     },
 
-
+    /**
+    * Mô tả: Đóng dialog xóa nhiều
+    * created by: ndthinh
+    * created date: 6-07-2023
+    */
 
     handleCloseDeleteMultipleDialog(){
       this.isShowDialog = false;
@@ -888,6 +892,11 @@ export default {
       }
     },
 
+    /**
+    * Mô tả: Xử lý tải lại dữ liệu
+    * created by: ndthinh
+    * created date: 06-07-2023
+    */
     handleReloadTable() {
       this.offset = 0;
       this.limit = 15;
@@ -920,7 +929,11 @@ export default {
       }
     },
 
-
+    /**
+    * Mô tả: Xử lý xuất danh sách nhân viên vào file excel
+    * created by: ndthinh
+    * created date: 10-07-2023
+    */
     async handleExportToExcelFile(){
       try {
         this.handleShowLoadingIcon(); 
@@ -949,7 +962,7 @@ export default {
         const { Data, TotalRecord } = await employeeService.findByFilter(
           this.offset,
           this.limit,
-          textFilter
+          textFilter || this.textSearch
         );
         this.employees = Data;
         this.totalRecord = TotalRecord;

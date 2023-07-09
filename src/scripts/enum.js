@@ -13,7 +13,10 @@ const MISAEnum = {
   ResponseCode: {
     success: 200,
     created: 201,
+    notFound:404,
+    badRequest:400,
     error: 500,
+    conflict:409
   },
 
   ApiType: {
@@ -28,7 +31,19 @@ const MISAEnum = {
     duplicate: "DUPLICATE",
     badRequest:"BADREQUEST",
     question:"QUESTION",
-    deleteMultiple:"DELETEMULTIPLE"
+    deleteMultiple:"DELETEMULTIPLE",
+    notFound:"NOTFOUND",
+    serverError:"SERVERERROR",
+    conflict:"CONFLICT"
+  },
+
+  ErrorField:{
+    employeeCode:"EmployeeCode",
+    fullName:"FullName",
+    departmentId:"DepartmentId",
+    dateOfBirth:"DateOfBirth",
+    dateRange:"DateRange",
+    email:"Email"
   },
 };
 

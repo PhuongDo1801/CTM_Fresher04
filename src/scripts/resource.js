@@ -24,6 +24,7 @@ const MISAResource = {
       employeeCodeEmptyErr: "Mã không được để trống.",
       employeeNameEmptyErr: "Tên không được để trống.",
       employeeUnitNameErr: "Đơn vị không được để trống.",
+      emailErr:"Email không hợp lệ."
     },
     pagesName: {
       employee: "Nhân viên",
