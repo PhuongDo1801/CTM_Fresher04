@@ -53,12 +53,8 @@ class EmployeeService extends BaseApi {
    */
 
   async exportToExcel() {
-    const response = await instanceAxios.get(
-      `${this.controller}/ExcelFile`
-    );
-    if (response.status) {
-      return response.status;
-    }
+    const response = await instanceAxios.get(`${this.controller}/ExcelFile`,{ responseType: "blob"});
+    return response;
   }
 }
 

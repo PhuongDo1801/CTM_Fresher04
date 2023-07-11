@@ -14,6 +14,7 @@
         </span>
         <div>
           <input
+            @keydown="handleKeyDownCheckbox"
             v-model="employeeData.IsCustomer"
             type="checkbox"
             id="input-is-customer"
@@ -243,13 +244,16 @@
           </div>
           <div>
             <button
+              ref="keepBtnRef"
               class="btn-keep-employee"
               @click="() =>handleSubmitForm(this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep)"
             >
               {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep }}
             </button>
             <button
+              ref="keepAndAddBtnRef"
               @keydown.tab.prevent="handleTabIndex()"
+              @keydown="handleKeyDownBtn"
               @click="() =>handleSubmitForm(this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd)"
               class="btn-add-employee"
             >
@@ -328,6 +332,7 @@ export default {
     };
   },
   methods: {
+
     /**
      * Mô tả: Xử lý đóng form chi tiết nhân viên bằng esc
      * created by : ndthinh
@@ -358,6 +363,26 @@ export default {
     handleTabIndex() {
       this.$refs.isCustomerRef.focus();
     },
+
+    /**
+    * Mô tả: Xử lý shift tab cho button
+    * created by: ndthinh
+    * created date: 04-07-2023
+    */
+    handleKeyDownBtn(event){
+    if (event.shiftKey && event.keyCode === 9) {
+      this.$refs.keepBtnRef.focus(); 
+    }},
+
+     /**
+    * Mô tả: Xử lý shift tab cho checkbox
+    * created by: ndthinh
+    * created date: 04-07-2023
+    */
+    handleKeyDownCheckbox(event){
+      if (event.shiftKey && event.keyCode === 9) {
+        this.$refs.keepAndAddBtnRef.focus(); 
+    }},
     /**
      * Mô tả: Xử lý thay đổi thay đổi trạng thái khi text unit name thay đổi
      * created by : ndthinh

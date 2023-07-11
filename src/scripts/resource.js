@@ -47,7 +47,9 @@ const MISAResource = {
       employeeBankBranch: "CHI NHÁNH TK NGÂN HÀNG",
       employeeOperation: "CHỨC NĂNG",
     },
-
+    fileName:{
+      employee:"NhanVien"
+    },
     employeeOptions: {
       title: "Sửa",
       replication: "Nhân bản",
@@ -86,7 +88,8 @@ const MISAResource = {
     otherText:{
       total:"Tổng số", 
       totalRecord:"Số bản ghi / trang",
-      record:"Bản ghi"
+      record:"Bản ghi",
+      department:"Phòng ban"
     },
     textBtnForm: {
       keep: "CẤT",

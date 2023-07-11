@@ -19,7 +19,7 @@ export function setVueInstance(instance) {
 /**
 * Mô tả: Xử lý lỗi chung với axios interceptors
 * created by: ndthinh
-* created date: 10-07-2023
+* created date: 06-07-2023
 */
 
 instanceAxios.interceptors.response.use(
@@ -32,6 +32,7 @@ instanceAxios.interceptors.response.use(
       const errorMessage = error.response.data.ErrorMsgs;    
        // Xử lý các loại lỗi cụ thể
         switch (error?.response?.status) {
+          // Dữ liệu đã tồn tại
            case vueInstance.$_MISAEnum.ResponseCode.conflict:
             vueInstance.errorList.push(...errorMessage);
             vueInstance.isErrInputEmplCode = true;
@@ -43,6 +44,7 @@ instanceAxios.interceptors.response.use(
               vueInstance.$_MISAEnum.DialogType.conflict
             );  
             break; 
+           // Lỗi nhập từ người dùng 
            case vueInstance.$_MISAEnum.ResponseCode.badRequest:
              vueInstance.errorList.push(...errorMessage);
              errorMessage.forEach(item => {
@@ -96,8 +98,16 @@ instanceAxios.interceptors.response.use(
                vueInstance.$_MISAEnum.DialogType.badRequest
              );   
              break
+            // Lỗi không tìm thấy tài nguyên
            case vueInstance.$_MISAEnum.ResponseCode.notFound:
-           vueInstance.errorList.push(...errorMessage);
+            var msgDepartment = ""; 
+            errorMessage.forEach(item=>{
+              const key = Object.keys(item); 
+              if(key.includes(vueInstance.$_MISAEnum.ErrorField.department)){
+                msgDepartment += vueInstance.$_MISAResource[vueInstance.$_LANGCODE].otherText.department +" "+item[key];
+                vueInstance.errorList.push(msgDepartment);
+              }
+            })
              vueInstance.$emit(
                "getInputErrorText",
                vueInstance.errorList,
@@ -105,6 +115,7 @@ instanceAxios.interceptors.response.use(
                vueInstance.$_MISAEnum.DialogType.notFound
              );         
              break;
+           // Lỗi từ server
            default:
             vueInstance.errorList.push(vueInstance.$_MISAResource[vueInstance.$_LANGCODE].serverTextErr.serverErr);
             vueInstance.$emit(

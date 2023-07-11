@@ -1,6 +1,7 @@
 <template>
-  <div class="container__right-dialog" :class="{ active: isShowDialog }">
-    <div class="container__right-dialog-top">
+  <div ref="dialogRef" class="container__right-dialog"  v-show="isShowDialog">
+    <div  class="container__right-dialog-top">
+      <div tabindex="0" ref="myComponent"></div>
       <i
         v-if="
           dialogType === this.$_MISAEnum.DialogType.delete ||
@@ -25,90 +26,112 @@
       </ul>
     </div>
     <hr />
-    <div class="container__right-dialog-bottom">
-      <div class="container__right-dialog-bottom-left">
 
-        <m-button   
-          v-if="dialogType ===  this.$_MISAEnum.DialogType.question"
-          @click="handleCloseDialog"
-          class="container__right-dialog-btn normal"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+    <template v-if="dialogType ===  this.$_MISAEnum.DialogType.question">
+      <div class="container__right-dialog-bottom">
+        <div class="container__right-dialog-bottom-left">
+          <m-button  
+            ref="questionBtnRef"  
+            tabindex="0"    
+            @click="handleCloseDialog"
+            class="container__right-dialog-btn normal"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
           >
-        </m-button>
+          </m-button>
+        </div>
 
-    
-        
-        <m-button   
-          v-if="dialogType ===  this.$_MISAEnum.DialogType.deleteMultiple"
-          @click="handleCloseDeleteMultipleDialog"
-          class="container__right-dialog-btn normal"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+        <div class="container__right-dialog-bottom-right">
+          <m-button        
+            @click="handleCloseEmployeeForm"
+            class="container__right-dialog-btn normal"
+            :btnName=" this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText"
           >
-        </m-button>
+          </m-button>
 
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.delete"
-          @click="handleCloseDialog"
-          class="container__right-dialog-btn normal"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
-          >
-        </m-button>
-
-      </div>
-
-      <div class="container__right-dialog-bottom-center">
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.badRequest"
-          @click="handleCloseDialog"
-          class="container__right-dialog-btn normal"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText"
-          >
-        </m-button>
-      </div>
-
-
-      <div class="container__right-dialog-bottom-right">      
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.question"
-          @click="handleCloseEmployeeForm"
-          class="container__right-dialog-btn normal"
-          :btnName=" this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText"
-          >
-        </m-button>
-      
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.delete"
-          @click="handleDeleteEmployee"
-          class="container__right-dialog-btn success"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
-          >
-        </m-button>
-      
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.deleteMultiple"
-          @click="handleDeleteMultiple"
-          class="container__right-dialog-btn success"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
-          >
-        </m-button>
-      
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.conflict"
-          @click="handleCloseDialog"
-          class="container__right-dialog-btn success"
-          :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText"
-          >
-        </m-button>
-
-        <m-button   
-          v-if="dialogType === this.$_MISAEnum.DialogType.question"
+        <m-button       
           @click="handleSubmitForm"
+          @keydown.tab.prevent="handleTabIndex()"
           class="container__right-dialog-btn success"
           :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+        >
+        </m-button>
+        </div>     
+
+      </div>
+    </template>
+
+
+    <template v-if="dialogType ===  this.$_MISAEnum.DialogType.deleteMultiple">
+      <div class="container__right-dialog-bottom">
+        <div class="container__right-dialog-bottom-left">
+          <m-button          
+            @click="handleCloseDeleteMultipleDialog"
+            class="container__right-dialog-btn normal"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
           >
         </m-button>
+        </div>
+    
+        <div class="container__right-dialog-bottom-right">
+          <m-button   
+            @click="handleDeleteMultiple"
+            class="container__right-dialog-btn success"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>     
+        </div>     
       </div>
-    </div>
+    </template>
+
+
+    <template v-if="dialogType === this.$_MISAEnum.DialogType.delete">
+      <div class="container__right-dialog-bottom">
+        <div class="container__right-dialog-bottom-left">
+          <m-button         
+            @click="handleCloseDialog"
+            class="container__right-dialog-btn normal"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
+          >
+        </m-button>
+        </div>
+
+        <div class="container__right-dialog-bottom-right">
+          <m-button      
+            @click="handleDeleteEmployee"
+            class="container__right-dialog-btn success"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>    
+        </div>     
+      </div>
+    </template>
+
+    <template v-if="dialogType === this.$_MISAEnum.DialogType.conflict||dialogType === this.$_MISAEnum.DialogType.notFound">
+      <div class="container__right-dialog-bottom">     
+        <div class="container__right-dialog-bottom-right">
+          <m-button            
+            @click="handleCloseDialog"
+            class="container__right-dialog-btn success"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText"
+          >
+        </m-button>    
+        </div>     
+
+      </div>
+    </template>
+
+    <template v-if="dialogType === this.$_MISAEnum.DialogType.badRequest">
+      <div class="container__right-dialog-bottom">
+        <div class="container__right-dialog-bottom-center">
+            <m-button         
+              @click="handleCloseDialog"
+              class="container__right-dialog-btn normal"
+              :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText"
+            >
+            </m-button>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -127,11 +150,32 @@ export default {
     dialogType: String,
 
   },
-  data(){
-    return{
-      
+
+  methods:{
+    /**
+    * Mô tả: Xử lý tab cho button
+    * created by: ndthinh
+    * created date: 04-07-2023
+    */
+    handleTabIndex(){
+      console.log(this.$refs.questionBtnRef);
+      this.$refs.questionBtnRef.$el.focus(); 
     }
-  }
+  },
+  watch: {
+    /**
+    * Mô tả: Theo dõi thay đổi của biến hiển thị để focus vào component
+    * created by: ndthinh
+    * created date: 04-07-2023
+    */
+    isShowDialog(newVal) {
+      if (newVal) {
+        this.$nextTick(() => {
+          this.$refs.myComponent.focus();
+        });
+      }
+    }
+  },
 };
 </script>
 

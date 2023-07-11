@@ -43,7 +43,8 @@ const MISAEnum = {
     departmentId:"DepartmentId",
     dateOfBirth:"DateOfBirth",
     dateRange:"DateRange",
-    email:"Email"
+    email:"Email",
+    department:"Department"
   },
 };
 

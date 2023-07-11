@@ -172,11 +172,12 @@
               <td :class="{zIndexInc:optionIndex === key}"  @dblclick.stop>
                 <span>{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.title}}</span>
                 <div
-                  @click="handleShowOptions(key)"
+                  @click="handleShowOptions(key,$event)"
                   class="sprite-dropdown-blue-icon-wraper"
                 >
                   <i class="sprite-dropdown-blue-icon"></i>
                   <ul
+                    :class="{menuBottom:isMenuBottom}"
                     ref="optionsRef"
                     class="table-list-option"
                     v-show="parseInt(optionIndex) === parseInt(key) && isOptionShow"
@@ -236,8 +237,7 @@
               <i  v-if="this.page === 1" @click="handleBackPage" class="sprite-arrow-left-icon"></i>
               <i  v-if="this.page > 1" @click="handleBackPage" class="sprite-arrow-right-icon" :class="{iconReverse:this.page > 1}"></i>
             </div>
-           
-          
+                     
             <div class="footer-icon">
               <i v-if="this.page < Math.ceil(this.totalRecord / this.limit)" @click="handleNextPage" class="sprite-arrow-right-icon"></i>
               <i v-if="this.page >= Math.ceil(this.totalRecord / this.limit)" @click="handleNextPage" class="sprite-arrow-left-icon" :class="{iconReverse:this.page > 1}"></i>
@@ -264,6 +264,7 @@ export default {
     return {
       isLoadingData: false,
       employeeCodeRef: null,
+      isMenuBottom:false,
       departments: [],
       idCheckedList:[],
       idCheckedObject:{},
@@ -775,10 +776,19 @@ export default {
      * created by : ndthinh
      * created date: 29-05-2023
      */
-    handleShowOptions(key) {
+    handleShowOptions(key,event) {
       this.optionIndex = key;
       this.isOptionShow = !this.isOptionShow;
       this.isShowOverlayTransparent = true; 
+      const y = event.clientY;
+      var viewportHeight = window.innerHeight;
+      console.log(viewportHeight,y);
+      if(viewportHeight - y < 200){
+        console.log('aaaaaaaa');
+        this.isMenuBottom = true; 
+      }else{
+        this.isMenuBottom = false; 
+      }
     },
 
     /**
@@ -938,12 +948,19 @@ export default {
       try {
         this.handleShowLoadingIcon(); 
         this.isShowOverlay = true; 
-        const status = await employeeService.exportToExcel(); 
-        if(status === this.$_MISAEnum.ResponseCode.success){
-          this.workIsDone(this.$_MISAResource[this.$_LANGCODE].employeeMsg.exportExcelSuccess,true);
+        const response = await employeeService.exportToExcel(); 
+        if(response.status === this.$_MISAEnum.ResponseCode.success){
+          const url = URL.createObjectURL(response.data); 
+          const link = document.createElement('a'); 
+          link.href = url; 
+          link.download = `${this.$_MISAResource[this.$_LANGCODE].fileName.employee}.xlsx`; 
+          document.body.appendChild(link); 
+          link.click();
+          link.remove();
           this.isLoadingData = false; 
           this.isShowOverlay = false; 
-        }
+          URL.revokeObjectURL(); 
+        }     
       } catch (error) {
         this.isShowOverlay = false; 
         this.handleHiddenLoadingIcon(); 
@@ -1026,6 +1043,10 @@ export default {
 
 .hidden{
   display: none;
+}
+
+.menuBottom{
+  top: -105px;
 }
 
 .iconReverse{
