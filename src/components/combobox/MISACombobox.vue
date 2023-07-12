@@ -36,6 +36,10 @@
       >
         {{ item.DepartmentName }}
       </li>
+
+      <li v-if="departmentNameList.length === 0">
+        <span class="department-not-found" >{{ this.$_MISAResource[this.$_LANGCODE].departmentMsg.notFound }}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -98,24 +102,17 @@ export default {
     handleInputDepartmentNameChange(value) {
       this.inputValue = value;
       if (value.trim().length === 0) {
-        this.$emit("inputDepartmentNameChange", true, "");
+        this.$emit("inputDepartmentNameChange",true, "");
         this.isChooseDepartmentNameValue = true;
         this.departmentNameList = [...this.departmentNameListTemp];
       } else {
+        this.isChooseDepartmentNameValue = true;
         this.departmentNameList = this.departmentNameListTemp.filter((item) => {
           return removeDiacritics(item?.DepartmentName)
             .toLowerCase()
             .includes(removeDiacritics(value).toLowerCase());
         });
-
-        let departmentItem = this.departmentNameListTemp.find((item) => {
-          return removeDiacritics(item?.DepartmentName)
-            .toLowerCase()
-            .includes(removeDiacritics(value).toLowerCase());
-        });
-
-        this.isChooseDepartmentNameValue = true;
-        this.$emit("inputDepartmentNameChange", false, value, departmentItem);
+        this.$emit("inputDepartmentNameChange", false, value, null);
       }
     },
     /**

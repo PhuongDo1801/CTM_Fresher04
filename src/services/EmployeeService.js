@@ -15,9 +15,7 @@ class EmployeeService extends BaseApi {
         limit ? limit : 15
       }&textSearch=${textFilter ? textFilter : ""}`
     );
-    if (response.data) {
-      return response.data;
-    }
+    return response.data; 
   }
 
   /**
@@ -26,10 +24,8 @@ class EmployeeService extends BaseApi {
    * created date: 22-06-2023
    */
   async getMaxEmployeeCode() {
-    const { data } = await instanceAxios.get(`${this.controller}/MaxCode`);
-    if (data) {
-      return data;
-    }
+    const response = await instanceAxios.get(`${this.controller}/MaxCode`);
+    return response.data; 
   }
 
     /**
@@ -41,9 +37,7 @@ class EmployeeService extends BaseApi {
       const { status } = await instanceAxios.delete(`${this.controller}/Multiple`,{
         data:[...idList]
       });
-      if (status) {
-        return status;
-      }
+      return status; 
     }
 
      /**

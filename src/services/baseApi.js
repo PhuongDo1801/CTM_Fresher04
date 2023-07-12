@@ -11,10 +11,7 @@ class BaseApi {
 
   async findAll() {
     const response = await instanceAxios.get(`${this.controller}`);
-
-    if (response.data) {
-      return response.data;
-    }
+    return response.data;  
   }
 
   /**
@@ -27,9 +24,7 @@ class BaseApi {
     const response = await instanceAxios.delete(
       `${this.controller}/${objectId}`
     );
-    if (response.status) {
-      return response.status;
-    }
+    return response.status;
   }
 
   /**
@@ -40,9 +35,7 @@ class BaseApi {
 
   async save(objectData) {
     const response = await instanceAxios.post(`${this.controller}`, objectData);
-    if (response.data) {
-      return { data: response.data, status: response.status };
-    }
+    return response; 
   }
 
   /**
@@ -55,9 +48,7 @@ class BaseApi {
       `${this.controller}/${objectId}`,
       objectData
     );
-    if (response.data) {
-      return { data: response.data, status: response.status };
-    }
+   return response;
   }
 }
 

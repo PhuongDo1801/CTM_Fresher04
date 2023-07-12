@@ -98,11 +98,12 @@
           <div>
             <label for="input-employee-dob">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeDob }}</label>
             <input
+              @input="handleDobChange"
               ref="dateOfBirthRef"
               v-model="employeeData.DateOfBirth"
               type="date"
               id="input-employee-dob"
-              :class="{isErrInput: isErrInputDbo}"
+              :class="{isErrInput: isErrInputDob}"
             />
           </div>
           <div>
@@ -151,6 +152,7 @@
           <div>
             <label for="input-employee-date-release-identity">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeIdentityDateRelease}}</label>
             <input
+              @input="handleDateRangeChange"
               v-model="employeeData.DateRange"
               ref="dateRangeRef"
               placeholder="Ngày cấp"
@@ -204,6 +206,7 @@
               v-model="employeeData.Email"
               type="text"
               id="input-employee-email"
+              :class="{isErrInput: isErrInputEmail}"
             ></m-input>
           </div>
         </div>
@@ -298,7 +301,7 @@ export default {
       isErrInputEmplCode: false,
       isErrInputEmplName: false,
       isErrDepartmentName: false,
-      isErrInputDbo:false,
+      isErrInputDob:false,
       isErrInputDateRange:false,
       isErrInputEmail:false,
       isDuplicateCode: false,
@@ -356,6 +359,24 @@ export default {
     },
 
     /**
+    * Mô tả: Đặt lại trạng thái cho ngày sinh khi thay đổi giá trị
+    * created by: ndthinh
+    * created date: 26-06-2023
+    */
+    handleDobChange(){
+      this.isErrInputDob = false; 
+    },
+
+    /**
+    * Mô tả: Đặt lại trạng thái cho ngày cấp khi thay đổi giá trị
+    * created by: ndthinh
+    * created date:26-06-2023
+    */
+    handleDateRangeChange(){
+      this.isErrInputDateRange = false; 
+    },
+
+    /**
      * Mô tả: Xử lý tabindex
      * created by : ndthinh
      * created date: 08-06-2023
@@ -395,7 +416,7 @@ export default {
         this.employeeData.DepartmentId = department?.DepartmentId;
       } else {
         this.employeeData.DepartmentName = value;
-        this.employeeData.DepartmentId = null;
+        delete this.employeeData["DepartmentId"]; 
       }
     },
 
@@ -465,7 +486,7 @@ export default {
         // Xử lý độ dài không hợp lệ
         if (this.employeeData?.EmployeeCode.trim().length > 20) {
           this.isErrInputEmplCode = true;
-          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthInValid);
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthEmployeeCodeInValid);
           this.inputErrorListRef.push(this.$refs.employeeCodeRef);
         }
 
@@ -481,26 +502,10 @@ export default {
       // Xử lý độ dài không hợp lệ
         if (this.employeeData.FullName.trim().length > 255) {
         this.isErrInputEmplName = true;
-        this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthInValid);
+        this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.lengthEmployeeNameInValid);
         this.inputErrorListRef.push(this.$refs.employeeNameRef);
         }
 
-
-        // xử lý ngày tháng không hợp lệ
-        const dateOfBirth = new Date(this.employeeData?.DateOfBirth);
-        const dateRange = new Date(this.employeeData?.DateRange);
-
-        if(dateOfBirth > new Date()){
-          this.isErrInputDbo = true;
-          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateOfBirthInValid);
-          this.inputErrorListRef.push(this.$refs.dateOfBirthRef);     
-        }
-
-        if(dateRange > new Date()){
-          this.isErrInputDateRange = true;
-          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateRangeInValid);
-          this.inputErrorListRef.push(this.$refs.dateRangeRef);     
-        }
 
         // xử lý tên đơn vị để trống
         if (this.employeeData?.DepartmentName.trim().length === 0) {
@@ -509,10 +514,26 @@ export default {
           this.inputErrorListRef.push(this.departmentNameRef);
         }
 
+        // xử lý ngày tháng không hợp lệ
+        const dateOfBirth = new Date(this.employeeData?.DateOfBirth);
+        const dateRange = new Date(this.employeeData?.DateRange);
+
+        if(dateOfBirth > new Date()){
+          this.isErrInputDob = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateOfBirthInValid);
+          this.inputErrorListRef.push(this.$refs.dateOfBirthRef);     
+        }
+        
+        if(dateRange > new Date()){
+          this.isErrInputDateRange = true;
+          this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.dateRangeInValid);
+          this.inputErrorListRef.push(this.$refs.dateRangeRef);     
+        }
+        // Xử lý email không hợp lệ
         if(!validateEmail(this.employeeData?.Email) && this.employeeData?.Email !== null){
           this.isErrInputEmail = true;
           this.errorList.push(this.$_MISAResource[this.$_LANGCODE].employeeMsg.emailErr);
-          this.inputErrorListRef.push(this.emailRef);
+          this.inputErrorListRef.push(this.$refs.emailRef);
         }
 
         if (this.errorList.length > 0) {
@@ -581,7 +602,6 @@ export default {
           const { status, data } = await employeeService.save(this.employeeData);
 
           if (status === this.$_MISAEnum.ResponseCode.created) {
-
             if (typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
               this.handleResetFormAndInitEmployeeData();
             }
@@ -593,7 +613,6 @@ export default {
         } else {
           // call API cập nhật thông tin nhân viên
           const isEqualObject = equalObject(this.employeeDataProps,this.employeeData);
-
           if (isEqualObject && typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
             this.handleResetFormAndInitEmployeeData();
             this.$emit("updateTableEmployee",null,this.$_MISAEnum.ApiType.updated,typeBtn);

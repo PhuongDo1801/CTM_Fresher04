@@ -2,7 +2,7 @@
 
 .container__right-dialog {
   width: 400px;
-  height: 200px;
+  min-height: 200px;
   position: absolute;
   background-color: #ffffff;
   top: 50%;
@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   padding: 70px 24px 24px 24px;
+  height: auto;
 }
 
 .container__right-dialog.active {

@@ -131,7 +131,6 @@
   font-weight: 400;
   z-index: 9;
   cursor: pointer;
-  display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;

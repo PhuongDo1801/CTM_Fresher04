@@ -10,10 +10,11 @@ const MISAResource = {
                 kiểm tra lại.`;
       },
       deleteQuestion: (code) => {
-        return `Bạn có muốn xóa Nhân viên <${code}> không ?`;
+        return `Bạn có thực sự muốn xóa Nhân viên <${code}> không ?`;
       },
       dateOfBirthInValid:"Ngày sinh không được phép lớn hơn ngày hiện tại.",
-      lengthInValid:"Độ dài không hợp lệ",
+      lengthEmployeeCodeInValid:"Độ dài mã nhân viên không hợp lệ",
+      lengthEmployeeNameInValid:"Độ dài tên nhân viên không hợp lệ",
       dateRangeInValid:"Ngày cấp không được phép lớn hơn ngày hiện tại.",
       deleteMuitipleQuestion:"Bạn có thực sự muốn xóa những nhân viên đã chọn không ?",
       updateQuestion: "Bạn có chắc chắn muốn sửa nhân viên này không ?",
@@ -25,6 +26,9 @@ const MISAResource = {
       employeeNameEmptyErr: "Tên không được để trống.",
       employeeUnitNameErr: "Đơn vị không được để trống.",
       emailErr:"Email không hợp lệ."
+    },
+    departmentMsg:{
+      notFound:"Phòng ban đã tìm không tồn tại."
     },
     pagesName: {
       employee: "Nhân viên",

@@ -24,9 +24,7 @@
   </div>
 
   <div
-    :style="{
-      display: isShowOverlay ? 'block' : 'none',
-    }"
+    v-if="isShowOverlay"
     class="container__right-overlay"
   ></div>
 
@@ -65,8 +63,9 @@
       <button @click="handleMultiAction" :disabled="btnDisable" class="container__right-search-btn" :class="{disable:btnDisable}">
         <span>{{ this.$_MISAResource[this.$_LANGCODE].employeeOptions.multipleAction}}</span>
         &nbsp;&nbsp;
-        <i class="sprite-dropdown-container-top-icon"></i>
-        <ul :class = "{isShowUtils : isMultiAction}">
+        <i v-if="btnDisable" class="sprite-dropdown-container-top-icon"></i>
+        <i v-if="btnDisable === false" class="sprite-dropdown-container-top-black-icon"></i>
+        <ul v-if="isMultiAction" @click="handleActionListClick" :class="{hidden:isActionListClick}">
           <li @click="handleShowDialogDeleteMultiple">{{ this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete }}</li>
         </ul>
       </button>
@@ -298,11 +297,11 @@ export default {
       originRecord: 15,
       btnDisable:true,
       numCheckedNull:0,
-      numCheckedNotNull:0
+      numCheckedNotNull:0,
+      isActionListClick:false
     };
   },
   methods: {
-
     /**
     * Mô tả: Xử lý chọn tất cả checkbox
     * created by: ndthinh
@@ -364,8 +363,16 @@ export default {
               }
           }
       }
-  },
+    },
 
+    /**
+    * Mô tả:Ẩn chức năng xóa nhiều
+    * created by: ndthinh
+    * created date: 02-07-2023
+    */
+    handleActionListClick(){
+      this.isActionListClick = true;
+    },
 
   /**
     * Mô tả: Xử lý nhân bản
@@ -387,11 +394,9 @@ export default {
     */
 
     handleShowDialogDeleteMultiple(){
-      this.isMultiAction = !this.isMultiAction;
       this.isShowDialog = true;
       this.dialogType = this.$_MISAEnum.DialogType.deleteMultiple;
       this.handleShowOverlay();
-      this.isOptionShow = true;
       this.textDialog.push(
         this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteMuitipleQuestion
       );
@@ -627,6 +632,7 @@ export default {
         this.btnDisable = true; 
         this.isMultiAction = false; 
         this.isCheckedAll = false;
+        this.isActionListClick = false; 
         this.isShowOverlayTransparent = false; 
         this.handleCloseOverlay(); 
       }else{
@@ -656,6 +662,7 @@ export default {
     handleCloseDeleteMultipleDialog(){
       this.isShowDialog = false;
       this.isMultiAction = false;  
+      this.isActionListClick = false; 
       this.textDialog = []; 
       this.handleCloseOverlay(); 
     }, 
@@ -682,21 +689,6 @@ export default {
         this.handleHiddenLoadingIcon(); 
       } catch (error) {
         console.log(error); 
-      }
-    },
-
-    /**
-     * Mô tả: Xử lý thay đổi số dòng hiển thị trên table
-     * created by : ndthinh
-     * created date: 31-05-2023
-     */
-    async handleChangeNumberRow(num) {
-      this.rowNumber = num;
-      try {
-        const data = await employeeService.findByFilter(0, parseInt(num));
-        this.employees = data;
-      } catch (error) {
-        console.log(error);
       }
     },
 
@@ -782,9 +774,7 @@ export default {
       this.isShowOverlayTransparent = true; 
       const y = event.clientY;
       var viewportHeight = window.innerHeight;
-      console.log(viewportHeight,y);
       if(viewportHeight - y < 200){
-        console.log('aaaaaaaa');
         this.isMenuBottom = true; 
       }else{
         this.isMenuBottom = false; 
@@ -1018,6 +1008,10 @@ export default {
   created() {
     this.getEmployeeList();
     this.getDepartment();
+  },
+
+  updated(){
+    console.log('ndthinh'); 
   },
 
   /**

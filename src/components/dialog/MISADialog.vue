@@ -1,7 +1,7 @@
 <template>
   <div ref="dialogRef" class="container__right-dialog"  v-show="isShowDialog">
+    <div tabindex="0" ref="myComponent"></div>
     <div  class="container__right-dialog-top">
-      <div tabindex="0" ref="myComponent"></div>
       <i
         v-if="
           dialogType === this.$_MISAEnum.DialogType.delete ||
@@ -120,12 +120,12 @@
       </div>
     </template>
 
-    <template v-if="dialogType === this.$_MISAEnum.DialogType.badRequest">
+    <template v-if="dialogType === this.$_MISAEnum.DialogType.badRequest || dialogType === this.$_MISAEnum.DialogType.serverError">
       <div class="container__right-dialog-bottom">
         <div class="container__right-dialog-bottom-center">
             <m-button         
               @click="handleCloseDialog"
-              class="container__right-dialog-btn normal"
+              class="container__right-dialog-btn success"
               :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText"
             >
             </m-button>
@@ -183,10 +183,6 @@ export default {
 .dialog-content-list {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  flex: 1;
   width: 270px;
   padding-left: 20px;
 }
