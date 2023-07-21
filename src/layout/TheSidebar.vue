@@ -14,7 +14,7 @@
       </li>
       <li>
         <i class="sprite-overview-icon"></i>
-        <router-link class="link" to="/dashboard">
+        <router-link class="link" to="/">
           <span>Tổng quan</span>
         </router-link>
       </li>
@@ -83,6 +83,13 @@
       <li>
         <i class="sprite-analytic-finance-icon"></i>
         <span>Phân tích tài chính</span>
+      </li>
+
+      <li>
+        <i class="sprite-analytic-finance-icon"></i>
+        <router-link  class="link" to="/category">
+          <span>Danh mục</span>
+        </router-link>
       </li>
     </ul>
   </div>

@@ -5,6 +5,7 @@
       ref="departmentNameRef"
       :value="this.departmentName"
       type="text"
+      :placeholder="this.$_MISAResource[this.$_LANGCODE].departmentMsg.placeholderText"
       @handle-text-change="handleInputDepartmentNameChange"
       :class="{
         isErrInput: isErrDepartmentName,

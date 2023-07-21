@@ -4,19 +4,17 @@
     z-index: 8;
   }
 
-  #container__table td:first-child {
+  .table-input-checkbox {
     height: 100%;
     width: 48px;
     font-size: 14px;
     color: #333;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     position: sticky;
     left: -1px;
     background-color: #f5f5f5;
     min-width: 48px;
   }
+
 
  
 
@@ -24,12 +22,12 @@
     height: 48px;
     font-size: 14px;
     color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: sticky;
     right: -1px;
     background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #container__table th:first-child {
@@ -52,10 +50,6 @@
 
   .table-list-option{
     z-index: 999999999;
-  }
-
-  .container__right-popup {
-    z-index: 999
   }
 
   .container__right-overlay {

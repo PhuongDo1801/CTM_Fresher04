@@ -45,6 +45,7 @@
       <div class="container__right-popup-body-top">
         <div class="container__right-popup-body-top-left">
           <div>
+            
             <label for="input-employee-code"
               >{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeCode}}<span style="color: red"> *</span></label
             >
@@ -106,6 +107,7 @@
               :class="{isErrInput: isErrInputDob}"
             />
           </div>
+
           <div>
             <label for="input-employee-gender-male">{{this.$_MISAResource[this.$_LANGCODE].employeeForm.employeeGender}}</label>
             <div>
@@ -276,7 +278,9 @@ import {setVueInstance} from '../../axios/instance'
 import validateEmail from "../../utils/validateEmail";
 export default {
   name: "EmployeeDetails",
-  components: {},
+  components: {
+    
+  },
   created(){
     setVueInstance(this);
   },
@@ -471,7 +475,7 @@ export default {
     },
 
     /**
-     * Mô tả: Kiểm tra tính hợp lệ dữ
+     * Mô tả: Kiểm tra tính hợp lệ dữ liệu
      * created by : NDTHINH
      * created date: 30-06-2023
      */
@@ -579,22 +583,21 @@ export default {
       }
     },
     /**
-     * Mô tả: xử lý tạo mới nhân viên và cập nhật thông tin nhân viên
+     * Mô tả: xử lý tạo mới nhân viên hoặc cập nhật thông tin nhân viên
      * created by: ndthinh
      * created date: 30-05-2023
      */
     async handleSubmitForm(typeBtn) {
       try {
         this.handleValidateInput();
-        this.employeeData.Gender = parseInt(this.employeeData.Gender);
-
         if (this.errorList.length > 0) {
           this.errorList = [];
           this.inputErrorListRef = [];
           return;
         }
+        this.employeeData.Gender = parseInt(this.employeeData.Gender);
           // thêm nhân viên
-        if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate ) {
+        if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
 
           this.$emit("showLoadingIcon");
 
@@ -609,7 +612,6 @@ export default {
             this.workIsDone(this.$_MISAResource[this.$_LANGCODE].employeeMsg.addSuccess,true);
           }
           this.$emit("hiddenLoadingIcon");
-          return;
         } else {
           // call API cập nhật thông tin nhân viên
           const isEqualObject = equalObject(this.employeeDataProps,this.employeeData);
@@ -686,7 +688,7 @@ export default {
 <style scoped>
 .popup-overlay {
   position: absolute;
-  background-color: rgba(128, 128, 128, 0.107);
+  background-color: rgba(36, 10, 10, 0.107);
   top: 0;
   left: 0;
   right: 0;
@@ -700,7 +702,10 @@ export default {
 .isNotErrInput {
   border: 1px solid #2ca01c;
 }
-
+.date-wrapper{
+  max-width: 250px;
+  margin: 0 auto;;
+}
 .isRotate {
   transform: rotate(180deg);
   transition: all 0.5s ease;

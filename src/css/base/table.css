@@ -187,7 +187,7 @@ td {
 
 
 #container__table td:last-child div {
-  width: 40px;
+  width: 50%;
   height: 25px;
   display: flex;
   align-items: center;
@@ -195,19 +195,13 @@ td {
   border-radius: 3px;
   position: relative;
   border: 1px solid transparent;
-}
-
-#container__table td:last-child div:hover {
-  border: 1px solid #007aff;
   cursor: pointer;
 }
+
 
 #container__table td:last-child {
   color: #007aff;
   font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .table-td-last{

@@ -54,9 +54,7 @@
 
   <div class="container__right-main-top">
     <span> {{ this.$_MISAResource[this.$_LANGCODE].pagesName.employee }}</span>
-    <button @click="handleShowEmployeeForm" id="btn-add-employee">
-      {{ this.$_MISAResource[this.$_LANGCODE].textBtnForm.addEmployee }}
-    </button>
+   
   </div>
   <div class="container__right-main-body">
     <div class="container__right-search">
@@ -81,6 +79,24 @@
         </div>
         <i @click="handleReloadTable" class="sprite-refresh-icon"></i>
         <i @click="handleExportToExcelFile" class="sprite-excel-icon"></i>
+        <i class="sprite-setting-icon-blur"></i>
+        <div class="container__right-btn-wraper">
+          <m-button  
+            class="button button--circle--normal"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtn.utils"
+            :isCircleNormal="true"
+          >
+          </m-button>
+
+          <m-button  
+            @click="handleShowEmployeeForm"
+            class="button button--circle--success"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtn.add"
+            :isCircleSuccess="true"
+          >
+          </m-button>
+          
+        </div>
       </div>
     </div>
 
@@ -133,7 +149,7 @@
               v-for="(employee, key) in employees"
               :key="employee.EmployeeId"
             >
-              <td>
+              <td class="table-input-checkbox">
                 <input
                   name="input-table-checkbox"
                   type="checkbox"
@@ -169,29 +185,32 @@
               <td>{{ employee.BankName }}</td>
               <td>{{ employee.BankBranch }}</td>
               <td :class="{zIndexInc:optionIndex === key}"  @dblclick.stop>
-                <span>{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.title}}</span>
-                <div
+                <div>
+                  <span>{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.title}}</span>
+                  &ensp;
+                  <div
                   @click="handleShowOptions(key,$event)"
                   class="sprite-dropdown-blue-icon-wraper"
-                >
-                  <i class="sprite-dropdown-blue-icon"></i>
-                  <ul
-                    :class="{menuBottom:isMenuBottom}"
-                    ref="optionsRef"
-                    class="table-list-option"
-                    v-show="parseInt(optionIndex) === parseInt(key) && isOptionShow"
                   >
-                    <li @click="handleReplication(employee)">{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.replication}}</li>
-                    <li
-                      @click="handleShowDialogDelete(employee)"
-                      class="table-list-option-delete"
+                    <i class="sprite-dropdown-blue-icon"></i>
+                    <ul
+                      :class="{menuBottom:isMenuBottom}"
+                      ref="optionsRef"
+                      class="table-list-option"
+                      v-show="parseInt(optionIndex) === parseInt(key) && isOptionShow"
                     >
-                      {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete}}
-                    </li>
-                    <li>
-                      {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.stopUsing}}
-                    </li>
-                  </ul>
+                      <li @click="handleReplication(employee)">{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.replication}}</li>
+                      <li
+                        @click="handleShowDialogDelete(employee)"
+                        class="table-list-option-delete"
+                      >
+                        {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete}}
+                      </li>
+                      <li>
+                        {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.stopUsing}}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -203,15 +222,16 @@
       <div>
         <div class="container__right-main-footer-left">
           <span
-            >{{ this.$_MISAResource[this.$_LANGCODE].otherText.total }}: <b>{{ totalRecord && totalRecord }}</b></span
+            >{{ this.$_MISAResource[this.$_LANGCODE].otherText.total }}: 
+            <b>{{ totalRecord && totalRecord  }}</b>
+          {{ this.$_MISAResource[this.$_LANGCODE].otherText.recordLower }}</span
           >
         </div>
         <div class="container__right-main-footer-right">
           <div class="container__footer-right-item-first">
-            <span>{{ this.$_MISAResource[this.$_LANGCODE].otherText.totalRecord }}:</span>
             <div @click="handleShowPageList">
-              <span>&nbsp;{{ originRecord }}</span>
-              <i class="sprite-dropdown-gray-d-icon"></i>
+              <span>{{ originRecord}} {{ this.$_MISAResource[this.$_LANGCODE].otherText.totalRecord }}</span>
+              <i :class="{isRotate:isPagingShow}" class="sprite-dropdown-gray-d-icon"></i>
               <ul v-show="isPagingShow" class="footer__pagesize-list">
                 <li
                   @click="handleChangeRowPage(item.value)"
@@ -219,18 +239,12 @@
                   :key="item"
                 >
                   {{ item.value }}
+                  {{ this.$_MISAResource[this.$_LANGCODE].otherText.totalRecord }}
                 </li>
               </ul>
             </div>
           </div>
-          <div class="container__footer-right-item-second">
-            <div>
-              <span>{{ this.page === 1 ? 1 : (this.page - 1) * this.limit }}</span>
-              <span>&nbsp; - &nbsp;</span>
-              <span>{{ employees?.length * this.page }}</span>
-              <span> &nbsp; {{ this.$_MISAResource[this.$_LANGCODE].otherText.record }} </span>
-            </div>
-          </div>
+       
           <div class="container__footer-right-item-three">
             <div class="footer-icon">
               <i  v-if="this.page === 1" @click="handleBackPage" class="sprite-arrow-left-icon"></i>
@@ -847,8 +861,7 @@ export default {
       try {
         if (typeBtn !== this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
             this.handleCloseEmployeeForm();
-          }
-    
+        }  
         //thêm
         if (type === this.$_MISAEnum.ApiType.created) {
           
@@ -1010,9 +1023,6 @@ export default {
     this.getDepartment();
   },
 
-  updated(){
-    console.log('ndthinh'); 
-  },
 
   /**
     * Mô tả: Theo dõi biến tìm kiếm
@@ -1065,6 +1075,10 @@ export default {
   transform: translateX(-50%);
   transform: translateY(-50%);
   z-index: 99999;
+}
+
+.isRotate{
+  transform: rotate(180deg);
 }
 .zIndexInc{
   z-index: 1;

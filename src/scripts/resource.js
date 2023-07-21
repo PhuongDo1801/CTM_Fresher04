@@ -28,12 +28,30 @@ const MISAResource = {
       emailErr:"Email không hợp lệ."
     },
     departmentMsg:{
-      notFound:"Phòng ban đã tìm không tồn tại."
+      notFound:"Phòng ban đã tìm không tồn tại.",
+      placeholderText:"Tìm kiếm phòng ban"
+    },
+
+    AccountNature:{
+      1:"Dư Nợ",
+      2:"Dư Có",
+      3:"Lưỡng tính",
+      4:"Không có số dư"
+    },
+
+    AccountStatus:{
+      1:"Đang sử dụng",
+      0:"Ngừng sử dụng"
     },
     pagesName: {
       employee: "Nhân viên",
-      findText:"Tìm theo mã, tên nhân viên"
+      category:"Danh mục",
+      account:"Hệ thống tài khoản",
+      findText:"Tìm kiếm",
+      findTextTop:"Nhập từ khóa tìm kiếm",
+      findTextAccount:"Tìm kiếm theo số, tên tài khoản"
     },
+
     navbar: {
       companyName: "CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUY PHÚC",
     },
@@ -91,8 +109,9 @@ const MISAResource = {
     },
     otherText:{
       total:"Tổng số", 
-      totalRecord:"Số bản ghi / trang",
+      totalRecord:"bản ghi trên 1 trang",
       record:"Bản ghi",
+      recordLower:"bản ghi",
       department:"Phòng ban"
     },
     textBtnForm: {
@@ -105,6 +124,11 @@ const MISAResource = {
       closeText: "Đóng",
       cancelText: "Hủy",
       addEmployee: "Thêm mới nhân viên",
+    },
+    textBtn:{
+      utils:"Tiện ích", 
+      add:"Thêm",
+      toggleAccount:"Chuyển tài khoản hạch toán"
     },
     unitName: [
       "Phòng nhân sự",

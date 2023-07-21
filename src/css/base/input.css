@@ -33,7 +33,7 @@
 }
 
 .container__right-search-input input {
-  width: 240px;
+  width: 120px;
   height: 36px;
   border: 1px solid rgba(128, 128, 128, 0.633);
   outline: none;

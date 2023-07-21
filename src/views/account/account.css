@@ -1,0 +1,329 @@
+.container-extend-text{
+    font-size: 14px;
+    color: #0075c0;
+}
+
+
+.container__input{
+   position: relative;
+}
+
+.container__input input{
+    width: 260px;
+    height: 36px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+
+.container__input input::placeholder{
+    font-style: italic;
+}
+
+
+/* account details */
+
+.account-details-container{
+    position: fixed;
+    width:900px;
+    height: 100vh;
+    background-color: #FFFFFF;
+    z-index: 99999999;
+    border-radius: 4px;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.account-details-top{
+    padding: 24px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.account-details-icon-wraper{
+    display: flex;
+}
+.account-details-title{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+
+.account-details-main-first{
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    width: 100%;
+}
+
+.account-details-main-secound{
+    padding: 0 16px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.account-details-main-first > div{
+    margin-top: 20px;
+}
+
+.account-details-main-first input[type="text"]{
+    height: 36px;
+    outline: none;
+    border: 1px solid rgba(128, 128, 128, 0.479);
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.account-details-main-first input[type="text"]:focus{
+    border-color: green;
+}
+
+.account-details-main-first label{
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.account-details-main-first div:first-child{
+    display: flex;
+    flex-direction: column;
+}
+
+.account-details-main-first div:first-child input{
+    width: 23.5%;
+}
+
+.account-details-main-first div:nth-child(2){
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.account-details-main-first div:nth-child(3){
+    display: flex;
+    width: 49%;
+    justify-content: space-between;
+}
+
+.account-details-main-first div:nth-child(4){
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.account-details-main-first div:nth-child(4) div:first-child{
+    flex: 1;
+}
+.account-details-main-first div:nth-child(4) div:first-child textarea{
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(128, 128, 128, 0.479);
+  border-radius: 4px;
+  font-size: 16px;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+}
+.account-details-main-first div:nth-child(4) div:first-child textarea:focus{
+    border-color: green;
+}
+
+.account-required{
+    color: red;
+}
+.account-details-main-first div:nth-child(4) div:last-child{
+    display: flex;
+    width: auto;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.account-details-main-first div:nth-child(4) div:last-child input{
+    width: 20px;
+    height: 20px;
+}
+
+.account-details-main-first div:nth-child(4) div:last-child span{
+    font-size: 13px;
+    margin-left: 10px;
+}
+.account-details-main-first div:nth-child(2) div{
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+}
+
+.account-details-main-first div:nth-child(3) div{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    position: relative;
+}
+
+.account-details-main-first div:nth-child(2) div input{
+    width: 100%;
+}
+.account-details-main-first div:nth-child(3) div input{
+    width: 100%;
+}
+
+.account-details-main-first div:nth-child(3) div div{
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    top: 18px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.account-details-main-first div:nth-child(3) div div:hover{
+    background-color: rgba(128, 128, 128, 0.41);
+}
+
+.account-details-main-secound span{
+    color: #111111;
+    display: flex;
+    align-items: center;
+}
+.account-details-main-secound div{
+    width: 100%;
+    display: flex;
+    margin-top: 5px;
+}
+
+.account-details-main-secound div > div{
+    width: 24%;
+}
+
+.account-details-main-secound div div:first-child,.account-details-main-secound div div:nth-child(3){
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.account-details-main-secound div div:first-child label{
+    margin-left: 5px;
+}
+
+.account-details-main-secound div div:first-child input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+
+.account-details-main-secound div div:nth-child(3) input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+
+
+.account-details-main-secound div div:nth-child(3) label{
+    margin-left: 5px;
+}
+
+
+
+
+.input-select-wraper{
+    width: 85% !important;
+    height: 36px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-select-wraper input{
+    height: 36px;
+    outline: none;
+    padding-left: 10px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid rgba(128, 128, 128, 0.479);
+}
+
+input[type="text"]:disabled {
+    background-color: #f2f2f2;
+    color: #999;
+    cursor: pointer;
+  }
+
+.input-select-wraper div{
+    width: 34px !important;
+    height: 34px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 9px;
+    bottom: 1px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.input-select-wraper ul{
+    width: 95%;
+    height:auto;
+    border: 1px solid rgba(128, 128, 128, 0.479);
+    border-radius: 4px;
+    position: absolute;
+    z-index: 999;
+    background-color: #FFFFFF;
+    transform: translateY(70%);
+}
+
+.input-select-wraper ul li{
+    list-style: none;
+    height: 36px;
+    padding: 10px 0 0 10px;
+    cursor: pointer;
+}
+
+.input-select-wraper ul li:hover{
+    background-color: #EEEEEE;
+    color: #50b83c;
+}
+
+.input-select-wraper div:hover{
+    background-color: rgba(128, 128, 128, 0.41);
+}
+
+
+.account-details-bottom{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    border-top: 2px solid #EEEEEE;
+    align-items: center;
+    bottom: 0;
+}
+
+.account-details-bottom div:last-child{
+    display: flex;
+}
+
+.account-table-td{
+    text-align: right;
+    background-color: none;
+}
+
+.account-table-td div{
+    display: flex;
+    align-items: center;
+}
+.space-box{
+    width: 15px;
+}
+.account-text-value{
+    margin-left: 10px;
+}
+

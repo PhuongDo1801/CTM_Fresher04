@@ -34,7 +34,7 @@
             ref="questionBtnRef"  
             tabindex="0"    
             @click="handleCloseDialog"
-            class="container__right-dialog-btn normal"
+            class="button button--normal"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
           >
           </m-button>
@@ -43,7 +43,7 @@
         <div class="container__right-dialog-bottom-right">
           <m-button        
             @click="handleCloseEmployeeForm"
-            class="container__right-dialog-btn normal"
+            class="button button--normal"
             :btnName=" this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText"
           >
           </m-button>
@@ -51,7 +51,7 @@
         <m-button       
           @click="handleSubmitForm"
           @keydown.tab.prevent="handleTabIndex()"
-          class="container__right-dialog-btn success"
+          class="button button--success"
           :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
         >
         </m-button>
@@ -66,7 +66,7 @@
         <div class="container__right-dialog-bottom-left">
           <m-button          
             @click="handleCloseDeleteMultipleDialog"
-            class="container__right-dialog-btn normal"
+            class="button button--normal"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
           >
         </m-button>
@@ -75,7 +75,7 @@
         <div class="container__right-dialog-bottom-right">
           <m-button   
             @click="handleDeleteMultiple"
-            class="container__right-dialog-btn success"
+            class="button button--success"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
           >
         </m-button>     
@@ -89,7 +89,7 @@
         <div class="container__right-dialog-bottom-left">
           <m-button         
             @click="handleCloseDialog"
-            class="container__right-dialog-btn normal"
+            class="button button--normal"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
           >
         </m-button>
@@ -98,7 +98,7 @@
         <div class="container__right-dialog-bottom-right">
           <m-button      
             @click="handleDeleteEmployee"
-            class="container__right-dialog-btn success"
+            class="button button--success"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
           >
         </m-button>    
@@ -111,7 +111,7 @@
         <div class="container__right-dialog-bottom-right">
           <m-button            
             @click="handleCloseDialog"
-            class="container__right-dialog-btn success"
+            class="button button--success"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.agreeText"
           >
         </m-button>    
@@ -125,7 +125,7 @@
         <div class="container__right-dialog-bottom-center">
             <m-button         
               @click="handleCloseDialog"
-              class="container__right-dialog-btn success"
+              class="button button--success"
               :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.closeText"
             >
             </m-button>

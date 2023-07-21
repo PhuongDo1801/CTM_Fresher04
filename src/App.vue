@@ -6,7 +6,6 @@
     <div class="container__right">
       <TheNavbar />
       <TheMain />
-  
     </div>
 
   </div>

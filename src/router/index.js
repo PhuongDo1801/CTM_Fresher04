@@ -1,17 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import EmployeeList from "../views/employee/EmployeeList.vue";
-import DashBoard from "../views/dashboard/DashBoard.vue";
-
+import CategoryList from "../views/category/CategoryList.vue";
+import AccountList from '../views/account/AccountList.vue';
 const routes = [
   {
-    path: "/",
+    path: "/employee",
     component:EmployeeList,
   },
   {
-    path: "/dashboard",
-    component: DashBoard,
-  },
+    path:"/category",
+    component:CategoryList
+  },{
+    path:"/account",
+    component:AccountList
+  }
 ];
 
 const router = createRouter({

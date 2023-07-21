@@ -1,7 +1,7 @@
 <template>
   <input
     :title="title"
-    :type="type"
+    type="text"
     :placeholder="placeholder"
     :value="modelValue"
     @input="handleInputChangeText"

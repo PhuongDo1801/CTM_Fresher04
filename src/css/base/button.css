@@ -9,22 +9,76 @@
 }
 
 .button {
-  width: 79px;
+  min-width: 79px;
   height: 36px;
   border-radius: 4px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   font-weight: 500px;
   font-size: 14px;
   border: none;
   color: white;
+  width: auto;
 }
+
+
+.button.button--circle--success{
+  background-color: #50b83c;
+  color:white;
+  border-radius: 30px;
+  font-weight: 500;
+  min-width: 100px;
+  width: auto;
+}
+
+.button.button--circle--normal{
+  background-color: #ffffff;
+  border: 2px solid black;
+  margin-right: 12px;
+  color: #212121;
+  border-radius: 30px;
+  font-weight: 500;
+  width: 100px;
+  padding:0 10px;
+  min-width: 100px;
+  width: auto;
+}
+
+.button.button--circle--normal:hover{
+  background-color: #D2D3D6;
+}
+
+
+.button.button--circle--border-default{
+  background-color: #ffffff;
+  border: 1px solid black;
+  margin-right: 8px;
+  color: #212121;
+  border-radius: 30px;
+  font-weight: 500;
+  min-width: 100px;
+  padding:0 10px;
+  width: auto;
+}
+
+.button.button--circle--border-default:hover{
+  background-color: #D2D3D6;
+}
+
+
 
 .button.button--success {
   background-color: #50b83c;
+  color:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  padding: 0 10px;
 }
+
 
 .button.button--normal {
   background-color: #ffffff;
@@ -32,6 +86,10 @@
   border-radius: 3px;
   margin-right: 8px;
   color: #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
 }
 
 .button.button--success:hover {
@@ -52,36 +110,12 @@
   color: white;
 }
 
+
+
+
+
+
 /* button for dialog */
-
-.dialog__footer-button {
-  width: 80px;
-  height: 36px;
-  border-radius: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-family: roboto;
-  font-weight: 400px;
-  font-size: 14px;
-  border: none;
-  color: white;
-}
-
-.dialog__footer-button.dialog__footer-button--normal {
-  margin-right: 8px;
-  color: #212121;
-  border: 1px solid #e0e0e0;
-  background-color: #ffffff;
-}
-
-.dialog__footer-button.dialog__footer-button--success {
-  margin-right: 8px;
-  background-color: #50b83c;
-  color: #212121;
-  color: #ffffff;
-}
 
 .container__right-main-top button {
   width: 180px;
@@ -108,7 +142,6 @@
   width: 200px;
   height: 36px;
   background:transparent;
-  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   display: flex;
@@ -117,6 +150,7 @@
   border:2px solid gray;
   cursor: pointer;
   position: relative;
+  border-radius: 4px;
 }
 
 .container__right-search-btn ul{
