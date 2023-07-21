@@ -1,31 +1,28 @@
 export const handleTreeObject = (data)=>{
 
-const check = data.find(item=> item.ParentId !== null); 
+const check = data.find(item=> item.children?.length !== 0); 
 
 if(check !== undefined){
+    console.log('zooo');
     let initObject = {}; 
     data.forEach(item=>{
-        initObject[item.AccountId] = item; 
         item.children = []; 
-        if(item.ParentId === null){
-            item.level = 0; 
-        }
+        item.level = 0;  
+        initObject[item.AccountId] = item; 
     }) 
+
     const keys = Object.keys(initObject); 
-    data.forEach(item=>{ 
-        if(keys.includes(item.ParentId?.toString())){
-            item.level = initObject[item.ParentId].isShowChild = false; 
+
+    for(let item of data){
+        console.log('item',item);
+        if(keys.includes(item.ParentId)){
             item.level = initObject[item.ParentId].level + 1; 
             initObject[item.ParentId].children.push(item); 
         }
-    }); 
-    
-    return data.filter(item=>item.ParentId === null);
+    }    
+    return data.filter(item=>item.ParentId === null).reverse();
     
 }else {
-    return data = data.map(item=>{
-        item.isShowChild = false;
-        return item; 
-    });
+    return data.reverse();
 }
 }

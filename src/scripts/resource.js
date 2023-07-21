@@ -39,6 +39,10 @@ const MISAResource = {
       4:"Không có số dư"
     },
 
+    accountForm:{
+      add:"Thêm tài khoản",
+      update:"Sửa tài khoản"
+    },
     AccountStatus:{
       1:"Đang sử dụng",
       0:"Ngừng sử dụng"

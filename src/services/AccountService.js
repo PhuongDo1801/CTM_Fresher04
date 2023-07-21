@@ -7,10 +7,11 @@ class AccountService extends BaseApi {
    * created by : ndthinh
    * created date:16-06-2023
    */
-  async findByFilter(offset, limit, textFilter,parentId) {
+  async findByFilter(offset, limit, textFilter,parentId,isGetAll) {
+    isGetAll = isGetAll !== undefined && isGetAll !== 0 ? 1:0;
     const query = parentId !== null ? 
-    `${this.controller}/Filter?offset=${offset ? offset : 0}&limit=${limit ? limit : 15}&textSearch=${textFilter ? textFilter : ""}&parentId=${parentId && parentId}` 
-    : `${this.controller}/Filter?offset=${offset ? offset : 0}&limit=${limit ? limit : 15}&textSearch=${textFilter ? textFilter : ""}`
+    `${this.controller}/Filter?offset=${offset ? offset : 0}&limit=${limit ? limit : 15}&textSearch=${textFilter ? textFilter : ""}&parentId=${parentId && parentId}&isGetAll=${isGetAll}` 
+    :`${this.controller}/Filter?offset=${offset ? offset : 0}&limit=${limit ? limit : 15}&textSearch=${textFilter ? textFilter : ""}&isGetAll=${isGetAll}`
     const response = await instanceAxios.get(query);
     return response.data; 
   }

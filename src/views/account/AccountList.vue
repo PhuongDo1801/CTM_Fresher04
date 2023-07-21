@@ -2,6 +2,7 @@
     
     <AccountDetails v-if="isShowAccountDetails"
      @handle-close-account-form="handleCloseAccountForm"
+     :accountDataProps="accountDataProps"
     />
 
     <div v-if="isLoadingData">
@@ -110,15 +111,15 @@
                 </th>
               </tr>
             </thead>
-              <!-- @dblclick="getSingleValueEmployee(employee)" -->
+            
             <tbody>
               <tr
-              
+                @dblclick="getSingleValueAccount(account)"
                 v-for="(account, key) in accounts"
                 :key="account.AccountId"
               >
                 <td class="account-table-td">
-                  <div :style="{marginLeft:`${account.level * 20}px`}" >
+                  <div :style="{marginLeft:`${account.level * 30}px`}" >
                     <i :class="{hidden: this.AccountKeyObjectClick[account.AccountId] === true}" v-if="account.IsParent === 1" @click="()=>handleGetChildAccount(account,key)" class="sprite-box-plus-icon"></i>
                     <i :class="{show:this.AccountKeyObjectClick[account.AccountId] === true}" class="sprite-box-div-icon" @click="()=>handleHiddenChildAccount(account)"></i>
                     <div v-if="account.IsParent === 0" class="space-box"></div>
@@ -215,7 +216,7 @@
   </template>
   
   <script>
-  import { customDateV1, customDateV2 } from "@/utils/date";
+  // import { customDateV1, customDateV2 } from "@/utils/date";
   import { handleTreeObject} from "@/utils/handleTreeObject";
   import accountService from "../../services/AccountService";
   import { pagings } from "../../data/paging";
@@ -272,7 +273,8 @@
         accountObject: null,
         AccountKeyObjectClick:{},
         idListFilter:[],
-        idListTempFilter:[]
+        idListTempFilter:[],
+        accountDataProps:null,
       };
     },
     methods: {
@@ -673,6 +675,7 @@
             const treeBranchs = branchs.filter(item=>item.ParentId === account.AccountId);
             const restBranchs = branchs.filter(item=>item.ParentId !== account.AccountId)
             this.accounts = [...this.accounts.slice(0,this.indexClick + 1),...treeBranchs,...this.accounts.slice(this.indexClick + 1)]; 
+            
             restBranchs.forEach(item=>{   
               let branchIndex = null;    
               const branchItem = this.accounts.find((account,index) => {
@@ -681,9 +684,11 @@
                   return account; 
                 }
               }); 
-              if(this.AccountKeyObjectClick[branchItem.AccountId] === true){
-                this.accounts = [...this.accounts.slice(0,branchIndex + 1),item,...this.accounts.slice(branchIndex + 1)]; 
-              }           
+              if(branchItem !== undefined){
+                if(this.AccountKeyObjectClick[branchItem.AccountId] === true){
+                  this.accounts = [...this.accounts.slice(0,branchIndex + 1),item,...this.accounts.slice(branchIndex + 1)]; 
+                }           
+              }
             }) 
            
           }
@@ -728,8 +733,7 @@
        * created by : ndthinh
        * created date: 29-05-2023
        */
-      customDateV1,
-  
+    
       /**
        * Mô tả:Hiển thị text message khi thực hiện xong công việc
        * created by : ndthinh
@@ -767,6 +771,7 @@
        */
       handleShowAccountForm() {
         this.isShowAccountDetails = true;
+        this.accountDataProps = null; 
         this.formDetailsType = this.$_MISAEnum.FormMode.Add;
         this.handleShowOverlay();
       },
@@ -828,14 +833,10 @@
        * created date: 29-05-2023
        */
   
-      getSingleValueEmployee(employee) {
-        employee.DateOfBirth =
-          employee?.DateOfBirth && customDateV2(employee.DateOfBirth);
-        employee.DateRange =
-          employee?.DateRange && customDateV2(employee.DateRange);
-        this.employeeDataProps = employee;
+      getSingleValueAccount(account) {  
+        this.accountDataProps = account;
         this.isShowAccountDetails = true;
-        this.formDetailsType = this.$_MISAEnum.FormMode.Update
+      //  this.formDetailsType = this.$_MISAEnum.FormMode.Update
         this.handleShowOverlay();
       },
   
@@ -987,7 +988,7 @@
             this.accountsTemp = JSON.parse(arrStr); 
           }else{  
             const newList = [...this.accounts.slice(0,this.indexClick + 1),...this.accountObject.children,...this.accounts.slice(this.indexClick + 1)]
-            this.accounts = newList; 
+            this.accounts = newList
             this.accountsTemp = [...this.accountsTemp,...this.accountObject.children]; 
           }
           this.totalRecord = TotalRecord;
