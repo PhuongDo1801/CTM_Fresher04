@@ -27,6 +27,17 @@ const MISAResource = {
       employeeUnitNameErr: "Đơn vị không được để trống.",
       emailErr:"Email không hợp lệ."
     },
+    dialogMsg:{
+      closeFormQuestion: "Dữ liệu đã bị thay đổi. Bạn có muốn cất không ?",
+    },
+    accountMsg:{
+      deleteQuestion: (code) => {
+        return `Bạn có thực sự muốn xóa Tài khoản <${code}> không ?`;
+      },
+      deleteSuccess:"Xóa tài khoản thành công !",
+      updateSuccess:"Cập nhật tài khoản thành công !",
+      addSuccess:"Thêm tài khoản thành công !"
+    },
     departmentMsg:{
       notFound:"Phòng ban đã tìm không tồn tại.",
       placeholderText:"Tìm kiếm phòng ban"

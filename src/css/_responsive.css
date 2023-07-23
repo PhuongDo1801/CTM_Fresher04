@@ -30,7 +30,7 @@
     align-items: center;
   }
 
-  #container__table th:first-child {
+  .table__th-first {
     min-width: 48px;
     position: sticky;
     left: -1px;

@@ -53,7 +53,7 @@
 
 .button.button--circle--border-default{
   background-color: #ffffff;
-  border: 1px solid black;
+  border: 1px solid rgba(128, 128, 128, 0.633);
   margin-right: 8px;
   color: #212121;
   border-radius: 30px;

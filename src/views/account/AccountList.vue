@@ -2,7 +2,13 @@
     
     <AccountDetails v-if="isShowAccountDetails"
      @handle-close-account-form="handleCloseAccountForm"
+     :handleUpdateAccountOnTable="handleUpdateAccountOnTable"
      :accountDataProps="accountDataProps"
+     :isShowDialog="isShowDialog"
+     @update-table-account="handleUpdateAccountOnTable"
+     @handle-show-error-message="handleShowDialogErrorInput"
+     :getFormSubmit="getFormSubmit"
+     @show-close-form-question="handleShowCloseFormQuestion"
     />
 
     <div v-if="isLoadingData">
@@ -31,17 +37,15 @@
       :isShowDialog="isShowDialog"
       :dialogType="dialogType"
       :handleCloseDialog="handleCloseDialog"
-      :handleDeleteEmployee="handleDeleteEmployee"
       :handleSubmitForm="handleSubmitForm"
-      :handleCloseEmployeeForm="handleCloseEmployeeForm"
-      :handleDeleteMultiple="handleDeleteMultiple"
+      :handleCloseForm="handleCloseForm"
       :handleCloseDeleteMultipleDialog="handleCloseDeleteMultipleDialog"
-
+      :handleDeleteAccount="handleDeleteAccount"
+      :pageName="pageName"
       ></m-dialog>
   
     <div class="container__right-main-top">
       <span> {{ this.$_MISAResource[this.$_LANGCODE].pagesName.account }}</span>
-     
     </div>
     <div class="container__right-main-body">
       <div class="container__right-search">  
@@ -50,7 +54,8 @@
             <i class="sprite-search-icon"></i>
         </div>
         <div class="container__right-search-wrap">
-          <span class="container-extend-text">Mở rộng</span>
+          <span v-if="isExtends === true" @click="handleShowAllChild" class="container-extend-text">Mở rộng</span>
+          <span v-if="isExtends === false" @click="handleHiddenAllChild" class="container-extend-text">Thu gọn</span>
           <i @click="handleReloadTable" class="sprite-refresh-icon"></i>
           <i @click="handleExportToExcelFile" class="sprite-excel-icon"></i>
           <i class="sprite-setting-icon-blur"></i>
@@ -120,8 +125,8 @@
               >
                 <td class="account-table-td">
                   <div :style="{marginLeft:`${account.level * 30}px`}" >
-                    <i :class="{hidden: this.AccountKeyObjectClick[account.AccountId] === true}" v-if="account.IsParent === 1" @click="()=>handleGetChildAccount(account,key)" class="sprite-box-plus-icon"></i>
-                    <i :class="{show:this.AccountKeyObjectClick[account.AccountId] === true}" class="sprite-box-div-icon" @click="()=>handleHiddenChildAccount(account)"></i>
+                    <i :class="{hidden: this.accountKeyObjectClick[account.AccountId] === true}" v-if="account.IsParent === 1" @click="()=>handleGetChildAccount(account,key)" class="sprite-box-plus-icon"></i>
+                    <i :class="{show:this.accountKeyObjectClick[account.AccountId] === true}" class="sprite-box-div-icon" @click="()=>handleHiddenChildAccount(account)"></i>
                     <div v-if="account.IsParent === 0" class="space-box"></div>
                     <span class="account-text-value" :class="{isTextBold:account.IsParent === 1}">
                       {{ account.AccountNumber }}
@@ -153,7 +158,7 @@
                       >
                         <li @click="handleReplication(employee)">{{this.$_MISAResource[this.$_LANGCODE].employeeOptions.replication}}</li>
                         <li
-                          @click="handleShowDialogDelete(employee)"
+                          @click="handleShowDialogDelete(account)"
                           class="table-list-option-delete"
                         >
                           {{this.$_MISAResource[this.$_LANGCODE].employeeOptions.delete}}
@@ -271,10 +276,15 @@
         parentId:null,
         indexClick:null,
         accountObject: null,
-        AccountKeyObjectClick:{},
+        accountKeyObjectClick:{},
         idListFilter:[],
         idListTempFilter:[],
         accountDataProps:null,
+        accountId:null,
+        pageName:"",
+        isRequest:true,
+        allListAccount : [],
+        isExtends:true
       };
     },
     methods: {
@@ -339,6 +349,14 @@
                 }
             }
         }
+      },
+      handleCloseForm(){
+        this.isShowAccountDetails = false;
+        this.handleResetAccountProps();
+        this.handleCloseOverlay();
+        this.isShowDialog = false;
+        this.isPopupOverlayShow = false;
+        this.textDialog = [];
       },
   
       /**
@@ -512,6 +530,7 @@
        * created date: 30-06-2023
        */
       handleShowDialogErrorInput(errorList, inputErrorListRef, typeError) {
+       
         this.dialogType = typeError;
         this.isShowDialog = true;
         this.inputErrorListRef = inputErrorListRef;
@@ -591,8 +610,8 @@
        * created by : ndthinh
        * created date: 01-06-2023
        */
-      handleResetEmployeeProps() {
-        this.employeeDataProps = null;
+      handleResetAccountProps() {
+        this.accountDataProps = null;
       },
       /**
        * Mô tả: Xử lý đóng dialog
@@ -612,7 +631,7 @@
           this.isShowOverlayTransparent = false; 
           this.handleCloseOverlay(); 
         }else{
-           this.employeeCodeRef.focus(); 
+        
            this.isShowDialog = false;
            this.isPopupOverlayShow = false;
            this.employeeId = null;
@@ -624,6 +643,7 @@
            this.dialogType = null;
            if (this.inputErrorListRef?.length > 0) {
              this.inputErrorListRef[0]?.focus();
+             console.log(this.inputErrorListRef[0].value);
            } 
            this.inputErrorListRef = [];
         }
@@ -643,25 +663,19 @@
         this.handleCloseOverlay(); 
       }, 
   
-      /**
-       * Mô tả: Hàm xóa nhiều nhân viên
-       * created by : ndthinh
-       * created date: 22-06-2023
-       */
-      async handleDeleteMultiple(){
-        
-      },
 
-      handleGetChildAccount(account,key){
+
+      handleGetChildAccount(account,key){    
           this.parentId = account.AccountId; 
           this.indexClick = key; 
           this.isParentClick = true; 
           this.accountObject = account; 
-          if(!Object.prototype.hasOwnProperty.call(this.AccountKeyObjectClick, account.AccountId)){
-            this.AccountKeyObjectClick[account.AccountId] = true; 
+          if(!Object.prototype.hasOwnProperty.call(this.accountKeyObjectClick, account.AccountId)){
+            this.accountKeyObjectClick[account.AccountId] = true; 
             this.getAccountList();   
           }else{  
-            this.AccountKeyObjectClick[account.AccountId] = true; 
+            this.isRequest = false; 
+            this.accountKeyObjectClick[account.AccountId] = true; 
             let idList = []; 
             this.handleGetChildIdList(account.children,idList)
             if(idList.length === 0){
@@ -685,13 +699,14 @@
                 }
               }); 
               if(branchItem !== undefined){
-                if(this.AccountKeyObjectClick[branchItem.AccountId] === true){
+                if(this.accountKeyObjectClick[branchItem.AccountId] === true){
                   this.accounts = [...this.accounts.slice(0,branchIndex + 1),item,...this.accounts.slice(branchIndex + 1)]; 
                 }           
               }
             }) 
            
           }
+        
       },
 
 
@@ -705,8 +720,8 @@
       },
 
       handleHiddenChildAccount(account){   
-        if(Object.prototype.hasOwnProperty.call(this.AccountKeyObjectClick, account.AccountId)){
-            this.AccountKeyObjectClick[account.AccountId] = false; 
+        if(Object.prototype.hasOwnProperty.call(this.accountKeyObjectClick, account.AccountId)){
+            this.accountKeyObjectClick[account.AccountId] = false; 
         }  
         let idList = [];  
         this.handleGetChildIdList(account.children,idList); 
@@ -719,6 +734,69 @@
             }
         this.accounts = this.accounts.filter(account =>!idList.includes(account.AccountId));   
       }, 
+
+      handleGetNodeTree(childList,results){
+          childList?.forEach(item=>{
+              results?.push(item); 
+              if(item.children?.length > 0){
+                  this.handleGetNodeTree(item.children,results); 
+              }
+        })
+      },
+
+
+      async handleGetChildByParent(listData,result){
+        const length = listData.length; 
+        for(let i = 0 ; i < length ; i++ ){
+          if(listData[i].IsParent === 1){
+            if(listData[i].AccountNumber === 4523452){
+              console.log('very bad');
+            }
+            this.accountKeyObjectClick[listData[i].AccountId] = true; 
+            this.parentId = listData[i].AccountId; 
+              const {Data}  = await  accountService.findByFilter(
+                this.offset,
+                this.limit,
+                this.textSearch,
+                this.parentId
+              );
+        
+              result.push(...Data);
+              const dataFilter = Data.filter(item=> item.IsParent === 1); 
+              if(dataFilter.length > 0){
+                this.handleGetChildByParent(dataFilter,result); 
+              }
+          }
+        }
+      },
+
+       async handleShowAllChild(){
+        this.handleShowLoadingIcon(); 
+        await this.handleGetChildByParent(this.accounts,this.allListAccount); 
+        this.allListAccount = [...this.allListAccount,...this.accounts]; 
+        this.accounts = []; 
+        console.log('mm',this.allListAccount);
+        const trees = handleTreeObject(this.allListAccount);     
+                 trees.forEach(item=>{
+                    this.accounts.push(item); 
+                    if(item.children?.length > 0){
+                        this.handleGetNodeTree(item.children,this.accounts); 
+                    }
+              })
+
+        this.handleHiddenLoadingIcon(); 
+        this.isExtends = false; 
+      },
+      
+      handleHiddenAllChild(){
+        this.isExtends = true; 
+        this.accounts = [...this.accountsTemp]; 
+        const keys = Object.keys(this.accountKeyObjectClick); 
+        for(let key of keys){
+          delete this.accountKeyObjectClick[key]; 
+        }
+        this.allListAccount = []; 
+      },
   
       /**
        * Mô tả: Hiển lựa chọn số dòng hiển thị
@@ -777,14 +855,14 @@
       },
   
       /**
-       * Mô tả: Đóng form tạo nhân viên
+       * Mô tả: Đóng nhân viên
        * created by : ndthinh
        * created date: 29-05-2023
        */
   
       handleCloseAccountForm() {
         this.isShowAccountDetails = false;
-        this.handleResetEmployeeProps();
+        this.handleResetAccountProps(); 
         this.handleCloseOverlay();
         this.isShowDialog = false;
         this.isPopupOverlayShow = false;
@@ -814,15 +892,16 @@
        * created by : ndthinh
        * created date: 29-05-2023
        */
-      handleShowDialogDelete(employee) {
+      handleShowDialogDelete(account) {
         this.isShowDialog = true;
         this.dialogType = this.$_MISAEnum.DialogType.delete;
         this.handleShowOverlay();
         this.isOptionShow = true;
-        this.employeeId = employee?.EmployeeId;
+        this.accountId = account?.AccountId;
+        this.pageName="Account";
         this.textDialog.push(
-          this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteQuestion(
-            employee?.EmployeeCode
+          this.$_MISAResource[this.$_LANGCODE].accountMsg.deleteQuestion(
+            account?.AccountNumber
           )
         );
       },
@@ -849,45 +928,104 @@
        * created date: 29-05-2023
        */
   
-      handleUpdateEmployeeOnTable(employee, type, typeBtn) {
+      async handleUpdateAccountOnTable(account,type,typeBtn) {
+   
         try {
           if (typeBtn !== this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
-              this.handleCloseEmployeeForm();
-          }  
+              this.isShowAccountDetails = false;
+              this.handleCloseOverlay();
+          }       
           //thêm
+                  
           if (type === this.$_MISAEnum.ApiType.created) {
-            
-            this.employees.unshift(employee);
-            this.totalRecord += 1;
-            this.employeeDataProps = null;
-            this.isShowOverlayTransparent = false; 
-            return;
+            const parentIndex = this.accounts.findIndex(item=> item.AccountId === account.ParentId); 
+         
+            if(parentIndex === -1){
+              account.level = 0; 
+              account.children = []; 
+              this.accounts.unshift(account);  
+            }else{ 
+              this.accounts[parentIndex].children = [];      
+              account.level = this.accounts[parentIndex].level + 1;
+              account.children = []; 
+              this.handleGetChildAccount(this.accounts[parentIndex],parentIndex); 
+              if(this.isRequest === false){
+                this.accounts = [...this.accounts.slice(0,parentIndex + 1),{...account,level : this.accounts[parentIndex].level + 1},...this.accounts.slice(parentIndex + 1)];      
+                this.isRequest = true; 
+              }  
+      
+              this.handleShowToastMessage(this.$_MISAResource[this.$_LANGCODE].accountMsg.addSuccess);       
+              return;
+            }
           }
   
           //cập nhật
+
           if (type === this.$_MISAEnum.ApiType.updated) {
-            if (employee !== null) {
-              this.employees = this.employees.map((item) => {
-                if (item.EmployeeId === employee?.EmployeeId) {
-                  return employee;
+            if(account.ParentId === this.accountDataProps.ParentId){
+              if (account !== null) {
+                this.accounts = this.accounts.map((item) => {
+                  if (item.AccountId === account?.AccountId) {
+                    return account;
+                  }
+                  return item;
+                });
+              }
+            }else{
+              if(account.ParentId === null){
+                account.level = 0; 
+                this.accounts.unshift(account); 
+              }
+            
+              const currentIndex = this.accounts.findIndex(item => item.AccountId === this.accountDataProps.AccountId);
+              this.accounts = [...this.accounts.slice(0,currentIndex),...this.accounts.slice(currentIndex + 1)]; 
+              const parentIndex = this.accounts.findIndex(item => item.AccountId === this.accountDataProps.ParentId);
+             
+             this.accounts[parentIndex].children = this.accounts[parentIndex].children.filter(item=> item.AccountId !== this.accountDataProps.AccountId); 
+             console.log(123,this.accounts[parentIndex].children.length);
+             if(this.accounts[parentIndex].children.length === 0){
+                this.accounts[parentIndex].IsParent = 0; 
+                delete this.accountKeyObjectClick[this.accounts[parentIndex].AccountId]; 
+              }
+                const parentIndexCurrent = this.accounts.findIndex(item=> item.AccountId === account.ParentId); 
+                account.level = this.accounts[parentIndexCurrent].level  + 1; 
+                this.accounts[parentIndexCurrent].children.push(account); 
+                if(this.accounts[parentIndexCurrent].IsParent === 0){
+                  this.accounts[parentIndexCurrent].IsParent = 1;
                 }
-                return item;
-              });
+                this.accountKeyObjectClick[this.accounts[parentIndexCurrent].AccountId] = true;
+                this.accounts = [...this.accounts.slice(0,parentIndexCurrent + 1),account,...this.accounts.slice(parentIndexCurrent + 1)];
+                
+                const stringObject = JSON.stringify(this.accounts); 
+
+                this.accountsTemp = JSON.parse(stringObject); 
+              
             }
-            this.employeeDataProps = null;
+
             this.isShowOverlayTransparent = false; 
+            this.handleShowToastMessage(this.$_MISAResource[this.$_LANGCODE].accountMsg.updateSuccess);    
+            this.accountDataProps = null;
             return;
           }
-  
           //xóa
-          this.employees = this.employees.filter((item, index) => {
-            return this.optionIndex !== index;
+
+          const parentId = this.accountsTemp.find(item=> item.AccountId === this.accountId)?.ParentId;         
+          this.accounts.forEach(item => {
+            if(item.AccountId === parentId){
+              if(item.children?.length > 0){
+                item.children = item.children.filter(child => child.AccountId !== this.accountId); 
+                if(item.children.length === 0){
+                  item.IsParent = 0; 
+                  this.accountKeyObjectClick[item.AccountId] = false;
+                }
+              } 
+            }
           });
-          this.optionIndex = null;
-          this.textMessage = this.$_MISAResource[this.$_LANGCODE].employeeMsg.deleteSuccess;
-          this.isDone = true;
-          this.isDialogDeleteClick = false;
+
+          this.accounts = this.accounts.filter(item => item.AccountId !== this.accountId);    
+          this.handleShowToastMessage(this.$_MISAResource[this.$_LANGCODE].accountMsg.deleteSuccess);    
           this.isShowOverlayTransparent = false; 
+          this.handleCloseOverlay(); 
           this.isOptionShow = false;
           setTimeout(() => {
             this.isDone = false;
@@ -895,6 +1033,14 @@
         } catch (error) {
           console.log(error);
         }
+      },
+
+      handleShowToastMessage(message){
+        this.textMessage = message; 
+        this.isDone = true;
+        setTimeout(() => {
+            this.isDone = false;
+          }, 3000);
       },
   
       /**
@@ -907,31 +1053,31 @@
         this.limit = 15;
         this.page = 1;
         this.originRecord = this.limit;
-        this.getEmployeeList();
+        this.getEmplodleDeleteyeeList();
       },
   
       /**
-       * Mô tả: Call API xóa nhân viên
+       * Mô tả: Call API xóa nhân account
        * created by : ndthinh
        * created date: 29-05-2023
        */
-      async handleDeleteEmployee() {
-        // try {
-        //   this.handleShowLoadingIcon();
-        //   const status = await employeeService.deleteById(this.employeeId);
-        //   if (status === this.$_MISAEnum.ResponseCode.success) {
-        //     this.isShowDialog = false;
-        //     this.handleCloseOverlay();
-        //     this.isOptionShow = false;
-        //     this.handleUpdateEmployeeOnTable();
-        //     this.textDialog = [];
-        //     this.totalRecord -= 1;
-        //     this.dialogType = null;
-        //   }
-        //   this.handleHiddenLoadingIcon();
-        // } catch (error) {
-        //   console.log(error);
-        // }
+      async handleDeleteAccount() {
+        try {
+          this.handleShowLoadingIcon();
+          const status = await accountService.deleteById(this.accountId);
+          if (status === this.$_MISAEnum.ResponseCode.success) {
+            this.isShowDialog = false;
+            this.handleCloseOverlay();
+            this.isOptionShow = false;
+            this.handleUpdateAccountOnTable();
+            this.textDialog = [];         
+            this.totalRecord -= 1;
+            this.dialogType = null;
+          }
+          this.handleHiddenLoadingIcon();
+        } catch (error) {
+          console.log(error);
+        }
       },
   
       /**
@@ -967,7 +1113,7 @@
        * created by : ndthinh
        * created date: 29-05-2023
        */
-      async getAccountList(textFilter) {
+      async getAccountList() {
         try {
           this.handleShowLoadingIcon();
           this.isLoadingData = true;
@@ -975,7 +1121,7 @@
           const { Data, TotalRecord } = await accountService.findByFilter(
             this.offset,
             this.limit,
-            textFilter || this.textSearch,
+            this.textSearch,
             this.parentId
           );
         

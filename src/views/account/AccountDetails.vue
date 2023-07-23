@@ -1,7 +1,7 @@
 <template>
     <div class="account-details-container">
+       <div class="account-details-overlay" v-if="isShowDialog"></div>
        <div class="account-details-top">
-        {{ accountData }}
          <span class="account-details-title">
             {{ FormMode === this.$_MISAEnum.FormMode.Add || FormMode === this.$_MISAEnum.FormMode.Replicate ? this.$_MISAResource[this.$_LANGCODE].accountForm.add
           : this.$_MISAResource[this.$_LANGCODE].accountForm.update }}
@@ -15,12 +15,12 @@
             <div class="account-details-main-first">
                 <div>
                     <label for="">Số tài khoản <span class="account-required">*</span></label>
-                    <m-input v-model="accountData.AccountNumber"></m-input>
+                    <m-input  @handle-text-change="handleAccountNumberInputChange"  :class="{isError:this.errorField.accountNumber}" ref="accountNumberInputRef" v-model="accountData.AccountNumber"></m-input>
                 </div>
                 <div>
                    <div>
                         <label for="">Tên tài khoản <span class="account-required">*</span></label>
-                        <m-input v-model="accountData.AccountName"></m-input>
+                        <m-input  @handle-text-change="handleAccountNameInputChange" :class="{isError:this.errorField.accountName}" ref="accountNameInputRef" v-model="accountData.AccountName"></m-input>
                    </div>
                    <div>
                         <label for="">Tên tiếng anh</label>
@@ -34,28 +34,28 @@
                                 <span>Số tài khoản</span>
                                 <span>Tên tài khoản</span>
                             </li>
-                            <li :class="{isTextBold:account.IsParent === 1}" class="account-item-value" v-for="account in accountList" :key="account.AccountId" >           
-                                    <span :style="{paddingLeft:`${account.level * 10}px`}">{{ account.AccountNumber }}</span>
-                                    <span>{{ account.AccountName }}</span>                 
+                            <li @click="handleChooseParentAccount(account)" :class="{isActive:account.AccountNumber === parseInt(textSearch)}"  class="account-item-value" v-for="account in accountList" :key="account.AccountId" >           
+                                    <span :class="{isTextBold:account.IsParent === 1}" :style="{paddingLeft:`${account.level * 10}px`}">{{ account.AccountNumber }}</span>
+                                    <span :class="{isTextBold:account.IsParent === 1}">{{ account.AccountName }}</span>                 
                             </li>   
                         
                        </ul>
                     </div>
                     <div>
                         <label for="">Tài khoản tổng hợp</label>
-                        <m-input v-model="textSearch"></m-input>
+                        <m-input @handle-text-change="handleAccountGeneralInputChange" v-model="textSearch"></m-input>
                         <div @click="handleShowListAccountGeneral">
-                            <i  class="sprite-dropdown-container-top-black-icon"></i>
+                            <i :class="{isIconRotate:isShowListAccountGeneral}"   class="sprite-dropdown-container-top-black-icon"></i>
                         </div>
                     </div>
                     <div>
                         <label for="">Tính chất <span class="account-required">*</span></label>
-                        <m-input v-model="accountData.Nature"></m-input>
+                        <m-input  @handle-text-change="handleNatureInputChange" :class="{isError:this.errorField.nature}" ref="natureInputRef" v-model="natureTextSearch"></m-input>
                         <div @click="handleShowListNature">
-                            <i class="sprite-dropdown-container-top-black-icon"></i>
+                            <i :class="{isIconRotate:this.isShowListNature}"  class="sprite-dropdown-container-top-black-icon"></i>
                         </div>
                         <ul class="nature-list-box" v-if="isShowListNature">
-                            <li :class="{ objActive: nature === this.accountData.Nature }"  @click="()=>handleChooseNature(nature)" v-for="nature in natureList" :key="nature">{{ nature }}</li>                 
+                            <li :class="{ isActive: nature.value === natureTextSearch }"  @click="()=>handleChooseNature(nature)" v-for="nature in natureList" :key="nature.key">{{ nature.value }}</li>                 
                         </ul>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                 <i :class="{isIconRotate:this.isShowListObject}" class="sprite-dropdown-container-top-black-icon"></i>
                             </div>
                             <ul v-if="isShowListObject">
-                                <li :class="{ objActive: obj === this.checkboxObject.obj.value }" @click="()=>handleChooseObj(obj)" v-for="obj in objList" :key="obj">{{ obj }}</li>                 
+                                <li :class="{ isActive: obj === this.checkboxObject.obj.value }" @click="()=>handleChooseObj(obj)" v-for="obj in objList" :key="obj">{{ obj }}</li>                 
                             </ul>
                         </div>
                     </div>
@@ -202,32 +202,30 @@
        </div>
        <div class="account-details-bottom">
             <div>
-                <m-button  
-            ref="questionBtnRef"  
-            tabindex="0"    
-            @click="handleCloseDialog"
-            class="button button--normal"
+            <m-button  
+             ref="questionBtnRef"  
+             tabindex="0"    
+             class="button button--normal"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.cancelText"
-          >
+                >
           </m-button>
             </div>
             <div>
-            <m-button  
+            <m-button
+            @click="handleSubmitForm"  
             ref="questionBtnRef"  
             tabindex="0"    
-            @click="handleCloseDialog"
             class="button button--normal"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.keep "
+            
           >
           </m-button>
-
-
-                <m-button   
-            @click="handleDeleteMultiple"
+            <m-button   
             class="button button--success"
+            @click="()=>handleSubmitForm(this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd)"  
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd"
           >
-        </m-button>     
+          </m-button>     
             </div>
             
        </div>
@@ -237,10 +235,15 @@
 <script>
     import accountService from '@/services/AccountService';
     import { handleTreeObject} from "@/utils/handleTreeObject";
+    import {validateNumber} from '@/utils/validateNumber'
+    import { equalObject } from "@/utils/compareObject";
     export default {
         name:"AccountDetails",
         props:{
-            accountDataProps:Object
+            accountDataProps:Object,
+            handleUpdateAccountOnTable:Function,
+            isShowDialog:Boolean,
+            getFormSubmit: Function,
         },
         
         data() {
@@ -288,11 +291,11 @@
                     }
                 },
                 accountData:{
-                    AccountNumber:"",
-                    AccountName:"",
+                    AccountNumber:null,
+                    AccountName:null,
                     EnglishName:null,
                     ParentId:null,
-                    Nature:"",
+                    Nature:null,
                     AccountExplain:null ,
                     Status:1,
                     IsParent:0
@@ -301,23 +304,50 @@
                 isShowListObject:false,
                 isShowListNature:false,
                 objList:["Nhà cung cấp","Khách hàng","Nhân viên"],
-                natureList:["Dư nợ", "Dư có", "Lưỡng tính", "Không có số dư "],
+                natureList:[
+                    {key:1,value:"Dư nợ"}, 
+                    {key:2,value:"Dư có"}, 
+                    {key:3,value:"Lưỡng tính"}, 
+                    {key:4,value:"Không có số dư "}, 
+                ],
                 offset : 0, 
                 limit:15,
+                natureTextSearch:"",
                 textSearch:"",
                 accountList:[],
                 parentId:null,
                 isGetAll:1,
+                errorListRef:[],
+                errorListMessages:[],
+                accountClone:null,
+                errorField:{
+                    accountNumber:false,
+                    accountName:false,
+                    nature:false
+                },
             }
         },
 
         methods:{
-            handleShowListAccountGeneral(){
-                this.isShowListAccountGeneral = !this.isShowListAccountGeneral;
-                this.handleGetListAccount();  
-            },
-            handleCloseAccountForm(){
-                this.$emit("handleCloseAccountForm"); 
+            handleCloseAccountForm(){          
+                if (this.FormMode === this.$_MISAEnum.FormMode.Update) {
+                    if (!equalObject(this.accountDataProps, this.accountData)) {
+                    this.$emit("showCloseFormQuestion",this.$_MISAResource[this.$_LANGCODE].dialogMsg.closeFormQuestion);
+                    this.getFormSubmit(this.handleSubmitForm);
+                    }else{
+                        this.$emit("handleCloseAccountForm");
+                    }
+                }
+
+                if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
+                    if(!equalObject(this.accountClone, this.accountData)){
+                        this.$emit("showCloseFormQuestion",this.$_MISAResource[this.$_LANGCODE].dialogMsg.closeFormQuestion);
+                        this.getFormSubmit(this.handleSubmitForm);
+                    }else{
+                        this.$emit("handleCloseAccountForm");
+                    }
+                   
+                }
             },
 
             handleShowListObject(){
@@ -331,9 +361,39 @@
                 this.isShowListObject = false; 
             },
 
+            handleAccountGeneralInputChange(){
+                if(this.textSearch.trim().length === 0){
+                    this.accountData.ParentId = null; 
+                }
+                this.isShowListAccountGeneral = true; 
+                const listFilter = this.accountList.filter(item=> item.AccountNumber.toString().includes(this.textSearch)).sort((a,b)=> a.AccountNumber - b.AccountNumber);               
+                const rest = this.accountList.filter(item=> !item.AccountNumber.toString().includes(this.textSearch));
+                this.accountList = listFilter.concat(rest); 
+            },
+            handleAccountNumberInputChange(){
+                this.errorField.accountNumber = false; 
+            },
+            handleAccountNameInputChange(){
+                this.errorField.accountName = false; 
+            },
+
+            handleNatureInputChange(){
+                this.errorField.nature = false; 
+            },
+            handleShowListAccountGeneral(){
+                this.isShowListAccountGeneral = !this.isShowListAccountGeneral;  
+            },
             handleChooseNature(nature){
-                this.accountData.Nature = nature; 
+                this.accountData.Nature = nature.key; 
+                this.natureTextSearch = nature.value; 
                 this.isShowListNature = false; 
+    
+            },
+
+            handleChooseParentAccount(account){
+                this.textSearch = account.AccountNumber;
+                this.accountData.ParentId = account.AccountId; 
+                this.isShowListAccountGeneral = false; 
             },
 
             handleShowListNature(){
@@ -350,25 +410,117 @@
             },
 
             async handleGetListAccount(){
-                try {
+                try {              
                 const {Data} = await accountService.findByFilter(
                     this.offset,
                     this.limit,
                     this.textSearch,
                     this.parentId,
                     this.isGetAll
-                );
-                 const trees = handleTreeObject(Data);            
+                );    
+                 const trees = handleTreeObject(Data);     
                  trees.forEach(item=>{
                     this.accountList.push(item); 
                     if(item.children?.length > 0){
                         this.handleGetNodeTree(item.children,this.accountList); 
                     }
                  })
+
+                 if (this.FormMode === this.$_MISAEnum.FormMode.Update) {
+                    this.accountList = this.accountList.filter(item=>item.AccountId !== this.accountData.AccountId);
+                    const parentAccount = this.accountList.find(item=>item.AccountId === this.accountData.ParentId);
+                    if(parentAccount !== undefined){
+                        this.textSearch = parentAccount.AccountNumber; 
+                    } 
+                }  
+                    
                 } catch (error) {
                     console.log(error); 
                 }
-            }
+            },
+
+            handleValidateInput(){
+                if(this.accountData.AccountNumber === null){
+                    this.errorListMessages.push("Số tài khoản không được để trống.")
+                    this.errorListRef.push(this.$refs.accountNumberInputRef); 
+                    this.errorField.accountNumber = true; 
+                }else if(validateNumber(this.accountData.AccountNumber)){
+                        if( parseInt(this.accountData.AccountNumber) < 100){
+                            this.errorListMessages.push("Số tài khoản phải từ 3 ký tự trở lên.")
+                            this.errorListRef.push(this.$refs.accountNumberInputRef); 
+                            this.errorField.accountNumber = true; 
+                        }
+                }else{
+                    this.errorListMessages.push("Số tài khoản phải là số.")
+                    this.errorListRef.push(this.$refs.accountNumberInputRef); 
+                    this.errorField.accountNumber = true; 
+                }
+               
+                
+
+                if(this.accountData.AccountName === null){
+                    this.errorListMessages.push("Tên tài khoản không được để trống.")
+                    this.errorListRef.push(this.$refs.accountNameInputRef); 
+                    this.errorField.accountName = true; 
+                }else if(this.accountData.AccountName.trim().length > 255){
+                    this.errorListMessages.push("Tên tài khoản không được lớn hơn 255 ký tự.")
+                    this.errorListRef.push(this.$refs.accountNameInputRef); 
+                }
+
+                if(this.natureTextSearch.trim().length === 0){
+                    this.errorListMessages.push("Tính chất không được để trống.")
+                    this.errorListRef.push(this.$refs.natureInputRef); 
+                    this.errorField.nature = true; 
+                }
+
+                if(this.errorListMessages.length > 0){
+                    this.$emit("handleShowErrorMessage",this.errorListMessages,this.errorListRef,this.$_MISAEnum.DialogType.badRequest);            
+                }
+               
+            },
+            handleResetFormAndInitAccountData(){
+                this.accountData =  { 
+                    AccountNumber:null,
+                    AccountName:null,
+                    EnglishName:null,
+                    ParentId:null,
+                    Nature:null,
+                    AccountExplain:null ,
+                    Status:1,
+                    IsParent:0 
+                }
+                this.textSearch = ""; 
+            },
+
+            async handleSubmitForm(typeBtn){
+                try {
+                    this.handleValidateInput(); 
+                    if (this.errorListMessages.length > 0) {
+                         this.errorListMessages = [];
+                         this.errorListRef = [];
+                        return;
+                    }   
+                    this.$emit("showLoadingIcon");
+                    if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
+                        this.accountData.AccountNumber = parseInt(this.accountData.AccountNumber);
+                        const { status, data } = await accountService.save(this.accountData);
+                        if (status === this.$_MISAEnum.ResponseCode.created) {
+                         if (typeBtn === this.$_MISAResource[this.$_LANGCODE].textBtnForm.keepAndAdd) {
+                          this.handleResetFormAndInitAccountData();
+                         }
+                         this.$emit("updateTableAccount",data,this.$_MISAEnum.ApiType.created,typeBtn);                   
+                         this.$emit("hiddenLoadingIcon");
+                        }
+                    }else{
+                            const { status, data } = await accountService.updateById(this.accountData.AccountId,this.accountData);
+                            if (status === this.$_MISAEnum.ResponseCode.success) {
+                                this.$emit("updateTableAccount",data,this.$_MISAEnum.ApiType.updated);   
+                            }
+                        }
+                } catch (error) {   
+                    console.log(error); 
+                }
+            },
 
         },
         watch:{
@@ -378,8 +530,16 @@
                 }else{
                     this.checkboxObject.obj.value = ""; 
                 }
+            },
+            
+           
+            natureTextSearch:function(value){
+                if(value === ""){
+                    this.accountData.ParentId = null; 
+                }
             }
         },
+
         computed:{
             FormMode:function(){
                 if (this.accountDataProps === null) {
@@ -395,10 +555,20 @@
             }
         },
         mounted(){
-            if(this.accountData.Nature.trim().length === 0){
-                    this.accountData.Nature = this.natureList[0]; 
+            if(this.natureTextSearch.trim().length === 0){
+                this.natureTextSearch = this.natureList[0].value; 
+                this.accountData.Nature = this.natureList[0].key; 
             }
-            
+
+            if(this.accountDataProps !== null){
+                const objectString = JSON.stringify(this.accountDataProps);
+                this.accountData = JSON.parse(objectString); 
+            }
+            this.$refs.accountNumberInputRef.focus();          
+            this.accountClone = Object.assign({}, this.accountData);
+        },
+        created(){
+            this.handleGetListAccount(); 
         }
     }
 
@@ -408,8 +578,15 @@
     .isIconRotate{
         transform: rotate(180deg);
     }
+    .isActive{
+        background-color: #50b83c;
+        color: white;
+    }
 
-    .objActive{
+    .isError{
+        border: 1px solid red !important;
+    }
+   .isActive:hover{
         background-color: #50b83c;
         color: white;
     }

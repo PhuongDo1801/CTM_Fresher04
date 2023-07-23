@@ -42,7 +42,7 @@
 
         <div class="container__right-dialog-bottom-right">
           <m-button        
-            @click="handleCloseEmployeeForm"
+            @click="handleCloseForm"
             class="button button--normal"
             :btnName=" this.$_MISAResource[this.$_LANGCODE].textBtnForm.notAllowText"
           >
@@ -95,13 +95,21 @@
         </m-button>
         </div>
 
-        <div class="container__right-dialog-bottom-right">
-          <m-button      
+        <div  class="container__right-dialog-bottom-right">
+          <m-button
+            v-if="pageName === `Employee`"      
             @click="handleDeleteEmployee"
             class="button button--success"
             :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
           >
-        </m-button>    
+        </m-button>  
+        <m-button
+            v-if="pageName === `Account`"      
+            @click="handleDeleteAccount"
+            class="button button--success"
+            :btnName="this.$_MISAResource[this.$_LANGCODE].textBtnForm.confirmText"
+          >
+        </m-button>   
         </div>     
       </div>
     </template>
@@ -140,15 +148,16 @@ export default {
   name: "MISADialog",
   props: {
     handleDeleteEmployee: Function,
-    handleCloseEmployeeForm: Function,
+    handleCloseForm: Function,
     handleSubmitForm:Function,
     handleCloseDialog: Function,
     handleCloseDeleteMultipleDialog:Function,
+    handleDeleteAccount:Function,
     handleDeleteMultiple:Function,
     textDialog: Array,
     isShowDialog: Boolean,
     dialogType: String,
-
+    pageName:String,
   },
 
   methods:{

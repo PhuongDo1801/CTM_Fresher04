@@ -497,17 +497,20 @@
 
 .container__right-popup-body-top-right div input {
   border: 1px solid rgba(128, 128, 128, 0.479);
+  border-radius: 3px;
 }
 
 .container__right-popup-body-top-left div input[type="text"] {
   border: 1px solid rgba(128, 128, 128, 0.479);
   height: 36px;
+  border-radius: 3px;
 }
 
 .container__right-popup-body-bottom div input[type="text"] {
   border: 1px solid rgba(128, 128, 128, 0.479);
   height: 36px;
   margin-top: 5px;
+  border-radius: 3px;
 }
 
 .container__right-popup-body-top-left div input[type="text"]:focus {

@@ -661,6 +661,7 @@ export default {
     if (this.FormMode === this.$_MISAEnum.FormMode.Add || this.FormMode === this.$_MISAEnum.FormMode.Replicate) {
       this.getEmployeeCodeInit();
     }
+    
   },
 
    /**

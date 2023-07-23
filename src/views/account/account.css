@@ -1,6 +1,7 @@
 .container-extend-text{
     font-size: 14px;
     color: #0075c0;
+    cursor: pointer;
 }
 
 
@@ -13,7 +14,7 @@
     height: 36px;
     border-radius: 4px;
     outline: none;
-    border: 1px solid gray;
+    border: 1px solid rgba(128, 128, 128, 0.633);
     padding-left: 10px;
 }
 
@@ -35,6 +36,18 @@
     right: 0;
     display: flex;
     flex-direction: column;
+}
+
+.account-details-overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.314);
+    z-index: 999;
 }
 
 
@@ -120,7 +133,7 @@
 }
 .account-details-main-first div:nth-child(4) div:first-child textarea{
   width: 100%;
-  padding: 12px 20px;
+  padding: 12px 10px;
   box-sizing: border-box;
   border: 1px solid rgba(128, 128, 128, 0.479);
   border-radius: 4px;
@@ -372,12 +385,14 @@ input[type="text"]:disabled {
 }
 
 .account-general-box-title{
-    position: relative;
+    position: sticky;
     height: 36px;
     background-color: #EEEEEE;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    top: 0;
+    z-index: 999;
 }
 .account-item-value{
     width: 100% !important;
@@ -386,6 +401,7 @@ input[type="text"]:disabled {
     display: flex;
     align-items: center;
     padding: 0 5px;
+    margin-top: 5px;
 }
 
 .account-item-value:hover{

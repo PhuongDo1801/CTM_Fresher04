@@ -1,9 +1,9 @@
 <template>
   <input
     :title="title"
-    type="text"
     :placeholder="placeholder"
     :value="modelValue"
+    type="text"
     @input="handleInputChangeText"
     ref="inputRef"
   />

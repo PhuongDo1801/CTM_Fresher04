@@ -47,7 +47,7 @@
     :handleCloseDialog="handleCloseDialog"
     :handleDeleteEmployee="handleDeleteEmployee"
     :handleSubmitForm="handleSubmitForm"
-    :handleCloseEmployeeForm="handleCloseEmployeeForm"
+    :handleCloseForm="handleCloseForm"
     :handleDeleteMultiple="handleDeleteMultiple"
     :handleCloseDeleteMultipleDialog="handleCloseDeleteMultipleDialog"
   ></m-dialog>
@@ -105,7 +105,7 @@
         <table id="container__table">
           <thead>
             <tr>
-              <th>
+              <th class="table__th-first">
                 <input @change="handleToggleCheckedAll()" v-model="isCheckedAll" name="input-table-checkbox" type="checkbox"/>
               </th>
               <th model-name="code">
@@ -768,7 +768,7 @@ export default {
      * created date: 29-05-2023
      */
 
-    handleCloseEmployeeForm() {
+    handleCloseForm() {
       this.isShowEmployeeDetails = false;
       this.handleResetEmployeeProps();
       this.handleCloseOverlay();
